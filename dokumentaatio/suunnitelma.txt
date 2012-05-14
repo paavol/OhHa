@@ -1,0 +1,19 @@
+aihe: Kahden pelaajan shakki
+Toteutetaan perinteinen shakki kahdelle pelaajalle. 
+
+Nappulat:
+Ennen nappuloiden graafista toteutusta toteutetaan niiden muu toiminnallisuus. Jokainen nappula toimii omana luokkanaan joka perii Nappula-luokan.
+	- liikkuminen oikeiden sääntöjen mukaisesti
+Hevonen: liikkuminen 
+Pelilauta:
+Pelilautana toimii perinteinen 8x8 pelilauta, jossa joka toinen ruutu on musta ja joka toinen valkoinen.
+
+Käyttöliittymä: 
+ Shakki-, matti- ja pattitilanteet ja niiden huomioiminen. 
+- Matti: peli loppuu ja voittaja ilmoitetaan ruudulla
+- Patti: peli loppuu ja ilmoitetaan tasapelistä
+	- tilanteet joissa jäljellä ainoastaan kuningas ja hevonen tai kuningas ja lähetti
+	- tilanteet joissa pelaaja ei ole uhattuna mutta ei pysty suorittamaan siirtoa
+
+- Shakki: shakki ilmoitetaan (ehkä) ja peli jatkuu shakkitilanteen sääntöjen mukaisesti 
+
