@@ -1,0 +1,43 @@
+aihe: Kahden pelaajan shakki
+Toteutetaan perinteinen shakki kahdelle pelaajalle. 
+
+Nappulat:
+Ennen nappuloiden graafista toteutusta toteutetaan niiden muu toiminnallisuus. Jokainen nappula toimii omana luokkanaan joka perii Nappula-luokan.
+	- liikkuminen oikeiden sääntöjen mukaisesti
+	- ei saa olla shakki siirron jälkeen
+	- kaikki nappulat pysähtyvät toiseen nappulaan tai kentän laitaan. Eli siirrot yli laidan eivät ole mahdollisia.
+	- Kuningas:
+		- yksi ruutu kerrallaan, varottava shakkeja
+	- Kuningatar:
+		- liikkuu mahdollisuuksien mukaan niin monta ruutua kuin käyttäjä haluaa linjoja pitkin
+	- Hevonen:
+		- liikkuu mihin suuntaan tahansa kaksi eteen ja yhden sivulle.
+		- voi hyppiä toisten nappuloiden ylitse
+	- Lähetti:
+		- liikkuu vinottain yhden värisiä ruutuja pitkin
+	- Torni:
+		- liikkuu suoria linjoja
+	- Sotilas:
+		- liikkuu yhden ruudun kerrallaan paitsi ensimmäisessä liikkeessä myös kaksi eteen mahdollista
+		- uhkaa toista nappulaa viistosti edestä ja syö samoin
+		- kun sotilas liikkuu kentän toiseen päätyyn muuttuu se kuningattareksi
+
+	- Erikoistilanteet:
+		- Tornitus
+			- kun tornia ja kuningasta ei ole vielä siirretty on mahdollista siirtää kuningasta yhden ruudun yli tornia päin ja torni kuninkaan toiselle puolelle.
+			- kuninkaan ylittämä ruutu ei saa olla uhattuna (tai se mihin päätyy)
+			- toteutettava siten, että torni liikkuu automaattisesti, jos pelaaja painaa kuninkaan siirtymään kaksi sivulle
+
+Pelilauta:
+Pelilautana toimii perinteinen 8x8 pelilauta, jossa joka toinen ruutu on musta ja joka toinen valkoinen.
+
+Käyttöliittymä: 
+- Shakki-, matti- ja pattitilanteet ja niiden huomioiminen. 
+- Matti: peli loppuu ja voittaja ilmoitetaan ruudulla
+- Patti: peli loppuu ja ilmoitetaan tasapelistä
+	- tilanteet joissa jäljellä ainoastaan kuningas ja hevonen tai kuningas ja lähetti
+	- tilanteet joissa pelaaja ei ole uhattuna mutta ei pysty suorittamaan siirtoa
+
+- Shakki: shakki ilmoitetaan (ehkä) ja peli jatkuu shakkitilanteen sääntöjen mukaisesti
+- 
+
