@@ -17,4 +17,10 @@ public class Kuningas extends Nappula {
     public void liiku() {
         
     }
+
+    @Override
+    public String toString() {
+        return "K";
+    }
+
 }

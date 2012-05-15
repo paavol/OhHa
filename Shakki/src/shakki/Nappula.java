@@ -23,4 +23,5 @@ public class Nappula {
 
     public void syö() {
     }
+
 }
