@@ -36,17 +36,20 @@ Ennen nappuloiden graafista toteutusta toteutetaan niiden muu toiminnallisuus. J
 			- Sotilas syö rinnalleen tulleen sotilaan siirtymällä viistosti eteenpäin syödyn sotilaan taakse.
 
 Pelilauta:
-- Pelilautana toimii perinteinen 8x8 pelilauta, jossa joka toinen ruutu on musta ja joka toinen valkoinen.
-- Pelilautana toimii layout, jossa jokainen ruutu on oma lokeronsa.
+	- Pelilautana toimii perinteinen 8x8 pelilauta, jossa joka toinen ruutu on musta ja joka toinen valkoinen.
+	- Pelilautana toimii layout, jossa jokainen ruutu on oma lokeronsa.
 - 
 
 Käyttöliittymä: 
-- Shakki-, matti- ja pattitilanteet ja niiden huomioiminen. Tarkistus jokaisen siirron jälkeen. 
-	- Matti: peli loppuu ja voittaja ilmoitetaan ruudulla
-	- Patti: peli loppuu ja ilmoitetaan tasapelistä
-		- tilanteet joissa jäljellä ainoastaan kuningas ja hevonen tai kuningas ja lähetti
-		- tilanteet joissa pelaaja ei ole uhattuna mutta ei pysty suorittamaan siirtoa
+	- Shakki-, matti- ja pattitilanteet ja niiden huomioiminen. Tarkistus jokaisen siirron jälkeen. 
+		- Matti: peli loppuu ja voittaja ilmoitetaan ruudulla
+		- Patti: peli loppuu ja ilmoitetaan tasapelistä
+			- tilanteet joissa jäljellä ainoastaan kuningas ja hevonen tai kuningas ja lähetti
+			- tilanteet joissa pelaaja ei ole uhattuna mutta ei pysty suorittamaan siirtoa
 
-	- Shakki: shakki ilmoitetaan (ehkä) ja peli jatkuu shakkitilanteen sääntöjen mukaisesti
+		- Shakki: shakki ilmoitetaan (ehkä) ja peli jatkuu shakkitilanteen sääntöjen mukaisesti
+
+- Toteutuksessa tulee haasteita vastaan mm. siirtojen tekemisessä. Kuinka valitaan liikutettava nappula. Eli ruutua painamalla aktivoituu kyseisessä ruudussa oleva nappula siirtoa varten. Mahdollisesti toteutuksessa mahdolliset ruudut näkyisivät jollain tietyllä värillä.
+
 
 
