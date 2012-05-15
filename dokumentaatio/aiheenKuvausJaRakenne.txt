@@ -4,8 +4,13 @@ Toteutetaan perinteinen shakki kahdelle pelaajalle.
 Nappulat:
 Ennen nappuloiden graafista toteutusta toteutetaan niiden muu toiminnallisuus. Jokainen nappula toimii omana luokkanaan joka perii Nappula-luokan.
 	- liikkuminen oikeiden sääntöjen mukaisesti
-	- ei saa olla shakki siirron jälkeen
+	- ei saa olla shakki siirron jälkeen!
 	- kaikki nappulat pysähtyvät toiseen nappulaan tai kentän laitaan. Eli siirrot yli laidan eivät ole mahdollisia.
+	- metodi liiku ja syö ovat jokaiselle yhteisiä mutta toteutus erilainen
+
+	- Syö: toinen nappula siirtyy toisen paikalle ja syöty nappula häviää pelilaudalta.
+	- Liiku: jokainen nappula liikkuu omien kykyjensä mukaisesti
+		
 	- Kuningas:
 		- yksi ruutu kerrallaan, varottava shakkeja
 	- Kuningatar:
@@ -23,21 +28,25 @@ Ennen nappuloiden graafista toteutusta toteutetaan niiden muu toiminnallisuus. J
 		- kun sotilas liikkuu kentän toiseen päätyyn muuttuu se kuningattareksi
 
 	- Erikoistilanteet:
-		- Tornitus
+		- Tornitus/linnoitus
 			- kun tornia ja kuningasta ei ole vielä siirretty on mahdollista siirtää kuningasta yhden ruudun yli tornia päin ja torni kuninkaan toiselle puolelle.
 			- kuninkaan ylittämä ruutu ei saa olla uhattuna (tai se mihin päätyy)
 			- toteutettava siten, että torni liikkuu automaattisesti, jos pelaaja painaa kuninkaan siirtymään kaksi sivulle
+		- Ohitus:
+			- Sotilas syö rinnalleen tulleen sotilaan siirtymällä viistosti eteenpäin syödyn sotilaan taakse.
 
 Pelilauta:
-Pelilautana toimii perinteinen 8x8 pelilauta, jossa joka toinen ruutu on musta ja joka toinen valkoinen.
+- Pelilautana toimii perinteinen 8x8 pelilauta, jossa joka toinen ruutu on musta ja joka toinen valkoinen.
+- Pelilautana toimii layout, jossa jokainen ruutu on oma lokeronsa.
+- 
 
 Käyttöliittymä: 
-- Shakki-, matti- ja pattitilanteet ja niiden huomioiminen. 
-- Matti: peli loppuu ja voittaja ilmoitetaan ruudulla
-- Patti: peli loppuu ja ilmoitetaan tasapelistä
-	- tilanteet joissa jäljellä ainoastaan kuningas ja hevonen tai kuningas ja lähetti
-	- tilanteet joissa pelaaja ei ole uhattuna mutta ei pysty suorittamaan siirtoa
+- Shakki-, matti- ja pattitilanteet ja niiden huomioiminen. Tarkistus jokaisen siirron jälkeen. 
+	- Matti: peli loppuu ja voittaja ilmoitetaan ruudulla
+	- Patti: peli loppuu ja ilmoitetaan tasapelistä
+		- tilanteet joissa jäljellä ainoastaan kuningas ja hevonen tai kuningas ja lähetti
+		- tilanteet joissa pelaaja ei ole uhattuna mutta ei pysty suorittamaan siirtoa
 
-- Shakki: shakki ilmoitetaan (ehkä) ja peli jatkuu shakkitilanteen sääntöjen mukaisesti
-- 
+	- Shakki: shakki ilmoitetaan (ehkä) ja peli jatkuu shakkitilanteen sääntöjen mukaisesti
+
 
