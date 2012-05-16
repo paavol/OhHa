@@ -10,27 +10,33 @@ package shakki;
  */
 public class Pelilauta {
 
-    private Kuningas kuningas;
     private Nappula[][] lauta;
 
     public Pelilauta() {
         this.lauta = new Nappula[8][8];
-//        this.kuningas = new Kuningas(0, 0);
-//        luoPelilauta();
-
+        luoNappulat();
+        luoPelilauta();
     }
 
-    public void lisaaNappula(int x, int y, Nappula nappula) {
-        lauta[x][y] = nappula;
+    private void luoNappulat() {
+        Kuningas kuningasMusta = new Kuningas(0, 4);
+        Kuningas kuningasValkoinen = new Kuningas(7, 4);
+        lauta[0][4] = kuningasMusta;
+        lauta[7][4] = kuningasValkoinen;
     }
+
+    public Nappula[][] getNappulat() {
+        return lauta;
+    }
+
     public void liikkuminen(int uusiX, int uusiY, Nappula nappula) {
-        if(nappula != null) {
-            
+        if (nappula != null) {
+            lauta[nappula.getX()][nappula.getY()] = null;
             lauta[uusiX][uusiY] = nappula;
         }
     }
 
-    public void luoPelilauta() {
+    private void luoPelilauta() {
         System.out.println("");
 
 //        for (int i = 0; i < lauta.length; i++) {
@@ -59,6 +65,7 @@ public class Pelilauta {
         }
 
     }
+
     public void paivitaLauta() {
         luoPelilauta();
     }
