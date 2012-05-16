@@ -16,12 +16,37 @@ public class Nappula {
     public Nappula(int x, int y) {
         this.x = x;
         this.y = y;
+
     }
 
-    public void liiku(int x, int y) {
+    public int getX() {
+        return x;
     }
 
-    public void syö() {
+    public int getY() {
+        return y;
     }
 
+    public void liiku(int uusiX, int uusiY) {
+
+        this.x = uusiX;
+        this.y = uusiY;
+    }
+
+    public boolean onkoMahdollinen(int uusiX, int uusiY) {
+        return true;
+    }
+
+    public boolean laudalla() {
+        return true;
+    }
+
+    public boolean syoko() {
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "N ";
+    }
 }

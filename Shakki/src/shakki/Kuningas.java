@@ -14,13 +14,28 @@ public class Kuningas extends Nappula {
         super(x, y);
     }
 
-    public void liiku() {
-        
+    @Override
+    public void liiku(int uusiX, int uusiY) {
+        if (onkoMahdollinen(uusiX, uusiY)) {
+            super.liiku(uusiX, uusiY);
+        }
+    }
+
+    @Override
+    public boolean onkoMahdollinen(int uusiX, int uusiY) {
+        if (uusiX == super.getX() + 1 || uusiX == super.getX() - 1 || uusiX == super.getX()
+                && uusiY == super.getY() + 1 || uusiY == super.getY() - 1 || uusiY == super.getY()
+                || uusiX == super.getX() + 1 && uusiY == super.getY() + 1
+                || uusiX == super.getX() + 1 && uusiY == super.getY() - 1
+                || uusiX == super.getX() - 1 && uusiY == super.getY() + 1
+                || uusiX == super.getX() - 1 && uusiY == super.getY() - 1) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public String toString() {
-        return "K";
+        return "K ";
     }
-
 }
