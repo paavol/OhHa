@@ -4,6 +4,10 @@
  */
 package shakki;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author Maijanen
@@ -11,45 +15,47 @@ package shakki;
 public class Pelilauta {
 
     private Nappula[][] lauta;
+    private Nappulat nappulat;
 
     public Pelilauta() {
         this.lauta = new Nappula[8][8];
+        this.nappulat = new Nappulat();
         luoNappulat();
         luoPelilauta();
     }
 
     private void luoNappulat() {
-        Kuningas kuningasMusta = new Kuningas(0, 4);
-        Kuningas kuningasValkoinen = new Kuningas(7, 4);
-        lauta[0][4] = kuningasMusta;
-        lauta[7][4] = kuningasValkoinen;
+
+        for (int i = 0; i < lauta.length; i++) {
+            for (int j = 0; j < lauta.length; j++) {
+                for (int k = 0; k < nappulat.getNappulat().size(); k++) {
+                    if (nappulat.getNappulat().get(k).getX() == i
+                            && nappulat.getNappulat().get(k).getY() == j) {
+                        lauta[i][j] = nappulat.getNappulat().get(k);
+                    }
+                }
+            }
+        }
     }
 
-    public Nappula[][] getNappulat() {
-        return lauta;
-    }
-
-    public void liikkuminen(int uusiX, int uusiY, Nappula nappula) {
+    public void liikutaNappulaa(int uusiX, int uusiY, Nappula nappula) {
         if (nappula != null) {
+           
             lauta[nappula.getX()][nappula.getY()] = null;
             lauta[uusiX][uusiY] = nappula;
         }
     }
 
+    public List<Nappula> palautaNappulatListana() {
+        return nappulat.getNappulat();
+    }
+
+    public Nappula[][] laudanPalautus() {
+        return lauta;
+    }
+
     private void luoPelilauta() {
         System.out.println("");
-
-//        for (int i = 0; i < lauta.length; i++) {
-//            for (int j = 0; j < 2; j++) {
-//                lauta[j][i] = kuningas;
-//            }
-//        }
-//        for (int i = 0; i < lauta.length; i++) {
-//            for (int j = 6; j < 8; j++) {
-//                lauta[j][i] = kuningas;
-//            }
-//        }
-
 
         for (Nappula[] rivi : lauta) {
             for (Nappula ruutu : rivi) {
@@ -60,10 +66,9 @@ public class Pelilauta {
                     System.out.print("_ ");
                 }
             }
-
-            System.out.print("\n");
+            System.out.println("");
         }
-
+        System.out.println("");
     }
 
     public void paivitaLauta() {

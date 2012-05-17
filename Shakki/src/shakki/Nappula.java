@@ -12,7 +12,7 @@ public class Nappula {
 
     private int x;
     private int y;
-
+ 
     public Nappula(int x, int y) {
         this.x = x;
         this.y = y;
@@ -27,17 +27,23 @@ public class Nappula {
         return y;
     }
 
-    public void liiku(int uusiX, int uusiY) {
+//    public void liiku(int uusiX, int uusiY) {
+//        if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoRuutuLaudalla()
+//                && onkoToinenNappulaRuudussa() == false) {
+//            this.x = uusiX;
+//            this.y = uusiY;
+//        }
+//    }
 
-        this.x = uusiX;
-        this.y = uusiY;
-    }
-
-    public boolean onkoMahdollinen(int uusiX, int uusiY) {
+    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
         return true;
     }
 
-    public boolean laudalla() {
+    public boolean onkoRuutuLaudalla() {
+        return true;
+    }
+
+    public boolean onkoToinenNappulaRuudussa() {
         return true;
     }
 
