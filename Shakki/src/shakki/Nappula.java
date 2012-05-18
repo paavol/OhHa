@@ -12,7 +12,6 @@ public abstract class Nappula {
 
     private int x;
     private int y;
- 
 
     public Nappula(int x, int y) {
 
@@ -36,11 +35,24 @@ public abstract class Nappula {
     public void setY(int y) {
         this.y = y;
     }
-    
-    
+
+    public String getKoordinaatit() {
+        return this.x + ", " + this.y;
+    }
+
+    public void setKoordinaatit(int x, int y) {
+        setX(x);
+        setY(y);
+    }
+
+    public boolean onkoRuutuLaudalla(int uusiX, int uusiY) {
+        if (uusiX >= 0 && uusiX <= 7 && uusiY >= 0 && uusiX <= 7) {
+            return true;
+        }
+        return false;
+    }
 
     public abstract boolean voikoNappulaLiikkua(int uusiX, int uusiY);
-
 //    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
 //        return true;
 //    }

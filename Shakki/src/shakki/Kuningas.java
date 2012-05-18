@@ -24,14 +24,7 @@ public class Kuningas extends Nappula {
         return false;
     }
 
-    public boolean onkoRuutuLaudalla(int uusiX, int uusiY) {
-        if (uusiX >= 0 && uusiX <= 7 && uusiY >= 0 && uusiX <= 7) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
+     public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
         if (uusiX == getX() + 1 || uusiX == getX() - 1 || uusiX == getX()
                 && uusiY == getY() + 1 || uusiY == getY() - 1 || uusiY == getY())
 //                || uusiX == getX() + 1 && uusiY == getY() + 1
