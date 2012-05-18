@@ -18,4 +18,9 @@ public class Sotilas extends Nappula {
     public String toString() {
         return "S ";
     }
+
+    @Override
+    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

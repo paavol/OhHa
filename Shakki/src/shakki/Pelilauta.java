@@ -40,10 +40,22 @@ public class Pelilauta {
 
     public void liikutaNappulaa(int uusiX, int uusiY, Nappula nappula) {
         if (nappula != null) {
-           
-            lauta[nappula.getX()][nappula.getY()] = null;
-            lauta[uusiX][uusiY] = nappula;
+            if (nappula.voikoNappulaLiikkua(uusiX, uusiY)) {
+                lauta[nappula.getX()][nappula.getY()] = null;
+                lauta[uusiX][uusiY] = nappula;
+            }
         }
+    }
+
+    public boolean onkoToinenNappulaRuudussa(int uusiX, int uusiY) {
+        if (lauta[uusiX][uusiY] != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean voikoSyoda(int uusiX, int uusiY) {
+        return true;
     }
 
     public List<Nappula> palautaNappulatListana() {

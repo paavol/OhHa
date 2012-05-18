@@ -18,4 +18,11 @@ public class Lahetti extends Nappula {
     public String toString() {
         return "L ";
     }
+
+    @Override
+    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+   
 }

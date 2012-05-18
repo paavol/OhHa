@@ -18,4 +18,9 @@ public class Kuningatar extends Nappula {
     public String toString() {
         return "Q ";
     }
+
+    @Override
+    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

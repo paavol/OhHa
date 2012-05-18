@@ -18,4 +18,9 @@ public class Torni extends Nappula {
     public String toString() {
         return "T ";
     }
+
+    @Override
+    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

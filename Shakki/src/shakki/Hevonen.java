@@ -18,4 +18,9 @@ public class Hevonen extends Nappula {
     public String toString() {
         return "H ";
     }
+
+      @Override
+    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

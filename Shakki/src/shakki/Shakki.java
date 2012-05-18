@@ -15,7 +15,7 @@ public class Shakki {
      */
     public static void main(String[] args) {
         Pelilauta lauta = new Pelilauta();
-        lauta.liikutaNappulaa(1, 3, lauta.palautaNappulatListana().get(0));
+        lauta.liikutaNappulaa(1, 6, lauta.palautaNappulatListana().get(12));
         lauta.paivitaLauta();
 
     }
