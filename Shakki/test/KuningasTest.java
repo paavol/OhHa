@@ -35,6 +35,7 @@ public class KuningasTest {
         assertTrue(k1.getX() == 0 && k1.getY() == 0);
     }
 
+  
     @Test
     public void laudallaOlevaVaarin() {
         assertFalse(mahdotonKuningas1.getX() == 0 && mahdotonKuningas1.getY() == 2);
@@ -67,5 +68,9 @@ public class KuningasTest {
     @Test
     public void palauttaaOikeanMerkin() {
         assertEquals(k1.toString(), "K ");
+    }
+
+    @Test
+    public void toinenNappulaRuudussa() {
     }
 }
