@@ -61,17 +61,17 @@ public class Pelilauta {
         }
 
     }
-
-    public boolean voikoSyoda(int uusiX, int uusiY) {
-        return true;
-    }
+//
+//    public boolean voikoSyoda(int uusiX, int uusiY) {
+//        return true;
+//    }
 
     public List<Nappula> palautaNappulatListana() {
         return nappulat.getNappulat();
     }
 
-    public Nappula[][] laudanPalautus() {
-        return lauta;
+    public Nappula getNappulaRuudusta(int x, int y) {
+        return lauta[x][y];
     }
 
     private void luoPelilauta() {
