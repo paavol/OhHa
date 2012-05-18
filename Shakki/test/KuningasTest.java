@@ -42,17 +42,30 @@ public class KuningasTest {
 
     @Test
     public void liikkuuLaudaltaPois() {
+        assertFalse(k1.voikoNappulaLiikkua(-1, 0));
     }
 
-    @Test
-    public void liikkuuToisenPaalle() {
-    }
-
-    @Test
-    public void vanhaSijaintiHaviaaLiikkuessa() {
-    }
-
+//    @Test
+//    public void liikkuuToisenPaalle() {
+//        
+//    }
+//
+//    @Test
+//    public void vanhaSijaintiHaviaaLiikkuessa() {
+//        
+//    }
     @Test
     public void liikkuuKutenKuningas() {
+        assertTrue(k1.mahdollinenRuutuLiikkua(1, 1));
+    }
+
+    @Test
+    public void yrittaaLiikkuaVaarin() {
+        assertFalse(k1.mahdollinenRuutuLiikkua(3, 0));
+    }
+
+    @Test
+    public void palauttaaOikeanMerkin() {
+        assertEquals(k1.toString(), "K ");
     }
 }

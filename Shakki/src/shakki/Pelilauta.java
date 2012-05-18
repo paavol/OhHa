@@ -42,6 +42,7 @@ public class Pelilauta {
         if (nappula != null) {
             if (nappula.voikoNappulaLiikkua(uusiX, uusiY)) {
                 lauta[nappula.getX()][nappula.getY()] = null;
+                poistaVanhaNappulaListalta(nappula);
                 lauta[uusiX][uusiY] = nappula;
             }
         }
@@ -52,6 +53,13 @@ public class Pelilauta {
             return true;
         }
         return false;
+    }
+
+    public void poistaVanhaNappulaListalta(Nappula nappula) {
+        if (palautaNappulatListana().contains(nappula)) {
+            palautaNappulatListana().remove(nappula);
+        }
+
     }
 
     public boolean voikoSyoda(int uusiX, int uusiY) {

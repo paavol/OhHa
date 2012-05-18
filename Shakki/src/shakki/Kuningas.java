@@ -17,21 +17,23 @@ public class Kuningas extends Nappula {
     @Override
     public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
         if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoRuutuLaudalla(uusiX, uusiY)) {
-            setX(uusiX);
-            setY(uusiY);
+            setKoordinaatit(uusiX, uusiY);
             return true;
         }
         return false;
     }
 
-     public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
-        if (uusiX == getX() + 1 || uusiX == getX() - 1 || uusiX == getX()
-                && uusiY == getY() + 1 || uusiY == getY() - 1 || uusiY == getY())
-//                || uusiX == getX() + 1 && uusiY == getY() + 1
-//                || uusiX == getX() + 1 && uusiY == getY() - 1
-//                || uusiX == getX() - 1 && uusiY == getY() + 1
-//                || uusiX == getX() - 1 && uusiY == getY() - 1) 
-        {
+    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
+        
+        if (uusiX == getX() + 1 && uusiY == getY()
+                || uusiX == getX() + 1 && uusiY == getY() - 1
+                || uusiX == getX() + 1 && uusiY == getY() + 1
+                || uusiX == getX() - 1 && uusiY == getY()
+                || uusiX == getX() - 1 && uusiY == getY() - 1
+                || uusiX == getX() - 1 && uusiY == getY() + 1
+                || uusiX == getX() && uusiY == getY()
+                || uusiX == getX() && uusiY == getY() - 1
+                || uusiX == getX() && uusiY == getY() + 1) {
             return true;
         }
         return false;

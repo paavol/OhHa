@@ -46,7 +46,7 @@ public abstract class Nappula {
     }
 
     public boolean onkoRuutuLaudalla(int uusiX, int uusiY) {
-        if (uusiX >= 0 && uusiX <= 7 && uusiY >= 0 && uusiX <= 7) {
+        if (uusiX >= 0 && uusiX <= 7 && uusiY >= 0 && uusiY <= 7) {
             return true;
         }
         return false;
