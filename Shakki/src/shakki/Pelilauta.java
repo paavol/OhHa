@@ -6,6 +6,7 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,6 +26,15 @@ public class Pelilauta {
     }
 
     private void luoNappulat() {
+//        for (int i = 0; i < lauta.length; i++) {
+//            for (int j = 0; j < lauta.length; j++) {
+//            for (int k = 0; k < nappulat.getNappulataulukko().length; k++) {
+//                
+//            }
+//            }
+//
+//        }
+
 
         for (int i = 0; i < lauta.length; i++) {
             for (int j = 0; j < lauta.length; j++) {
@@ -56,10 +66,12 @@ public class Pelilauta {
     }
 
     public void poistaVanhaNappulaListalta(Nappula nappula) {
-        if (palautaNappulatListana().contains(nappula)) {
-            palautaNappulatListana().remove(nappula);
+        Iterator<Nappula> iteraattori = nappulat.getNappulat().iterator();
+        while (iteraattori.hasNext()) {
+            if (iteraattori.next().equals(nappula)) {
+                iteraattori.remove();
+            }
         }
-
     }
 //
 //    public boolean voikoSyoda(int uusiX, int uusiY) {
