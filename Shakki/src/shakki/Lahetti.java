@@ -24,5 +24,15 @@ public class Lahetti extends Nappula {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
    
 }

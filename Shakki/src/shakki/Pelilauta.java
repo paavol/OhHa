@@ -50,7 +50,7 @@ public class Pelilauta {
 
     public void liikutaNappulaa(int uusiX, int uusiY, Nappula nappula) {
         if (nappula != null) {
-            if (nappula.voikoNappulaLiikkua(uusiX, uusiY)) {
+            if (nappula.voikoNappulaLiikkua(uusiX, uusiY) && onkoToinenNappulaRuudussa(uusiX, uusiY) == false) {
                 lauta[nappula.getX()][nappula.getY()] = null;
                 poistaVanhaNappulaListalta(nappula);
                 lauta[uusiX][uusiY] = nappula;
@@ -63,6 +63,59 @@ public class Pelilauta {
             return true;
         }
         return false;
+    }
+
+    public boolean kulkureitillaEiNappulaa(int uusiX, int uusiY, Nappula nappula) {
+
+        if (uusiX > nappula.getX() && uusiY == nappula.getY()) {
+            for (int i = 1; i < uusiX - nappula.getX(); i++) {
+                if (lauta[nappula.getX() + i][uusiY] != null) {
+                    return false;
+                }
+            }
+        }
+        if (uusiX == nappula.getX() && uusiY > nappula.getY()) {
+            for (int i = 1; i < uusiY - nappula.getY(); i++) {
+                if (lauta[uusiX][nappula.getY() + i] != null) {
+                    return false;
+                }
+            }
+        }
+        if (uusiX < nappula.getX() && uusiY == nappula.getY()) {
+            for (int i = 1; i < nappula.getX() - uusiX; i++) {
+                if (lauta[nappula.getX() - i][uusiY] != null) {
+                    return false;
+                }
+            }
+        }
+        if (uusiX == nappula.getX() && uusiY < nappula.getY()) {
+            for (int i = 1; i < nappula.getY() - uusiY; i++) {
+                if (lauta[uusiX][nappula.getY()-i] != null) {
+                    return false;
+                }
+            }
+        }
+
+        if (uusiX > nappula.getX() && uusiY < nappula.getY()) {
+//        for (int i = 1; i < muutosX; i++) {
+//                if (lauta[nappula.getX() + i][uusiY] == null) {
+//                    return true;
+//                }
+//            }
+        }
+        if (uusiX < nappula.getX() && uusiY > nappula.getY()) {
+        }
+        if (uusiX < nappula.getX() && uusiY < nappula.getY()) {
+        }
+        if (uusiX > nappula.getX() && uusiY > nappula.getY()) {
+        }
+
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+            }
+        }
+        return true;
     }
 
     public void poistaVanhaNappulaListalta(Nappula nappula) {

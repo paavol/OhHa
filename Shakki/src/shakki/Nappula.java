@@ -45,7 +45,7 @@ public abstract class Nappula {
         setY(y);
     }
 
-    public boolean onkoRuutuLaudalla(int uusiX, int uusiY) {
+    public boolean onkoSijaintiLaudalla(int uusiX, int uusiY) {
         if (uusiX >= 0 && uusiX <= 7 && uusiY >= 0 && uusiY <= 7) {
             return true;
         }
@@ -53,14 +53,10 @@ public abstract class Nappula {
     }
 
     public abstract boolean voikoNappulaLiikkua(int uusiX, int uusiY);
-//    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
-//        return true;
-//    }
-//
-//    public boolean onkoRuutuLaudalla() {
-//        return true;
-//    }
-//
+
+    public abstract boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY);
+
+    public abstract boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY);
 //    public boolean onkoToinenNappulaRuudussa() {
 //        return true;
 //    }

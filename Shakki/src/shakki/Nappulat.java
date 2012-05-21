@@ -56,26 +56,24 @@ public class Nappulat {
     }
 
     private void lisaaNappulat() {
-        nappulataulukko[0] = torniMustaVasen;
-        nappulataulukko[1] = torniMustaVasen;
-        nappulataulukko[2] = torniMustaVasen;
-        nappulataulukko[3] = kuningatarMusta;
-        nappulataulukko[4] = kuningasMusta;
-        nappulataulukko[5] = lahettiMustaOikea;
-        nappulataulukko[6] = hevonenMustaOikea;
-        nappulataulukko[7] = torniMustaOikea;
-
-        nappulataulukko[16] = torniValkoinenVasen;
-        nappulataulukko[17] = hevonenValkoinenVasen;
-        nappulataulukko[18] = lahettiValkoinenVasen;
-        nappulataulukko[19] = kuningatarValkoinen;
-        nappulataulukko[20] = kuningasValkoinen;
-        nappulataulukko[21] = lahettiValkoinenOikea;
-        nappulataulukko[22] = hevonenValkoinenOikea;
-        nappulataulukko[23] = torniValkoinenOikea;
-
-
-
+//        nappulataulukko[0] = torniMustaVasen;
+//        nappulataulukko[1] = torniMustaVasen;
+//        nappulataulukko[2] = torniMustaVasen;
+//        nappulataulukko[3] = kuningatarMusta;
+//        nappulataulukko[4] = kuningasMusta;
+//        nappulataulukko[5] = lahettiMustaOikea;
+//        nappulataulukko[6] = hevonenMustaOikea;
+//        nappulataulukko[7] = torniMustaOikea;
+//
+//        nappulataulukko[16] = torniValkoinenVasen;
+//        nappulataulukko[17] = hevonenValkoinenVasen;
+//        nappulataulukko[18] = lahettiValkoinenVasen;
+//        nappulataulukko[19] = kuningatarValkoinen;
+//        nappulataulukko[20] = kuningasValkoinen;
+//        nappulataulukko[21] = lahettiValkoinenOikea;
+//        nappulataulukko[22] = hevonenValkoinenOikea;
+//        nappulataulukko[23] = torniValkoinenOikea;
+        
         nappulat.add(torniMustaOikea);
         nappulat.add(torniMustaVasen);
         nappulat.add(torniValkoinenVasen);

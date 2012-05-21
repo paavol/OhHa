@@ -19,8 +19,32 @@ public class Hevonen extends Nappula {
         return "H ";
     }
 
-      @Override
+    @Override
     public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoSijaintiLaudalla(uusiX, uusiY)) {
+            setKoordinaatit(uusiX, uusiY);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
+        if (uusiX == getX() - 1 && uusiY == getY() - 2
+                || uusiX == getX() - 2 && uusiY == getY() - 1
+                || uusiX == getX() - 2 && uusiY == getY() + 1
+                || uusiX == getX() - 1 && uusiY == getY() + 2
+                || uusiX == getX() + 1 && uusiY == getY() - 2
+                || uusiX == getX() + 2 && uusiY == getY() - 1
+                || uusiX == getX() + 2 && uusiY == getY() + 1
+                || uusiX == getX() + 1 && uusiY == getY() + 2) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY) {
+        return true;
     }
 }

@@ -23,4 +23,14 @@ public class Sotilas extends Nappula {
     public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

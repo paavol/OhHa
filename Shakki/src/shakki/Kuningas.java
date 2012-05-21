@@ -16,15 +16,16 @@ public class Kuningas extends Nappula {
 
     @Override
     public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
-        if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoRuutuLaudalla(uusiX, uusiY)) {
+        if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoSijaintiLaudalla(uusiX, uusiY)) {
             setKoordinaatit(uusiX, uusiY);
             return true;
         }
         return false;
     }
 
+    @Override
     public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
-        
+     
         if (uusiX == getX() + 1 && uusiY == getY()
                 || uusiX == getX() + 1 && uusiY == getY() - 1
                 || uusiX == getX() + 1 && uusiY == getY() + 1
@@ -42,5 +43,10 @@ public class Kuningas extends Nappula {
     @Override
     public String toString() {
         return "K ";
+    }
+
+    @Override
+    public boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY) {
+        return true;
     }
 }
