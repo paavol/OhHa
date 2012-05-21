@@ -5,11 +5,14 @@
 package shakki;
 
 /**
- *
+ * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen shakkinappulan erikoistoiminnot.
  * @author Maijanen
  */
 public class Sotilas extends Nappula {
 
+    /**
+     * Sotilas perii abstraktin luokan nappula.
+     */
     public Sotilas(int x, int y) {
         super(x, y);
     }

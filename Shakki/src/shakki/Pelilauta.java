@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
+ * Pelilauta on logiikkaosion tärkein luokka, jossa tapahtuu kaikki nappuloiden
+ * hallinnointi ja laudalla liikkuminen.
  *
  * @author Maijanen
  */
@@ -21,6 +23,67 @@ public class Pelilauta {
         this.nappulat = new Nappulat();
         luoNappulat();
         luoPelilauta();
+    }
+
+    /**
+     *
+     * Liikutetaan haluttua nappulaa uusiin koordinaatteihin, jos kaikki annetut
+     * ehdot täyttyvät.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @param nappula
+     */
+    public void liikutaNappulaa(int uusiX, int uusiY, Nappula nappula) {
+        if (nappula != null) {
+            if (nappula.voikoNappulaLiikkua(uusiX, uusiY)
+                    && onkoToinenNappulaRuudussa(uusiX, uusiY) == false
+                    && kulkureitillaEiNappulaa(uusiX, uusiY, nappula)) {
+                //            lauta[nappula.getX()][nappula.getY()] = null;
+                //             poistaVanhaNappulaListalta(nappula);
+                System.out.println("joasdf");
+                lauta[uusiX][uusiY] = nappula;
+            }
+        }
+    }
+
+    /**
+     * Palauttaa nappuloita sisältävän listan listamuodossa.
+     *
+     */
+    public List<Nappula> palautaNappulatListana() {
+        return nappulat.getNappulat();
+    }
+
+    /**
+     * Metodi palauttaa parametreillä annetussa ruudussa olevan nappulan tai sen
+     * sisältämän null-viitteen.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
+    public Nappula getNappulaRuudusta(int x, int y) {
+        return lauta[x][y];
+    }
+
+    /**
+     * Luo uuden kuvan pelilaudan tilanteesta.
+     */
+    public void paivitaLauta() {
+        luoPelilauta();
+    }
+
+    /**
+     * Asettaa shakkilaudalle parametrina annettuihin koordinaatteihin
+     * parametrina annetun nappulan.
+     *
+     * @param x
+     * @param y
+     * @param nappula
+     */
+    public void asetaNappulaLaudalle(int x, int y, Nappula nappula) {
+        lauta[x][y] = nappula;
     }
 
     private boolean liikkuminenAlas(int uusiX, int uusiY, Nappula nappula) {
@@ -173,14 +236,7 @@ public class Pelilauta {
     }
 
     private void luoNappulat() {
-//        for (int i = 0; i < lauta.length; i++) {
-//            for (int j = 0; j < lauta.length; j++) {
-//            for (int k = 0; k < nappulat.getNappulataulukko().length; k++) {
-//                
-//            }
-//            }
-//
-//        }
+
         for (int i = 0; i < lauta.length; i++) {
             for (int j = 0; j < lauta.length; j++) {
                 for (int k = 0; k < nappulat.getNappulat().size(); k++) {
@@ -193,26 +249,21 @@ public class Pelilauta {
         }
     }
 
-    /**
-     *
-     * Liikutetaan haluttua nappulaa uusiin koordinaatteihin, jos kaikki annetut
-     * ehdot täyttyvät.
-     *
-     * @param uusiX
-     * @param uusiY
-     * @param nappula
-     */
-    public void liikutaNappulaa(int uusiX, int uusiY, Nappula nappula) {
-        if (nappula != null) {
-            if (nappula.voikoNappulaLiikkua(uusiX, uusiY)
-                    && onkoToinenNappulaRuudussa(uusiX, uusiY) == false                    
-                    && kulkureitillaEiNappulaa(uusiX, uusiY, nappula)) {
-                //            lauta[nappula.getX()][nappula.getY()] = null;
-                //             poistaVanhaNappulaListalta(nappula);
-                System.out.println("joasdf");
-                lauta[uusiX][uusiY] = nappula;
+    private void luoPelilauta() {
+        System.out.println("");
+
+        for (Nappula[] rivi : lauta) {
+            for (Nappula ruutu : rivi) {
+                if (ruutu != null) {
+                    System.out.print(ruutu);
+                }
+                if (ruutu == null) {
+                    System.out.print("_ ");
+                }
             }
+            System.out.println("");
         }
+        System.out.println("");
     }
 
     private boolean onkoToinenNappulaRuudussa(int uusiX, int uusiY) {
@@ -236,62 +287,6 @@ public class Pelilauta {
                 iteraattori.remove();
             }
         }
-    }
-
-    /**
-     * Palauttaa nappuloita sisältävän listan listamuodossa.
-     *
-     */
-    public List<Nappula> palautaNappulatListana() {
-        return nappulat.getNappulat();
-    }
-
-    /**
-     * Metodi palauttaa parametreillä annetussa ruudussa olevan nappulan tai sen
-     * sisältämän null-viitteen.
-     *
-     * @param x
-     * @param y
-     * @return
-     */
-    public Nappula getNappulaRuudusta(int x, int y) {
-        return lauta[x][y];
-    }
-
-    private void luoPelilauta() {
-        System.out.println("");
-
-        for (Nappula[] rivi : lauta) {
-            for (Nappula ruutu : rivi) {
-                if (ruutu != null) {
-                    System.out.print(ruutu);
-                }
-                if (ruutu == null) {
-                    System.out.print("_ ");
-                }
-            }
-            System.out.println("");
-        }
-        System.out.println("");
-    }
-
-    /**
-     * Luo uuden kuvan pelilaudan tilanteesta.
-     */
-    public void paivitaLauta() {
-        luoPelilauta();
-    }
-
-    /**
-     * Asettaa shakkilaudalle parametrina annettuihin koordinaatteihin
-     * parametrina annetun nappulan.
-     *
-     * @param x
-     * @param y
-     * @param nappula
-     */
-    public void asetaNappulaLaudalle(int x, int y, Nappula nappula) {
-        lauta[x][y] = nappula;
     }
 
     private boolean jokinReittiAvoinna(int uusiX, int uusiY, Nappula nappula) {

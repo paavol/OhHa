@@ -7,6 +7,8 @@ package Kayttoliittyma;
 import shakki.Pelilauta;
 
 /**
+ * Tekstikäyttöliittymä luodaan Main-luokan main-osiossa. Tekstikäyttöliittymä
+ * saa parametrinaan Pelilaudan.
  *
  * @author paavolyy
  */
@@ -18,8 +20,14 @@ public class Tekstikayttoliittyma {
         this.lauta = lauta;
     }
 
+    /**
+     * Toistaiseksi metodi ei vielä käynnistä yhtään mitään, vaan tulostaa
+     * ainoastaan tekstin.Kaynnistan alle tulee kuitenkin myöhäisemmässä
+     * vaiheessa pelin pelaaminen ja pelilaudan luominen.
+     *
+     */
     public void kaynnista() {
         System.out.println("Tervetuloa pelaamaan shakkia!");
-      
+
     }
 }

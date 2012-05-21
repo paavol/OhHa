@@ -5,11 +5,17 @@
 package shakki;
 
 /**
- *
+ * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen shakkinappulan erikoistoiminnot.
  * @author Maijanen
  */
 public class Lahetti extends Nappula {
 
+    /**
+     * Lahetti perii abstraktin luokan Nappula.
+     *
+     * @param x
+     * @param y
+     */
     public Lahetti(int x, int y) {
         super(x, y);
     }

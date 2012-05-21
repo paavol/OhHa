@@ -7,6 +7,7 @@ package shakki;
 import Kayttoliittyma.Tekstikayttoliittyma;
 
 /**
+ * Main-luokka luo uuden pelilaudan ja käyttöliittymän, sekä käynnistää pelin.
  *
  * @author paavolyy
  */

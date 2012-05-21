@@ -5,7 +5,7 @@
 package shakki;
 
 /**
- *
+ * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen shakkinappulan erikoistoiminnot.
  * @author Maijanen
  */
 public class Torni extends Nappula {
@@ -19,6 +19,12 @@ public class Torni extends Nappula {
         return "T ";
     }
 
+    /**
+     *
+     * @param uusiX
+     * @param uusiY
+     *
+     */
     @Override
     public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
         if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoSijaintiLaudalla(uusiX, uusiY)) {
@@ -28,6 +34,14 @@ public class Torni extends Nappula {
         return false;
     }
 
+    /**
+     * Toistaiseksi keskeneräinen metodi kertoo tornin sääntöjen mukaiset
+     * liikkumismahdollisuudet.
+     *
+     * @param uusiX
+     * @param uusiY
+     *
+     */
     @Override
     public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
 
