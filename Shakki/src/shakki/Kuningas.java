@@ -44,9 +44,4 @@ public class Kuningas extends Nappula {
     public String toString() {
         return "K ";
     }
-
-    @Override
-    public boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY) {
-        return true;
-    }
 }

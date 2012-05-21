@@ -1,10 +1,9 @@
 package shakkitestit;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
-
 import org.junit.*;
 import static org.junit.Assert.*;
 import shakki.Kuningas;
@@ -16,9 +15,7 @@ import shakki.Kuningas;
 public class KuningasTest {
 
     Kuningas k1;
-    Kuningas k2;
     Kuningas mahdotonKuningas1;
-    Kuningas mahdotonKuningas2;
 
     public KuningasTest() {
     }
@@ -26,10 +23,7 @@ public class KuningasTest {
     @Before
     public void setUp() {
         k1 = new Kuningas(0, 0);
-        k2 = new Kuningas(2, 2);
         mahdotonKuningas1 = new Kuningas(-1, 2);
-        mahdotonKuningas2 = new Kuningas(0, -2);
-
     }
 
     @Test
@@ -37,7 +31,6 @@ public class KuningasTest {
         assertTrue(k1.getX() == 0 && k1.getY() == 0);
     }
 
-  
     @Test
     public void laudallaOlevaVaarin() {
         assertFalse(mahdotonKuningas1.getX() == 0 && mahdotonKuningas1.getY() == 2);

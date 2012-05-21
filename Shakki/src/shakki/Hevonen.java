@@ -42,9 +42,4 @@ public class Hevonen extends Nappula {
         }
         return false;
     }
-
-    @Override
-    public boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY) {
-        return true;
-    }
 }

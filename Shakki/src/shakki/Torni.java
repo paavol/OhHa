@@ -29,25 +29,6 @@ public class Torni extends Nappula {
     }
 
     @Override
-    public boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY) {
-//        if (uusiX > getX() + 1 || uusiY > getY() + 1 || uusiX < getX() - 1 || uusiY < getY() - 1) {
-//            if (uusiX == getX() + 1 && uusiY == getY()) {
-//            }
-//            if (uusiX == getX() + 1 && uusiY == getY() - 1) {
-//            }
-//            if (uusiX == getX() + 1 && uusiY == getY() + 1) {
-//            }
-//            if (uusiX == getX() - 1 && uusiY == getY()) {
-//            }
-//        }
-//        for (int i = 0; i < 7; i++) {
-//            for (int j = 0; j < 7; j++) {
-//            }
-//        }
-        return true;
-    }
-
-    @Override
     public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
 
         if (uusiX <= getX() + 7 && uusiY == getY() + 7

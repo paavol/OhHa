@@ -56,7 +56,6 @@ public abstract class Nappula {
 
     public abstract boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY);
 
-    public abstract boolean kulkureitillaEiToistaNappulaa(int uusiX, int uusiY);
 //    public boolean onkoToinenNappulaRuudussa() {
 //        return true;
 //    }
