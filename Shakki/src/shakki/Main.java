@@ -19,8 +19,8 @@ public class Main {
         Pelilauta lauta = new Pelilauta();
         Tekstikayttoliittyma teksti = new Tekstikayttoliittyma(lauta);
         teksti.kaynnista();
-        //lauta.liikutaNappulaa(1, 3, lauta.palautaNappulatListana().get(12));
-        //lauta.paivitaLauta();
+        lauta.liikutaNappulaa(1, 4, lauta.palautaNappulatListana().get(12));
+        lauta.paivitaLauta();
 
     }
 }

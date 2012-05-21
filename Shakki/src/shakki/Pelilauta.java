@@ -205,10 +205,11 @@ public class Pelilauta {
     public void liikutaNappulaa(int uusiX, int uusiY, Nappula nappula) {
         if (nappula != null) {
             if (nappula.voikoNappulaLiikkua(uusiX, uusiY)
-                    && onkoToinenNappulaRuudussa(uusiX, uusiY) == false
+                    && onkoToinenNappulaRuudussa(uusiX, uusiY) == false                    
                     && kulkureitillaEiNappulaa(uusiX, uusiY, nappula)) {
-                lauta[nappula.getX()][nappula.getY()] = null;
-                poistaVanhaNappulaListalta(nappula);
+                //            lauta[nappula.getX()][nappula.getY()] = null;
+                //             poistaVanhaNappulaListalta(nappula);
+                System.out.println("joasdf");
                 lauta[uusiX][uusiY] = nappula;
             }
         }
@@ -279,6 +280,18 @@ public class Pelilauta {
      */
     public void paivitaLauta() {
         luoPelilauta();
+    }
+
+    /**
+     * Asettaa shakkilaudalle parametrina annettuihin koordinaatteihin
+     * parametrina annetun nappulan.
+     *
+     * @param x
+     * @param y
+     * @param nappula
+     */
+    public void asetaNappulaLaudalle(int x, int y, Nappula nappula) {
+        lauta[x][y] = nappula;
     }
 
     private boolean jokinReittiAvoinna(int uusiX, int uusiY, Nappula nappula) {

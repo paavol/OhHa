@@ -6,9 +6,7 @@ package shakkitestit;
  */
 import org.junit.*;
 import static org.junit.Assert.*;
-import shakki.Hevonen;
-import shakki.Kuningas;
-import shakki.Pelilauta;
+import shakki.*;
 
 /**
  *
@@ -20,6 +18,9 @@ public class PelilautaTest {
     Kuningas k1;
     Kuningas k2;
     Hevonen hevonen;
+    Nappula k3;
+    Torni t1;
+    Torni t2;
 
     public PelilautaTest() {
     }
@@ -27,10 +28,24 @@ public class PelilautaTest {
     @Before
     public void setUp() {
         pelilauta = new Pelilauta();
-        k1 = new Kuningas(0, 4);
-        k2 = new Kuningas(7, 4);
 
-        hevonen = new Hevonen(0, 1);
+        pelilauta.asetaNappulaLaudalle(0, 4, k1);
+        pelilauta.asetaNappulaLaudalle(7, 4, k2);
+        pelilauta.asetaNappulaLaudalle(0, 0, t1);
+        pelilauta.asetaNappulaLaudalle(0, 7, t2);
+        pelilauta.asetaNappulaLaudalle(0, 1, hevonen);
+        k3 = pelilauta.getNappulaRuudusta(1, 1);
+
+    }
+
+    @Test
+    public void k3OnOikeastiLaudalla() {
+        assertEquals(k3, pelilauta.getNappulaRuudusta(1, 1));
+    }
+
+    @Test
+    public void k2OnOikeastiLaudalla() {
+        assertEquals(k2, pelilauta.getNappulaRuudusta(7, 4));
     }
 
     @Test
@@ -47,6 +62,16 @@ public class PelilautaTest {
     public void hevonenLiikkuuOikein() {
         pelilauta.liikutaNappulaa(2, 2, hevonen);
         assertNotNull(pelilauta.getNappulaRuudusta(2, 2));
+    }
+
+    @Test
+    public void hevonenYrittaaLiikkuaVaarin() {
+    }
+
+    @Test
+    public void kuningasLiikkuuAlas() {
+        pelilauta.liikutaNappulaa(1, 4, k1);
+        assertNotNull(pelilauta.getNappulaRuudusta(1, 4));
     }
 
     @Test
@@ -79,12 +104,6 @@ public class PelilautaTest {
         assertNull(pelilauta.getNappulaRuudusta(4, 4));
         assertNull(pelilauta.getNappulaRuudusta(3, 5));
         assertNull(pelilauta.getNappulaRuudusta(5, 5));
-    }
-
-    @Test
-    public void kuningasLiikkuuAlas() {
-        pelilauta.liikutaNappulaa(1, 4, k1);
-        assertNotNull(pelilauta.getNappulaRuudusta(1, 4));
     }
 
     @Test
