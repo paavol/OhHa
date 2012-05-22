@@ -5,7 +5,9 @@
 package shakki;
 
 /**
- * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen shakkinappulan erikoistoiminnot.
+ * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
+ * shakkinappulan erikoistoiminnot.
+ *
  * @author Maijanen
  */
 public class Sotilas extends Nappula {
@@ -13,22 +15,17 @@ public class Sotilas extends Nappula {
     /**
      * Sotilas perii abstraktin luokan nappula.
      */
-    public Sotilas(int x, int y) {
-        super(x, y);
+    public Sotilas(int x, int y, boolean valkoinenko) {
+        super(x, y, valkoinenko);
     }
 
     @Override
     public String toString() {
-        return "S ";
+        return "s ";
     }
 
     @Override
-    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean liiku(int uusiX, int uusiY) {
+        return true;
     }
 }

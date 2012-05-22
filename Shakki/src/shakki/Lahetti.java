@@ -5,7 +5,9 @@
 package shakki;
 
 /**
- * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen shakkinappulan erikoistoiminnot.
+ * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
+ * shakkinappulan erikoistoiminnot.
+ *
  * @author Maijanen
  */
 public class Lahetti extends Nappula {
@@ -16,8 +18,8 @@ public class Lahetti extends Nappula {
      * @param x
      * @param y
      */
-    public Lahetti(int x, int y) {
-        super(x, y);
+    public Lahetti(int x, int y, boolean valkoinenko) {
+        super(x, y, valkoinenko);
     }
 
     @Override
@@ -26,12 +28,13 @@ public class Lahetti extends Nappula {
     }
 
     @Override
-    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public boolean liiku(int uusiX, int uusiY) {
+        int muutosX = Math.abs(uusiX - getX());
+        int muutosY = Math.abs(uusiY - getY());
 
-    @Override
-    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (uusiY != getY() && uusiX != getX() && muutosX == muutosY) {
+            return true;
+        }
+        return false;
     }
 }

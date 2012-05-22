@@ -5,13 +5,15 @@
 package shakki;
 
 /**
- * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen shakkinappulan erikoistoiminnot.
+ * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
+ * shakkinappulan erikoistoiminnot.
+ *
  * @author Maijanen
  */
 public class Hevonen extends Nappula {
 
-    public Hevonen(int x, int y) {
-        super(x, y);
+    public Hevonen(int x, int y, boolean valkoinenko) {
+        super(x, y, valkoinenko);
     }
 
     /**
@@ -24,31 +26,14 @@ public class Hevonen extends Nappula {
     }
 
     /**
-     * Metodi tarkistaa pystyykö nappula liikkumaan annettuihin
-     * parametreihin.Metodi tarkistaa samalla onko haluttu liike Hevosen
-     * oikeaoppisen liikkumisen mukainen ja onko parametreina annettu
-     * koordinaatti shakkilaudalla.
+     * Metodi kertoo hevosen oikeaoppiset liikkeet.
      *
      * @param uusiX
      * @param uusiY
-     * 
+     *
      */
     @Override
-    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
-        if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoSijaintiLaudalla(uusiX, uusiY)) {
-            setKoordinaatit(uusiX, uusiY);
-            return true;
-        }
-        return false;
-    }
-/**
- * Metodi kertoo hevosen oikeaoppiset liikkeet.
- * @param uusiX
- * @param uusiY
- * 
- */
-    @Override
-    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
+    public boolean liiku(int uusiX, int uusiY) {
         if (uusiX == getX() - 1 && uusiY == getY() - 2
                 || uusiX == getX() - 2 && uusiY == getY() - 1
                 || uusiX == getX() - 2 && uusiY == getY() + 1
@@ -61,4 +46,5 @@ public class Hevonen extends Nappula {
         }
         return false;
     }
+ 
 }

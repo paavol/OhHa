@@ -5,13 +5,15 @@
 package shakki;
 
 /**
- * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen shakkinappulan erikoistoiminnot.
+ * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
+ * shakkinappulan erikoistoiminnot.
+ *
  * @author Maijanen
  */
 public class Torni extends Nappula {
 
-    public Torni(int x, int y) {
-        super(x, y);
+    public Torni(int x, int y,boolean valkoinenko) {
+        super(x, y,valkoinenko);
     }
 
     @Override
@@ -25,40 +27,20 @@ public class Torni extends Nappula {
      * @param uusiY
      *
      */
-    @Override
-    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
-        if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoSijaintiLaudalla(uusiX, uusiY)) {
-            setKoordinaatit(uusiX, uusiY);
-            return true;
-        }
-        return false;
-    }
-
     /**
-     * Toistaiseksi keskeneräinen metodi kertoo tornin sääntöjen mukaiset
-     * liikkumismahdollisuudet.
+     * Metodi kertoo tornin sääntöjen mukaiset liikkumismahdollisuudet.
      *
      * @param uusiX
      * @param uusiY
      *
      */
     @Override
-    public boolean mahdollinenRuutuLiikkua(int uusiX, int uusiY) {
-
-        if (uusiX <= getX() + 7 && uusiY == getY() + 7
-                || uusiX <= getX() + 7 && uusiY <= getY() - 7
-                || uusiX <= getX() - 7 && uusiY <= getY() + 7
-                || uusiX <= getX() - 7 && uusiY <= getY() - 7) {
-            if (uusiX > getX()) {
-            }
-            if (uusiX < getX()) {
-            }
-            if (uusiY > getY()) {
-            }
-            if (uusiY < getY()) {
-            }
+    public boolean liiku(int uusiX, int uusiY) {
+        if ((uusiX == getX() && uusiY >= 0 && uusiY != getY())
+                || ((uusiX >= 0 && uusiX != getX() && uusiY == getY()))) {
             return true;
         }
         return false;
     }
+ 
 }

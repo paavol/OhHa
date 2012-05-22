@@ -4,9 +4,6 @@
  */
 package shakki;
 
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * Pelilauta on logiikkaosion tärkein luokka, jossa tapahtuu kaikki nappuloiden
  * hallinnointi ja laudalla liikkuminen.
@@ -15,13 +12,13 @@ import java.util.List;
  */
 public class Pelilauta {
 
-    private Nappula[][] lauta;
-    private Nappulat nappulat;
+    private Ruutu[][] lauta;
+    private NappuloidenLuominen nappulat;
 
     public Pelilauta() {
-        this.lauta = new Nappula[8][8];
-        this.nappulat = new Nappulat();
-        luoNappulat();
+        this.lauta = new Ruutu[8][8];
+        this.nappulat = new NappuloidenLuominen();
+
         luoPelilauta();
     }
 
@@ -34,25 +31,16 @@ public class Pelilauta {
      * @param uusiY
      * @param nappula
      */
-    public void liikutaNappulaa(int uusiX, int uusiY, Nappula nappula) {
-        if (nappula != null) {
-            if (nappula.voikoNappulaLiikkua(uusiX, uusiY)
-                    && onkoToinenNappulaRuudussa(uusiX, uusiY) == false
-                    && kulkureitillaEiNappulaa(uusiX, uusiY, nappula)) {
-                //            lauta[nappula.getX()][nappula.getY()] = null;
-                //             poistaVanhaNappulaListalta(nappula);
-                System.out.println("joasdf");
-                lauta[uusiX][uusiY] = nappula;
+    public void liikutaNappulaa(int vanhaX, int vanhaY, int uusiX, int uusiY) {
+        if (lauta[vanhaX][vanhaY].getNappula() != null) {
+            if (lauta[vanhaX][vanhaY].getNappula().liiku(uusiX, uusiY) 
+                    && onkoRuutuLaudalla(lauta[uusiX][uusiY])
+                    && kulkureitillaEiNappulaa(uusiX, uusiY, lauta[vanhaX][vanhaY])
+                    && onkoRuutuVapaa(uusiX, uusiY)
+                    ) {
+                lauta[vanhaX][vanhaY].setNappula(lauta[vanhaX][vanhaY].getNappula());
             }
         }
-    }
-
-    /**
-     * Palauttaa nappuloita sisältävän listan listamuodossa.
-     *
-     */
-    public List<Nappula> palautaNappulatListana() {
-        return nappulat.getNappulat();
     }
 
     /**
@@ -64,7 +52,7 @@ public class Pelilauta {
      * @return
      */
     public Nappula getNappulaRuudusta(int x, int y) {
-        return lauta[x][y];
+        return lauta[x][y].getNappula();
     }
 
     /**
@@ -75,144 +63,208 @@ public class Pelilauta {
     }
 
     /**
-     * Asettaa shakkilaudalle parametrina annettuihin koordinaatteihin
-     * parametrina annetun nappulan.
+     * Asettaa laudalle paikkaan x,y ruudun koordinaateilla x,y.
      *
-     * @param x
-     * @param y
-     * @param nappula
+     *
+     * @param ruutu
      */
-    public void asetaNappulaLaudalle(int x, int y, Nappula nappula) {
-        lauta[x][y] = nappula;
+    public void asetaRuutuLaudalle(Ruutu ruutu) {
+        lauta[ruutu.getX()][ruutu.getY()] = ruutu;
     }
 
-    private boolean liikkuminenAlas(int uusiX, int uusiY, Nappula nappula) {
-        if (uusiX <= nappula.getX()) {
+    private void luoRuudutPelilautaan() {
+
+        for (int i = 0; i < lauta.length; i++) {
+            for (int j = 0; j < lauta.length; j++) {
+                lauta[i][j] = new Ruutu(i, j);
+            }
+        }
+        luoNappulatRuutuihin();
+    }
+
+    private void luoNappulatRuutuihin() {
+        try {
+            for (Nappula nappula : nappulat.getNappulat()) {
+                lauta[nappula.getX()][nappula.getY()].setNappula(nappula);
+            }
+        } catch (Exception e) {
+        }
+
+    }
+
+    private void luoPelilauta() {
+        System.out.println("");
+        luoRuudutPelilautaan();
+        for (Ruutu[] rivi : lauta) {
+            for (Ruutu ruutu : rivi) {
+
+                if (ruutu.getNappula() != null) {
+                    System.out.print(ruutu.getNappula());
+                }
+                if (ruutu.getNappula() == null) {
+                    System.out.print("_ ");
+                }
+
+            }
+            System.out.println("");
+        }
+        System.out.println("");
+    }
+
+    private boolean onkoRuutuVapaa(int uusiX, int uusiY) {
+        if (lauta[uusiX][uusiY].getNappula() == null) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean onkoRuutuLaudalla(Ruutu ruutu) {
+        if (ruutu.getX() > 7 || ruutu.getX() < 0 || ruutu.getY() > 7 || ruutu.getY() < 0) {
             return false;
         }
-        if (uusiY != nappula.getY()) {
+        return true;
+    }
+
+    private boolean kulkureitillaEiNappulaa(int uusiX, int uusiY, Ruutu ruutu) {
+
+        return liikkuminenOikealle(uusiX, uusiY, ruutu)
+                || liikkuminenVasemmalle(uusiX, uusiY, ruutu)
+                || liikkuminenAlas(uusiX, uusiY, ruutu)
+                || liikkuminenYlos(uusiX, uusiY, ruutu)
+                || liikkuminenAlaoikealle(uusiX, uusiY, ruutu)
+                || liikkuminenAlavasemmalle(uusiX, uusiY, ruutu)
+                || liikkuminenYlavasemmalle(uusiX, uusiY, ruutu)
+                || liikkuminenYlaoikealle(uusiX, uusiY, ruutu)
+                || hevosenLiikkuminen(ruutu);
+    }
+
+    private boolean liikkuminenAlas(int uusiX, int uusiY, Ruutu ruutu) {
+        if (uusiX <= ruutu.getNappula().getX()) {
+            return false;
+        }
+        if (uusiY != ruutu.getNappula().getY()) {
             return false;
         }
 
-        for (int i = nappula.getX(); i < uusiX; i++) {
-            if (lauta[nappula.getX() + i][uusiY] != null) {
+        for (int i = ruutu.getNappula().getX(); i < uusiX; i++) {
+            if (lauta[ruutu.getNappula().getX() + i][uusiY] != null) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean liikkuminenYlos(int uusiX, int uusiY, Nappula nappula) {
-        if (uusiX >= nappula.getX()) {
+    private boolean liikkuminenYlos(int uusiX, int uusiY, Ruutu ruutu) {
+        if (uusiX >= ruutu.getNappula().getX()) {
             return false;
         }
-        if (uusiY != nappula.getY()) {
+        if (uusiY != ruutu.getNappula().getY()) {
             return false;
         }
-        for (int i = nappula.getX(); i > uusiX; i--) {
-            if (lauta[nappula.getX() - i][uusiY] != null) {
+        for (int i = ruutu.getNappula().getX(); i > uusiX; i--) {
+            if (lauta[ruutu.getNappula().getX() - i][uusiY] != null) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean liikkuminenOikealle(int uusiX, int uusiY, Nappula nappula) {
-        if (uusiX != nappula.getX()) {
+    private boolean liikkuminenOikealle(int uusiX, int uusiY, Ruutu ruutu) {
+        if (uusiX != ruutu.getNappula().getX()) {
             return false;
         }
-        if (uusiY <= nappula.getY()) {
+        if (uusiY <= ruutu.getNappula().getY()) {
             return false;
         }
-        for (int i = nappula.getY(); i < uusiY; i++) {
-            if (lauta[nappula.getX()][nappula.getY() + i] != null) {
+        for (int i = ruutu.getNappula().getY(); i < uusiY; i++) {
+            if (lauta[ruutu.getNappula().getX()][ruutu.getNappula().getY() + i] != null) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean liikkuminenVasemmalle(int uusiX, int uusiY, Nappula nappula) {
-        if (uusiX != nappula.getX()) {
+    private boolean liikkuminenVasemmalle(int uusiX, int uusiY, Ruutu ruutu) {
+        if (uusiX != ruutu.getNappula().getX()) {
             return false;
         }
-        if (uusiY >= nappula.getY()) {
+        if (uusiY >= ruutu.getNappula().getY()) {
             return false;
         }
-        for (int i = nappula.getY(); i > uusiY; i--) {
-            if (lauta[nappula.getX()][nappula.getY() - i] != null) {
+        for (int i = ruutu.getNappula().getY(); i > uusiY; i--) {
+            if (lauta[ruutu.getNappula().getX()][ruutu.getNappula().getY() - i] != null) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean liikkuminenYlaoikealle(int uusiX, int uusiY, Nappula nappula) {
-        if (uusiX >= nappula.getX()) {
+    private boolean liikkuminenYlaoikealle(int uusiX, int uusiY, Ruutu ruutu) {
+        if (uusiX >= ruutu.getNappula().getX()) {
             return false;
         }
-        if (uusiY <= nappula.getY()) {
+        if (uusiY <= ruutu.getNappula().getY()) {
             return false;
         }
-        if (vinostiLiikkuminen(uusiX, uusiY, nappula) == false) {
+        if (vinostiLiikkuminen(uusiX, uusiY, ruutu.getNappula()) == false) {
             return false;
         }
-        for (int i = 1; i < Math.abs(uusiX - nappula.getX()); i++) {
-            if (lauta[nappula.getX() - i][nappula.getY() + i] != null) {
+        for (int i = 1; i < Math.abs(uusiX - ruutu.getNappula().getX()); i++) {
+            if (lauta[ruutu.getNappula().getX() - i][ruutu.getNappula().getY() + i] != null) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean liikkuminenYlavasemmalle(int uusiX, int uusiY, Nappula nappula) {
-        if (uusiX >= nappula.getX()) {
+    private boolean liikkuminenYlavasemmalle(int uusiX, int uusiY, Ruutu ruutu) {
+        if (uusiX >= ruutu.getNappula().getX()) {
             return false;
         }
-        if (uusiY >= nappula.getY()) {
+        if (uusiY >= ruutu.getNappula().getY()) {
             return false;
         }
-        if (vinostiLiikkuminen(uusiX, uusiY, nappula) == false) {
+        if (vinostiLiikkuminen(uusiX, uusiY, ruutu.getNappula()) == false) {
             return false;
         }
-        for (int i = 1; i < Math.abs(uusiX - nappula.getX()); i++) {
-            if (lauta[nappula.getX() - i][nappula.getY() - i] != null) {
+        for (int i = 1; i < Math.abs(uusiX - ruutu.getNappula().getX()); i++) {
+            if (lauta[ruutu.getNappula().getX() - i][ruutu.getNappula().getY() - i] != null) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean liikkuminenAlaoikealle(int uusiX, int uusiY, Nappula nappula) {
-        if (uusiX <= nappula.getX()) {
+    private boolean liikkuminenAlaoikealle(int uusiX, int uusiY, Ruutu ruutu) {
+        if (uusiX <= ruutu.getNappula().getX()) {
             return false;
         }
-        if (uusiY <= nappula.getY()) {
+        if (uusiY <= ruutu.getNappula().getY()) {
             return false;
         }
-        if (vinostiLiikkuminen(uusiX, uusiY, nappula) == false) {
+        if (vinostiLiikkuminen(uusiX, uusiY, ruutu.getNappula()) == false) {
             return false;
         }
-        for (int i = 1; i < Math.abs(uusiX - nappula.getX()); i++) {
-            if (lauta[nappula.getX() + i][nappula.getY() + i] != null) {
+        for (int i = 1; i < Math.abs(uusiX - ruutu.getNappula().getX()); i++) {
+            if (lauta[ruutu.getNappula().getX() + i][ruutu.getNappula().getY() + i] != null) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean liikkuminenAlavasemmalle(int uusiX, int uusiY, Nappula nappula) {
-        if (uusiX <= nappula.getX()) {
+    private boolean liikkuminenAlavasemmalle(int uusiX, int uusiY, Ruutu ruutu) {
+        if (uusiX <= ruutu.getNappula().getX()) {
             return false;
         }
-        if (uusiY >= nappula.getY()) {
+        if (uusiY >= ruutu.getNappula().getY()) {
             return false;
         }
-        if (vinostiLiikkuminen(uusiX, uusiY, nappula) == false) {
+        if (vinostiLiikkuminen(uusiX, uusiY, ruutu.getNappula()) == false) {
             return false;
         }
-        for (int i = 1; i < Math.abs(uusiX - nappula.getX()); i++) {
-            if (lauta[nappula.getX() + i][nappula.getY() - i] != null) {
+        for (int i = 1; i < Math.abs(uusiX - ruutu.getNappula().getX()); i++) {
+            if (lauta[ruutu.getNappula().getX() + i][ruutu.getNappula().getY() - i] != null) {
                 return false;
             }
         }
@@ -228,77 +280,17 @@ public class Pelilauta {
         return true;
     }
 
-    private boolean hevosenLiikkuminen(int uusiX, int uusiY, Nappula nappula) {
-        if (nappula.getClass() == Hevonen.class) {
+    private boolean hevosenLiikkuminen(Ruutu ruutu) {
+        if (ruutu.getNappula().getClass() == Hevonen.class) {
             return true;
         }
         return false;
     }
-
-    private void luoNappulat() {
-
-        for (int i = 0; i < lauta.length; i++) {
-            for (int j = 0; j < lauta.length; j++) {
-                for (int k = 0; k < nappulat.getNappulat().size(); k++) {
-                    if (nappulat.getNappulat().get(k).getX() == i
-                            && nappulat.getNappulat().get(k).getY() == j) {
-                        lauta[i][j] = nappulat.getNappulat().get(k);
-                    }
-                }
-            }
-        }
-    }
-
-    private void luoPelilauta() {
-        System.out.println("");
-
-        for (Nappula[] rivi : lauta) {
-            for (Nappula ruutu : rivi) {
-                if (ruutu != null) {
-                    System.out.print(ruutu);
-                }
-                if (ruutu == null) {
-                    System.out.print("_ ");
-                }
-            }
-            System.out.println("");
-        }
-        System.out.println("");
-    }
-
-    private boolean onkoToinenNappulaRuudussa(int uusiX, int uusiY) {
-        if (lauta[uusiX][uusiY] != null) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean kulkureitillaEiNappulaa(int uusiX, int uusiY, Nappula nappula) {
-        if (jokinReittiAvoinna(uusiX, uusiY, nappula)) {
-            return true;
-        }
-        return false;
-    }
-
-    private void poistaVanhaNappulaListalta(Nappula nappula) {
-        Iterator<Nappula> iteraattori = nappulat.getNappulat().iterator();
-        while (iteraattori.hasNext()) {
-            if (iteraattori.next().equals(nappula)) {
-                iteraattori.remove();
-            }
-        }
-    }
-
-    private boolean jokinReittiAvoinna(int uusiX, int uusiY, Nappula nappula) {
-
-        return liikkuminenOikealle(uusiX, uusiY, nappula)
-                || liikkuminenVasemmalle(uusiX, uusiY, nappula)
-                || liikkuminenAlas(uusiX, uusiY, nappula)
-                || liikkuminenYlos(uusiX, uusiY, nappula)
-                || liikkuminenAlaoikealle(uusiX, uusiY, nappula)
-                || liikkuminenAlavasemmalle(uusiX, uusiY, nappula)
-                || liikkuminenYlavasemmalle(uusiX, uusiY, nappula)
-                || liikkuminenYlaoikealle(uusiX, uusiY, nappula)
-                || hevosenLiikkuminen(uusiX, uusiY, nappula);
-    }
+//
+//    private boolean kulkureitillaEiNappulaa(int uusiX, int uusiY, Nappula nappula) {
+//        if (jokinReittiAvoinna(uusiX, uusiY, nappula)) {
+//            return true;
+//        }
+//        return false;
+//    }
 }

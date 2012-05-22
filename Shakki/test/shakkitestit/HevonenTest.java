@@ -25,11 +25,11 @@ public class HevonenTest {
 
     @Before
     public void setUp() {
-        h1 = new Hevonen(0, 1);
-        h2 = new Hevonen(0, 6);
-        h3 = new Hevonen(7, 1);
-        h4 = new Hevonen(7, 6);
-        hevoshuijari = new Hevonen(-2, 2);
+        h1 = new Hevonen(0, 1, false);
+        h2 = new Hevonen(0, 6, false);
+        h3 = new Hevonen(7, 1, true);
+        h4 = new Hevonen(7, 6, true);
+        hevoshuijari = new Hevonen(-2, 2, false);
     }
 
     @Test
@@ -46,22 +46,14 @@ public class HevonenTest {
     }
 
     /**
-     * Testataan, ettei nappula pysty liikkumaan pois pelilaudalta.
-     */
-    @Test
-    public void liikkuuLaudaltaPois() {
-        assertFalse(h1.voikoNappulaLiikkua(-1, 0));
-    }
-
-    /**
      * Testataan, että hevoset liikkuvat hevosen sääntöjen mukaan.
      */
     @Test
     public void liikkuuKutenHevonen() {
-        assertTrue(h1.mahdollinenRuutuLiikkua(2, 2));
-        assertTrue(h2.mahdollinenRuutuLiikkua(2, 7));
-        assertTrue(h3.mahdollinenRuutuLiikkua(5, 0));
-        assertTrue(h4.mahdollinenRuutuLiikkua(5, 5));
+        assertTrue(h1.liiku(2, 2));
+        assertTrue(h2.liiku(2, 7));
+        assertTrue(h3.liiku(5, 0));
+        assertTrue(h4.liiku(5, 5));
     }
 
     /**
@@ -69,7 +61,7 @@ public class HevonenTest {
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
-        assertFalse(h2.mahdollinenRuutuLiikkua(3, 0));
+        assertFalse(h2.liiku(3, 0));
     }
 
     /**

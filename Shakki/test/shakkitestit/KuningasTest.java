@@ -26,8 +26,8 @@ public class KuningasTest {
      */
     @Before
     public void setUp() {
-        k1 = new Kuningas(0, 0);
-        mahdotonKuningas1 = new Kuningas(-1, 2);
+        k1 = new Kuningas(0, 0, false);
+        mahdotonKuningas1 = new Kuningas(-1, 2, false);
     }
 
     /**
@@ -51,7 +51,8 @@ public class KuningasTest {
      */
     @Test
     public void liikkuuLaudaltaPois() {
-        assertFalse(k1.voikoNappulaLiikkua(-1, 0));
+        k1.liiku(-1, 0);
+        assertEquals(k1.getX(), 0);
     }
 
     /**
@@ -59,7 +60,8 @@ public class KuningasTest {
      */
     @Test
     public void liikkuuKutenKuningas() {
-        assertTrue(k1.mahdollinenRuutuLiikkua(1, 1));
+        k1.liiku(1, 2);
+        k1.liiku(1, 1);
     }
 
     /**
@@ -67,7 +69,7 @@ public class KuningasTest {
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
-        assertFalse(k1.mahdollinenRuutuLiikkua(3, 0));
+        assertFalse(k1.liiku(3, 0));
     }
 
     /**
