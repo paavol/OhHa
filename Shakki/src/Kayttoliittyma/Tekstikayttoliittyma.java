@@ -8,8 +8,8 @@ import java.util.Scanner;
 import shakki.Pelilauta;
 
 /**
- * Tekstikäyttöliittymä luodaan Main-luokan main-osiossa. Tekstikäyttöliittymä
- * saa parametrinaan Pelilaudan.
+ * Tekstikäyttöliittymä luodaan Main-luokan main-osiossa.Käyttöliittymän kautta
+ * hallitaan shakkipelin tapahtumia.
  *
  * @author paavolyy
  */
@@ -18,15 +18,21 @@ public class Tekstikayttoliittyma {
     private Pelilauta lauta;
     private Scanner lukija;
 
+    /**
+     * Tekstikäyttöliittymä saa parametrina Pelilaudan.
+     *
+     * @param lauta
+     */
     public Tekstikayttoliittyma(Pelilauta lauta) {
         this.lauta = lauta;
         this.lukija = new Scanner(System.in);
     }
 
     /**
-     * Toistaiseksi metodi ei vielä käynnistä yhtään mitään, vaan tulostaa
-     * ainoastaan tekstin.Kaynnistan alle tulee kuitenkin myöhäisemmässä
-     * vaiheessa pelin pelaaminen ja pelilaudan luominen.
+     * Metodi käynnistää shakin ja alustaa uuden pelilaudan.Tämän jälkeen
+     * käyttäjältä kysytään siirtoja.Toistaiseksi käyttöliittymässä ei vielä
+     * säädetä kummanko pelaajan vuoro on meneillään.Peli on käynnissä niin
+     * pitkään kuin pelilaudan peliKaynnissa()-metodi on totta.
      *
      */
     public void kaynnista() {
@@ -47,7 +53,7 @@ public class Tekstikayttoliittyma {
             int uusiY = Integer.parseInt(lukija.next());
             lauta.liikutaNappulaa(vanhaX, vanhaY, uusiX, uusiY);
             lauta.paivitaLauta();
-            
+
         }
     }
 }
