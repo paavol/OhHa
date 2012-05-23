@@ -11,7 +11,12 @@ package shakki;
  * @author Maijanen
  */
 public class Hevonen extends Nappula {
-
+/**
+ * Hevonen perii konstruktorissaan parametrit Nappula-luokalta.
+ * @param x
+ * @param y
+ * @param valkoinenko 
+ */
     public Hevonen(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
     }
@@ -26,7 +31,7 @@ public class Hevonen extends Nappula {
     }
 
     /**
-     * Metodi kertoo hevosen oikeaoppiset liikkeet.
+     * Metodi kertoo hevosen shakkisääntöjen mukaiset liikkeet.
      *
      * @param uusiX
      * @param uusiY

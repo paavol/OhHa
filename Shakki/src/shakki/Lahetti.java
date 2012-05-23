@@ -13,10 +13,11 @@ package shakki;
 public class Lahetti extends Nappula {
 
     /**
-     * Lahetti perii abstraktin luokan Nappula.
+     * Lahetti perii konstruktorissaan parametrit Nappula-luokalta.
      *
      * @param x
      * @param y
+     * @param valkoinenko
      */
     public Lahetti(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
@@ -27,6 +28,14 @@ public class Lahetti extends Nappula {
         return "L ";
     }
 
+    /**
+     * Metodi tarkistaa lähetin shakkisääntöjen mukaiset liikkeet ja palauttaa
+     * true, jos liike on mahdollinen.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return
+     */
     @Override
     public boolean liiku(int uusiX, int uusiY) {
         int muutosX = Math.abs(uusiX - getX());

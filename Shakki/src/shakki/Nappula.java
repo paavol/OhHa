@@ -32,6 +32,12 @@ public abstract class Nappula {
         return x;
     }
 
+    /**
+     * Metodi kertoo totuusarvona Nappulan värin (musta/valkoinen).Valkoinenko()
+     * ollessa true, nappula on valkoinen.
+     *
+     * @return
+     */
     public final boolean valkoinenko() {
         return valkoinenko;
     }
@@ -63,14 +69,6 @@ public abstract class Nappula {
     }
 
     /**
-     * Palauttaa nappulan koordinaatit.
-     *
-     */
-    public String getKoordinaatit() {
-        return this.x + ", " + this.y;
-    }
-
-    /**
      * Metodi kutsuu luokan settereitä ja asettaa parametrina saadut x ja y,
      * oliomuuttujien x ja y arvoksi.
      *
@@ -83,18 +81,12 @@ public abstract class Nappula {
     }
 
     /**
-     * Tarkistaa onko parametreina annettu sijainti pelilaudalla.
+     * Abstrakti metodi nappulan liikkumismahdollisuuksista.Määritellään
+     * jokaisessa nappulassa erikseen.
      *
      * @param uusiX
      * @param uusiY
-     *
+     * @return
      */
-//    public boolean onkoSijaintiLaudalla(int uusiX, int uusiY) {
-//        if (uusiX >= 0 && uusiX <= 7 && uusiY >= 0 && uusiY <= 7) {
-//            return true;
-//        }
-//        return false;
-//    }
-
     public abstract boolean liiku(int uusiX, int uusiY);
 }

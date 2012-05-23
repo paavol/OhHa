@@ -6,9 +6,11 @@ package shakkitestit;
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import shakki.Nappula;
 import shakki.NappulatAlkutilanteessa;
 
 /**
+ * Testataan NappulatAlkutilanteessa-luokan toimivuutta.
  *
  * @author Maijanen
  */
@@ -19,29 +21,22 @@ public class NappulatAlkutilanteessaTest {
     public NappulatAlkutilanteessaTest() {
     }
 
+    /**
+     * Luodaan alkutilanteessa olevat nappulat.
+     */
     @Before
     public void setUp() {
         n = new NappulatAlkutilanteessa();
     }
 
+    /**
+     * Testaan, että luotu taulukko on täynnä nappuloita, joiden arvo ei ole
+     * null.
+     */
     @Test
-    public void nappuloitaOlemassa() {
-        assertNotNull(n.getNappula(0));
-        assertNotNull(n.getNappula(1));
-        assertNotNull(n.getNappula(2));
-        assertNotNull(n.getNappula(3));
-        assertNotNull(n.getNappula(4));
-    }
-
-    @Test
-    public void negatiivisillaArvoillaNullia() {
-        assertNull(n.getNappula(-1));
-    }
-
-    @Test
-    public void eiArvojaTaulukonUlkopuolella() {
-        assertNotNull(n.getNappula(33));
-        throw new ArrayIndexOutOfBoundsException();
-        
+    public void taulukossaEiNullia() {
+        for (Nappula nappula : n.getNappulat()) {
+            assertNotNull(nappula);
+        }
     }
 }

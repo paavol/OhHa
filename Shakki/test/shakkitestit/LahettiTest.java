@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import shakki.Lahetti;
 
 /**
+ * Testiluokka testaa Lahetti-luokan toimintaa.
  *
  * @author Maijanen
  */
@@ -22,6 +23,10 @@ public class LahettiTest {
     public LahettiTest() {
     }
 
+    /**
+     * Luodaan alkutilanteessa lähetit niiden shakkipelin alkutilanteen
+     * mukaisille paikoille.
+     */
     @Before
     public void setUp() {
         vasenMus = new Lahetti(0, 2, false);
@@ -30,6 +35,9 @@ public class LahettiTest {
         oikeaVal = new Lahetti(7, 5, true);
     }
 
+    /**
+     * Testataan, että lähetit ovat oikeasti niille annetuissa koordinaateissa.
+     */
     @Test
     public void lahetitOikeissaPaikoissa() {
         assertTrue(vasenMus.getX() == 0 && vasenMus.getY() == 2);
@@ -38,6 +46,9 @@ public class LahettiTest {
         assertTrue(oikeaVal.getX() == 7 && oikeaVal.getY() == 5);
     }
 
+    /**
+     * Testataan, että lähetti liikkuu shakkisääntöjen mukaisesti.
+     */
     @Test
     public void liikkuuKutenLahetti() {
         assertTrue(vasenMus.liiku(2, 4));
@@ -47,6 +58,9 @@ public class LahettiTest {
 
     }
 
+    /**
+     * Testataan, ettei lähettiä ole mahdollista siirtää sääntöjen vastaisesti.
+     */
     @Test
     public void yrittaaLiikkuaVaarin() {
 
@@ -56,21 +70,27 @@ public class LahettiTest {
         assertFalse(oikeaVal.liiku(3, 2));
     }
 
-    @Test
-    public void liikkuuNegatiiviseen() {
-        assertTrue(vasenVal.liiku(4, -1));
-    }
-
+    /**
+     * Testataan, että musta lähetti on oikeasti väriltään musta, eli parametrin
+     * valkoinenko arvo on false.
+     */
     @Test
     public void mustaOnMusta() {
         assertEquals(vasenMus.valkoinenko(), false);
     }
 
+    /**
+     * Testataan, että valkoinen lähetti on oikeasti väriltään valkoinen, eli
+     * parametrin valkoinenko arvo on true.
+     */
     @Test
     public void valkoinenOnValkoinen() {
         assertEquals(vasenVal.valkoinenko(), true);
     }
 
+    /**
+     * Testataan lähetin toStringin toimivuus.
+     */
     @Test
     public void toStringOikein() {
         assertEquals("L ", vasenMus.toString());

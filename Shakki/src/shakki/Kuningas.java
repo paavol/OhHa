@@ -18,24 +18,14 @@ public class Kuningas extends Nappula {
      *
      * @param x
      * @param y
+     * @param valkoinenko 
      */
     public Kuningas(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
     }
 
     /**
-     * Metodi tarkistaa pystyykö nappula liikkumaan annettuihin
-     * parametreihin.Metodi tarkistaa samalla onko haluttu liike Kuninkaan
-     * oikeaoppisen liikkumisen mukainen ja onko parametreina annettu
-     * koordinaatti shakkilaudalla.Tämän jälkeen asetetaan nappulalle uudet
-     * koordinaatit ja palautetaan true.
-     *
-     * @param uusiX
-     * @param uusiY
-     *
-     */
-    /**
-     * Metodi kertoo miten Kuningas pystyy ylipäänsä liikkumaan.Kuninkaan
+     * Metodi tarkistaa kuninkaan shakkisääntöjen mukaisen liikkumisen.Kuninkaan
      * liikkeillä on kaikkiaan kahdeksan eri mahdollisuutta, joista vähintään
      * yhden toteutuessa metodi palauttaa true.
      *
@@ -69,5 +59,4 @@ public class Kuningas extends Nappula {
     public String toString() {
         return "K ";
     }
-
-  }
+}

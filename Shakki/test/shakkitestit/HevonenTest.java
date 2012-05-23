@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import shakki.Hevonen;
 
 /**
+ * Testiluokka testaa Hevonen-luokan toimintaa.
  *
  * @author paavolyy
  */
@@ -23,6 +24,10 @@ public class HevonenTest {
     public HevonenTest() {
     }
 
+    /**
+     * Alkutilanteessa luodaan hevoset niiden alkutilanteen mukaisiin
+     * koordinaatteihin.
+     */
     @Before
     public void setUp() {
         vasenMus = new Hevonen(0, 1, false);
@@ -33,7 +38,7 @@ public class HevonenTest {
     }
 
     /**
-     * Testataan, että hevoset liikkuvat hevosen sääntöjen mukaan.
+     * Testataan, että hevoset liikkuvat hevosen shakkisääntöjen mukaan.
      */
     @Test
     public void liikkuuKutenHevonen() {
@@ -44,7 +49,7 @@ public class HevonenTest {
     }
 
     /**
-     * Yritetään liikuttaa hevosta oikeaMus mahdottomaan ruutuun.
+     * Yritetään liikuttaa hevosia mahdottomiin ruutuihin.
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
@@ -54,6 +59,9 @@ public class HevonenTest {
         assertFalse(oikeaVal.liiku(6, 3));
     }
 
+    /**
+     * Testataan, että hevoset ovat niille annetuissa koordinaateissa.
+     */
     @Test
     public void hevosetOikeissaPaikoissa() {
         assertTrue(vasenMus.getX() == 0 && vasenMus.getY() == 1);
@@ -62,11 +70,19 @@ public class HevonenTest {
         assertTrue(oikeaVal.getX() == 7 && oikeaVal.getY() == 6);
     }
 
+    /**
+     * Testataan, että musta hevonen on oikeasti väriltään musta eli sen
+     * parametri valkoinenko on arvoltaan false.
+     */
     @Test
     public void mustaOnMusta() {
         assertEquals(vasenMus.valkoinenko(), false);
     }
 
+    /**
+     * Testataan, että valkoinen hevonen on oikeasti väriltään valkoinen eli sen
+     * parametri valkoinenko on arvoltaan true.
+     */
     @Test
     public void valkoinenOnValkoinen() {
         assertEquals(vasenVal.valkoinenko(), true);

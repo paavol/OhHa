@@ -10,6 +10,7 @@ import shakki.Lahetti;
 import shakki.Torni;
 
 /**
+ * Testataan Torni-luokan toimivuutta.
  *
  * @author Maijanen
  */
@@ -23,6 +24,10 @@ public class TorniTest {
     public TorniTest() {
     }
 
+    /**
+     * Luodaan alkutilanteessa neljä tornia shakin alkutilanteen mukaisiin
+     * paikkoihin.
+     */
     @Before
     public void setUp() {
         vasenMus = new Torni(0, 0, false);
@@ -31,6 +36,9 @@ public class TorniTest {
         oikeaVal = new Torni(7, 7, true);
     }
 
+    /**
+     * Testataan, että tornit ovat niille annetuissa koordinaateissa.
+     */
     @Test
     public void tornitOikeissaPaikoissa() {
         assertTrue(vasenMus.getX() == 0 && vasenMus.getY() == 0);
@@ -39,6 +47,9 @@ public class TorniTest {
         assertTrue(oikeaVal.getX() == 7 && oikeaVal.getY() == 7);
     }
 
+    /**
+     * Testataan, että tornit liikkuvat shakkisääntöjen mukaisesti.
+     */
     @Test
     public void liikkuuKutenTorni() {
         assertTrue(vasenMus.liiku(3, 0));
@@ -48,6 +59,9 @@ public class TorniTest {
 
     }
 
+    /**
+     * Testataan, ettei tornit pysty liikkumaan shakkisääntöjen vastaisesti.
+     */
     @Test
     public void yrittaaLiikkuaVaarin() {
         assertFalse(vasenMus.liiku(3, 1));
@@ -56,21 +70,27 @@ public class TorniTest {
         assertFalse(oikeaVal.liiku(2, 6));
     }
 
-    @Test
-    public void yrittaaLiikkuaNegatiiviseen() {
-        assertFalse(vasenVal.liiku(7, -1));
-    }
-
+    /**
+     * Testataan, että musta torni on oikeasti musta, eli sen parametrin
+     * valkoinenko arvo on false.
+     */
     @Test
     public void mustaOnMusta() {
         assertEquals(vasenMus.valkoinenko(), false);
     }
 
+    /**
+     * Testataan, että valkoinen torni on oikeasti valkoinen, eli sen parametrin
+     * valkoinenko arvo on true.
+     */
     @Test
     public void valkoinenOnValkoinen() {
         assertEquals(vasenVal.valkoinenko(), true);
     }
 
+    /**
+     * Testataan toStringin toimivuus.
+     */
     @Test
     public void toStringOikein() {
         assertEquals("T ", vasenMus.toString());

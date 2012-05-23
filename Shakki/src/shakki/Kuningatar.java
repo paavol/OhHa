@@ -13,10 +13,11 @@ package shakki;
 public class Kuningatar extends Nappula {
 
     /**
-     * Kuningatar perii konstruktorissaan Nappula-luokan.
+     * Kuningatar perii konstruktorissaan parametrit Nappula-luokalta.
      *
      * @param x
      * @param y
+     * @param valkoinenko 
      */
     public Kuningatar(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);

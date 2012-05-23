@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import shakki.Kuningas;
 
 /**
+ * Testiluokka testaa Kuningas-luokan toimintaa.
  *
  * @author paavolyy
  */
@@ -21,8 +22,8 @@ public class KuningasTest {
     }
 
     /**
-     * Luo kaksi kuningasta, joista toinen ei saa parametreinaan kelvollisia
-     * arvoja.
+     * Luo kaksi kuningasta pelin alkutilanteen mukaisiin paikkoihin.
+     *
      */
     @Before
     public void setUp() {
@@ -31,7 +32,7 @@ public class KuningasTest {
     }
 
     /**
-     * Testataan, että oikea kuningas m on saanut oikeat parametrit.
+     * Testataan, että kuninkaat ovat niille annetuissa koordinaateissa.
      */
     @Test
     public void kuninkaatOikeissaPaikoissa() {
@@ -40,7 +41,7 @@ public class KuningasTest {
     }
 
     /**
-     * Testataan, että kuningas m liikkuu kuninkaan sääntöjen mukaan.
+     * Testataan, että kuninkaat liikkuvat kuninkaan shakkisääntöjen mukaan.
      */
     @Test
     public void liikkuuKutenKuningas() {
@@ -51,7 +52,7 @@ public class KuningasTest {
     }
 
     /**
-     * Yritetään liikuttaa kuningasta m mahdottomaan ruutuun.
+     * Yritetään liikuttaa kuninkaita mahdottomiin ruutuihin.
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
@@ -59,11 +60,19 @@ public class KuningasTest {
         assertFalse(v.liiku(6, 2));
     }
 
+    /**
+     * Testataan, että valkoinen kuningas on oikeasti väriltään valkoinen, eli
+     * parametrin valkoinenko arvo on true.
+     */
     @Test
     public void valkoinenOnValkoinen() {
         assertEquals(v.valkoinenko(), true);
     }
 
+    /**
+     * Testataan, että musta kuningas on oikeasti väriltään musta, eli
+     * parametrin valkoinenko arvo on false.
+     */
     @Test
     public void mustaOnMusta() {
         assertEquals(m.valkoinenko(), false);

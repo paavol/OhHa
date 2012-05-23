@@ -13,17 +13,35 @@ package shakki;
 public class Sotilas extends Nappula {
 
     /**
-     * Sotilas perii abstraktin luokan nappula.
+     * Sotilas perii konstruktorissaan parametrit Nappula-luokasta.
+     *
+     * @param x
+     * @param y
+     * @param valkoinenko
      */
     public Sotilas(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
     }
 
+    /**
+     * Sotilaan toString.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "s ";
     }
 
+    /**
+     * Metodi tarkistaa sotilaan shakkisääntöjen mukaiset siirrot ja palauttaa
+     * true, mikäli siirto parametreina saatuihin koordinaatteihin on
+     * mahdollinen.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return
+     */
     @Override
     public boolean liiku(int uusiX, int uusiY) {
         if (this.valkoinenko) {

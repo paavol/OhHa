@@ -4,6 +4,7 @@
  */
 package Kayttoliittyma;
 
+import java.util.Scanner;
 import shakki.Pelilauta;
 
 /**
@@ -15,9 +16,11 @@ import shakki.Pelilauta;
 public class Tekstikayttoliittyma {
 
     private Pelilauta lauta;
+    private Scanner lukija;
 
     public Tekstikayttoliittyma(Pelilauta lauta) {
         this.lauta = lauta;
+        this.lukija = new Scanner(System.in);
     }
 
     /**
@@ -28,6 +31,23 @@ public class Tekstikayttoliittyma {
      */
     public void kaynnista() {
         System.out.println("Tervetuloa pelaamaan shakkia!");
+        lauta.alustaLauta();
+        while (lauta.peliKaynnissa()) {
 
+            System.out.println("Anna siirrettävän nappulan koordinaatit.");
+
+            System.out.print("x: ");
+            int vanhaX = Integer.parseInt(lukija.next());
+            System.out.print("y: ");
+            int vanhaY = Integer.parseInt(lukija.next());
+            System.out.println("Anna loppupisteen koordinaatit.");
+            System.out.print("x: ");
+            int uusiX = Integer.parseInt(lukija.next());
+            System.out.print("y: ");
+            int uusiY = Integer.parseInt(lukija.next());
+            lauta.liikutaNappulaa(vanhaX, vanhaY, uusiX, uusiY);
+            lauta.paivitaLauta();
+            
+        }
     }
 }

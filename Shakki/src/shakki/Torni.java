@@ -12,23 +12,30 @@ package shakki;
  */
 public class Torni extends Nappula {
 
-    public Torni(int x, int y,boolean valkoinenko) {
-        super(x, y,valkoinenko);
+    /**
+     * Torni perii konstruktorissaan parametrit Nappula-luokasta.
+     *
+     * @param x
+     * @param y
+     * @param valkoinenko
+     */
+    public Torni(int x, int y, boolean valkoinenko) {
+        super(x, y, valkoinenko);
     }
 
+    /**
+     * Tornin toString.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "T ";
     }
 
     /**
-     *
-     * @param uusiX
-     * @param uusiY
-     *
-     */
-    /**
-     * Metodi kertoo tornin shakkisääntöjen mukaiset liikkumismahdollisuudet.
+     * Metodi kertoo tornin shakkisääntöjen mukaiset liikkumismahdollisuudet ja
+     * palauttaa true, mikäli siirto on mahdollinen.
      *
      * @param uusiX
      * @param uusiY
@@ -42,5 +49,4 @@ public class Torni extends Nappula {
         }
         return false;
     }
- 
 }

@@ -37,6 +37,7 @@ public class PelilautaTest {
         pelilauta = new Pelilauta();
         pelilauta.asetaRuutuLaudalle(ruutu);
         ruutu.setNappula(k1);
+        
        
     }
 
