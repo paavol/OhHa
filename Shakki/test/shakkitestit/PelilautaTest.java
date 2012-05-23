@@ -18,61 +18,45 @@ public class PelilautaTest {
     Pelilauta pelilauta;
     Kuningas k1;
     Kuningas k2;
-    Hevonen hevonen;
-    Nappula k3;
-    Torni t1;
-    Torni t2;
     Ruutu ruutu;
+    Ruutu ruutu2;
 
     public PelilautaTest() {
     }
 
     /**
-     * Alustaa pelilaudan ja lisää laudalle kuninkaan molempiin päihin, tornit
-     * yläpäihin ja hevosen vasemman tornin viereen Lisäksi pelilaudan ruutuun
-     * 1,1 luodaan tuntematon nappula.
+     * Alustaa pelilaudan ja lisää laudalle kuninkaan molempiin päihin oleviin
+     * ruutuihin.
+     *
      */
     @Before
     public void setUp() {
         pelilauta = new Pelilauta();
+        ruutu = new Ruutu(7, 4);
+        ruutu2 = new Ruutu(0, 4);
         pelilauta.asetaRuutuLaudalle(ruutu);
+        pelilauta.asetaRuutuLaudalle(ruutu2);
+        k1 = new Kuningas(7, 4, true);
+        k2 = new Kuningas(0, 4, false);
         ruutu.setNappula(k1);
-        
-       
+        ruutu2.setNappula(k2);
+
     }
 
     /**
-     * Testataan löytyykö k3-kuningas shakkilaudalta.
+     * Testataan löytyykö k1-kuningas shakkilaudalta.
      */
     @Test
     public void k3OnOikeastiLaudalla() {
-        assertEquals(k3, pelilauta.getNappulaRuudusta(1, 1));
+        assertEquals(k1, pelilauta.getNappulaRuudusta(ruutu.getX(), ruutu.getY()));
     }
 
     /**
-     * Testataan löytyykö k2-kuningas shakkilaudalta.
-     */
-    @Test
-    public void k2OnOikeastiLaudalla() {
-        assertEquals(k2, pelilauta.getNappulaRuudusta(7, 4));
-    }
-
-    /**
-     * Testataan onko shakkilaudan yläkulmissa samaa luokkaa olevat nappulat
-     * (Torni).
-     */
-    @Test
-    public void kulmissaSamatNappulat() {
-        assertEquals(pelilauta.getNappulaRuudusta(0, 0), pelilauta.getNappulaRuudusta(0, 7));
-    }
-
-    /**
-     * Testataan onko molempien päiden kuninkaan paikalla samaa luokkaa oleva
-     * nappula (Kuningas).
+     * Testataan onko laudan molempien päiden kuninkaan paikalla Kuningas.
      */
     @Test
     public void kuninkaidenPaikallaSamaNappula() {
-        assertEquals(pelilauta.getNappulaRuudusta(0, 4), pelilauta.getNappulaRuudusta(7, 4));
+        assertEquals(pelilauta.getNappulaRuudusta(0, 4).getClass(), pelilauta.getNappulaRuudusta(7, 4).getClass());
     }
 
     /**
@@ -86,11 +70,21 @@ public class PelilautaTest {
     }
 
     /**
+     * Testataan, että kuningas liikkuu oikeasti laudalla laudan sääntöjen
+     * mukaisesti.
+     */
+    @Test
+    public void nappulaLiikkuuLaudalla() {
+
+        pelilauta.liikutaNappulaa(k1.getX(), k1.getY(), 6, 4);
+    }
+
+    /**
      * Testataan, että nappulalista ei ole tyhjä, vaan sisältää ainakin yhden
      * shakkinappulan.
      */
     @Test
-    public void nappulalistaEiOleTyhja() {
+    public void pelilautaEiOleTyhja() {
         assertNotNull(pelilauta);
     }
 }
