@@ -9,7 +9,7 @@ package shakki;
  *
  * @author Paavo Lyytikäinen
  */
-public class NappuloidenLuominen {
+public class NappulatAlkutilanteessa {
 
     private Nappula[] nappulat;
     private Kuningas kuningasMusta;
@@ -49,7 +49,7 @@ public class NappuloidenLuominen {
      * Konstruktori antaa pelilaudan upseereille koordinaatit ja lisää kaikki
      * nappulat listaan. Sotilaiden luomista ei ole vielä toteutettu.
      */
-    public NappuloidenLuominen() {
+    public NappulatAlkutilanteessa() {
         this.torniMustaOikea = new Torni(0, 7, false);
         this.hevonenMustaOikea = new Hevonen(0, 6, false);
         this.lahettiMustaOikea = new Lahetti(0, 5, false);
@@ -123,26 +123,6 @@ public class NappuloidenLuominen {
         nappulat[29] = s6Valkoinen;
         nappulat[30] = s7Valkoinen;
         nappulat[31] = s8Valkoinen;
-//
-//        nappulat.add(torniMustaOikea);
-//        nappulat.add(torniMustaVasen);
-//        nappulat.add(torniValkoinenVasen);
-//        nappulat.add(torniValkoinenOikea);
-//
-//        nappulat.add(lahettiValkoinenOikea);
-//        nappulat.add(lahettiValkoinenVasen);
-//        nappulat.add(lahettiMustaOikea);
-//        nappulat.add(lahettiMustaVasen);
-//
-//        nappulat.add(hevonenMustaOikea);
-//        nappulat.add(hevonenMustaVasen);
-//        nappulat.add(hevonenValkoinenOikea);
-//        nappulat.add(hevonenValkoinenVasen);
-//
-//        nappulat.add(kuningasMusta);
-//        nappulat.add(kuningasValkoinen);
-//        nappulat.add(kuningatarValkoinen);
-//        nappulat.add(kuningatarMusta);
 
     }
 

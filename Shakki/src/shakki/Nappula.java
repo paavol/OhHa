@@ -32,7 +32,7 @@ public abstract class Nappula {
         return x;
     }
 
-    final boolean valkoinen() {
+    public final boolean valkoinenko() {
         return valkoinenko;
     }
 
@@ -89,12 +89,12 @@ public abstract class Nappula {
      * @param uusiY
      *
      */
-    public boolean onkoSijaintiLaudalla(int uusiX, int uusiY) {
-        if (uusiX >= 0 && uusiX <= 7 && uusiY >= 0 && uusiY <= 7) {
-            return true;
-        }
-        return false;
-    }
+//    public boolean onkoSijaintiLaudalla(int uusiX, int uusiY) {
+//        if (uusiX >= 0 && uusiX <= 7 && uusiY >= 0 && uusiY <= 7) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     public abstract boolean liiku(int uusiX, int uusiY);
 }

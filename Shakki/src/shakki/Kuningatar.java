@@ -31,28 +31,9 @@ public class Kuningatar extends Nappula {
         return "Q ";
     }
 
-//    /**
-//     * Metodi tarkistaa pystyykö nappula liikkumaan annettuihin
-//     * parametreihin.Metodi tarkistaa samalla onko haluttu liike Kuningattaren
-//     * oikeaoppisen liikkumisen mukainen ja onko parametreina annettu
-//     * koordinaatti shakkilaudalla.
-//     *
-//     * @param uusiX
-//     * @param uusiY
-//     *
-//     */
-//    @Override
-//    public boolean voikoNappulaLiikkua(int uusiX, int uusiY) {
-//        if (mahdollinenRuutuLiikkua(uusiX, uusiY) && onkoSijaintiLaudalla(uusiX, uusiY)) {
-//            setKoordinaatit(uusiX, uusiY);
-//            return true;
-//        }
-//        return false;
-//    }
     /**
-     * Kertoo kuningattaren sääntöjen mukaiset liikemahdollisuudet.Metodi
-     * palauttaa aina arvon true, koska Kuningatar pystyy liikkumaan kaikkien
-     * Pelilaudalla määriteltyjen tapojen mukaisesti.
+     * Metodi tarkistaa pystyykö nappula liikkumaan annettuihin parametreihin
+     * Kuningattaran shakkisääntöjen mukaisin liikkein.
      *
      * @param uusiX
      * @param uusiY
@@ -65,7 +46,8 @@ public class Kuningatar extends Nappula {
         if (uusiY != getY() && uusiX != getX() && muutosX == muutosY) {
             return true;
         }
-        if (uusiX == getX() && uusiY != getY()) {
+        if ((uusiX == getX() && uusiY != getY())
+                || (uusiX != getX() && uusiY == getY())) {
             return true;
         }
         return false;

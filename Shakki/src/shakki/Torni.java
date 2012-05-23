@@ -28,7 +28,7 @@ public class Torni extends Nappula {
      *
      */
     /**
-     * Metodi kertoo tornin sääntöjen mukaiset liikkumismahdollisuudet.
+     * Metodi kertoo tornin shakkisääntöjen mukaiset liikkumismahdollisuudet.
      *
      * @param uusiX
      * @param uusiY

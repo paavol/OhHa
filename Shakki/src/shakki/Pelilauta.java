@@ -13,11 +13,11 @@ package shakki;
 public class Pelilauta {
 
     private Ruutu[][] lauta;
-    private NappuloidenLuominen nappulat;
+    private NappulatAlkutilanteessa nappulat;
 
     public Pelilauta() {
         this.lauta = new Ruutu[8][8];
-        this.nappulat = new NappuloidenLuominen();
+        this.nappulat = new NappulatAlkutilanteessa();
 
         luoPelilauta();
     }
@@ -286,11 +286,4 @@ public class Pelilauta {
         }
         return false;
     }
-//
-//    private boolean kulkureitillaEiNappulaa(int uusiX, int uusiY, Nappula nappula) {
-//        if (jokinReittiAvoinna(uusiX, uusiY, nappula)) {
-//            return true;
-//        }
-//        return false;
-//    }
 }

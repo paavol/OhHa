@@ -14,10 +14,10 @@ import shakki.Hevonen;
  */
 public class HevonenTest {
 
-    Hevonen h1;
-    Hevonen h2;
-    Hevonen h3;
-    Hevonen h4;
+    Hevonen vasenMus;
+    Hevonen oikeaMus;
+    Hevonen vasenVal;
+    Hevonen oikeaVal;
     Hevonen hevoshuijari;
 
     public HevonenTest() {
@@ -25,24 +25,11 @@ public class HevonenTest {
 
     @Before
     public void setUp() {
-        h1 = new Hevonen(0, 1, false);
-        h2 = new Hevonen(0, 6, false);
-        h3 = new Hevonen(7, 1, true);
-        h4 = new Hevonen(7, 6, true);
-        hevoshuijari = new Hevonen(-2, 2, false);
-    }
+        vasenMus = new Hevonen(0, 1, false);
+        oikeaMus = new Hevonen(0, 6, false);
+        vasenVal = new Hevonen(7, 1, true);
+        oikeaVal = new Hevonen(7, 6, true);
 
-    @Test
-    public void laudallaOlevaOikein() {
-        assertTrue(h1.getX() == 0 && h1.getY() == 1);
-    }
-
-    /**
-     * Testataan, että peli ei ole hyväksynyt hevoshuijarin negatiivista arvoa.
-     */
-    @Test
-    public void laudallaOlevaVaarin() {
-        assertFalse(hevoshuijari.getX() == 0 && hevoshuijari.getY() == 2);
     }
 
     /**
@@ -50,25 +37,46 @@ public class HevonenTest {
      */
     @Test
     public void liikkuuKutenHevonen() {
-        assertTrue(h1.liiku(2, 2));
-        assertTrue(h2.liiku(2, 7));
-        assertTrue(h3.liiku(5, 0));
-        assertTrue(h4.liiku(5, 5));
+        assertTrue(vasenMus.liiku(2, 2));
+        assertTrue(oikeaMus.liiku(2, 5));
+        assertTrue(vasenVal.liiku(6, 3));
+        assertTrue(oikeaVal.liiku(6, 4));
     }
 
     /**
-     * Yritetään liikuttaa hevosta h2 mahdottomaan ruutuun.
+     * Yritetään liikuttaa hevosta oikeaMus mahdottomaan ruutuun.
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
-        assertFalse(h2.liiku(3, 0));
+        assertFalse(vasenMus.liiku(3, 0));
+        assertFalse(oikeaMus.liiku(2, 4));
+        assertFalse(vasenVal.liiku(6, 4));
+        assertFalse(oikeaVal.liiku(6, 3));
+    }
+
+    @Test
+    public void hevosetOikeissaPaikoissa() {
+        assertTrue(vasenMus.getX() == 0 && vasenMus.getY() == 1);
+        assertTrue(oikeaMus.getX() == 0 && oikeaMus.getY() == 6);
+        assertTrue(vasenVal.getX() == 7 && vasenVal.getY() == 1);
+        assertTrue(oikeaVal.getX() == 7 && oikeaVal.getY() == 6);
+    }
+
+    @Test
+    public void mustaOnMusta() {
+        assertEquals(vasenMus.valkoinenko(), false);
+    }
+
+    @Test
+    public void valkoinenOnValkoinen() {
+        assertEquals(vasenVal.valkoinenko(), true);
     }
 
     /**
      * Tarkistetaan toStringin toimivuus.
      */
     @Test
-    public void palauttaaOikeanMerkin() {
-        assertEquals(h3.toString(), "H ");
+    public void toStringToimiiOikein() {
+        assertEquals(vasenVal.toString(), "H ");
     }
 }
