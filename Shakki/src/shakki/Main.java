@@ -28,9 +28,7 @@ public class Main {
         lauta.liikutaNappulaa(6, 4, 4, 4);
         lauta.liikutaNappulaa(1, 1, 2, 1);
         lauta.liikutaNappulaa(1, 4, 2, 4);
-        
-        lauta.paivitaLauta();
-        lauta.liikutaNappulaa(2, 2, 4, 3);
+                       
         lauta.paivitaLauta();
 
     }
