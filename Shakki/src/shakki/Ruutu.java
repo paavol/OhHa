@@ -44,8 +44,8 @@ public class Ruutu {
         return nappi;
     }
 
-    public boolean onkoRuutuTyhja() {
-        return nappi == null;
+    public void setTyhjaksi() {
+        this.nappi = null;
     }
 
 }

@@ -18,7 +18,8 @@ public class Pelilauta {
     public Pelilauta() {
         this.lauta = new Ruutu[8][8];
         this.nappulat = new NappulatAlkutilanteessa();
-
+        luoRuudutPelilautaan();
+        luoNappulatRuutuihin();
         luoPelilauta();
     }
 
@@ -33,12 +34,12 @@ public class Pelilauta {
      */
     public void liikutaNappulaa(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (lauta[vanhaX][vanhaY].getNappula() != null) {
-            if (lauta[vanhaX][vanhaY].getNappula().liiku(uusiX, uusiY) 
+            if (lauta[vanhaX][vanhaY].getNappula().liiku(uusiX, uusiY)
                     && onkoRuutuLaudalla(lauta[uusiX][uusiY])
                     && kulkureitillaEiNappulaa(uusiX, uusiY, lauta[vanhaX][vanhaY])
-                    && onkoRuutuVapaa(uusiX, uusiY)
-                    ) {
-                lauta[vanhaX][vanhaY].setNappula(lauta[vanhaX][vanhaY].getNappula());
+                    && onkoRuutuVapaa(uusiX, uusiY)) {
+                lauta[uusiX][uusiY].setNappula(lauta[vanhaX][vanhaY].getNappula());
+                lauta[vanhaX][vanhaY].setTyhjaksi();
             }
         }
     }
@@ -94,7 +95,7 @@ public class Pelilauta {
 
     private void luoPelilauta() {
         System.out.println("");
-        luoRuudutPelilautaan();
+        
         for (Ruutu[] rivi : lauta) {
             for (Ruutu ruutu : rivi) {
 

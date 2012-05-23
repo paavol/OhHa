@@ -35,7 +35,7 @@ public class Kuningas extends Nappula {
      *
      */
     /**
-     * Metodi kertoo miten Kuningas pystyy ylipäänsä liikkumaan. Kuninkaan
+     * Metodi kertoo miten Kuningas pystyy ylipäänsä liikkumaan.Kuninkaan
      * liikkeillä on kaikkiaan kahdeksan eri mahdollisuutta, joista vähintään
      * yhden toteutuessa metodi palauttaa true.
      *

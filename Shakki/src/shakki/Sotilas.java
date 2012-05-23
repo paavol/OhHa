@@ -26,6 +26,25 @@ public class Sotilas extends Nappula {
 
     @Override
     public boolean liiku(int uusiX, int uusiY) {
-        return true;
+        if (this.valkoinenko) {
+            if (getX() == 6) {
+                if ((uusiX < getX() && uusiX >= getX() - 2 && uusiY == getY())) {
+                    return true;
+                }
+            } else if ((uusiX == getX() - 1) && uusiY == getY()) {
+                return true;
+            }
+            return false;
+        }
+        if (this.valkoinenko == false) {
+            if (getX() == 1) {
+                if ((uusiX > getX() && uusiX <= getX() + 2 && uusiY == getY())) {
+                    return true;
+                }
+            } else if ((uusiX == getX() + 1) && uusiY == getY()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
