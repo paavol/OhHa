@@ -51,8 +51,11 @@ public class Tekstikayttoliittyma {
             int uusiX = Integer.parseInt(lukija.next());
             System.out.print("y: ");
             int uusiY = Integer.parseInt(lukija.next());
+            
             lauta.liikutaNappulaa(vanhaX, vanhaY, uusiX, uusiY);
+
             lauta.paivitaLauta();
+
 
         }
     }

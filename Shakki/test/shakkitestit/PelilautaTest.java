@@ -18,8 +18,13 @@ public class PelilautaTest {
     Pelilauta pelilauta;
     Kuningas k1;
     Kuningas k2;
+    Sotilas solttu;
+    Hevonen heppa;
     Ruutu ruutu;
     Ruutu ruutu2;
+    Ruutu ruutu3;
+    Ruutu ruutu4;
+    Ruutu ruutu5;
 
     public PelilautaTest() {
     }
@@ -34,12 +39,23 @@ public class PelilautaTest {
         pelilauta = new Pelilauta();
         ruutu = new Ruutu(7, 4);
         ruutu2 = new Ruutu(0, 4);
+        ruutu3 = new Ruutu(1, 0);
+        ruutu4 = new Ruutu(0, 5);
+        ruutu5 = new Ruutu(0, 0);
         pelilauta.asetaRuutuLaudalle(ruutu);
         pelilauta.asetaRuutuLaudalle(ruutu2);
+        pelilauta.asetaRuutuLaudalle(ruutu3);
+        pelilauta.asetaRuutuLaudalle(ruutu4);
+
         k1 = new Kuningas(7, 4, true);
         k2 = new Kuningas(0, 4, false);
+        solttu = new Sotilas(1, 0, true);
+        heppa = new Hevonen(0, 5, true);
         ruutu.setNappula(k1);
         ruutu2.setNappula(k2);
+        ruutu3.setNappula(solttu);
+        ruutu4.setNappula(heppa);
+        ruutu5.setTyhjaksi();
 
     }
 
@@ -52,7 +68,8 @@ public class PelilautaTest {
     }
 
     /**
-     * Testataan onko laudan molempien päiden kuninkaan paikalla Kuningas.
+     * Testataan onko laudan molempien päiden kuninkaan paikalla Kuningas,
+     * getNappulaRuudusta-metodin testausta.
      */
     @Test
     public void kuninkaidenPaikallaSamaNappula() {
@@ -60,7 +77,8 @@ public class PelilautaTest {
     }
 
     /**
-     * Testataan, että pelilaudan keskeltä löytyy null-viitteellisiä ruutuja.
+     * Testataan, että pelilaudan keskeltä löytyy null-viitteellisiä ruutuja,
+     * getNappulaRuudusta-metodin testausta.
      */
     @Test
     public void keskellaTyhjiaRuutuja() {
@@ -86,5 +104,59 @@ public class PelilautaTest {
     @Test
     public void pelilautaEiOleTyhja() {
         assertNotNull(pelilauta);
+    }
+
+    @Test
+    public void muuttuukoSotilas() {
+        try {
+            pelilauta.liikutaNappulaa(1, 0, 0, 0);
+            assertEquals(Kuningatar.class, pelilauta.getNappulaRuudusta(0, 0).getClass());
+        } catch (Exception e) {
+        }
+
+    }
+
+    @Test
+    public void onkoRuutuVapaa() {
+        assertEquals(null, pelilauta.getNappulaRuudusta(5, 5));
+    }
+
+    @Test
+    public void voikoSyoda() {
+        pelilauta.liikutaNappulaa(0, 4, 0, 5);
+        assertEquals(k2, pelilauta.getNappulaRuudusta(0, 5));
+    }
+
+    @Test
+    public void ruutuunEiVoiSiirtya() {
+        pelilauta.liikutaNappulaa(0, 5, 2, 6);
+        pelilauta.liikutaNappulaa(0, 4, 0, 5);
+        Hevonen histamiini = new Hevonen(0, 5, false);
+        ruutu4.setNappula(histamiini);
+        assertEquals(histamiini, pelilauta.getNappulaRuudusta(0, 5));
+    }
+
+    @Test
+    public void siirronJalkeenRuutuVapaa() {
+        pelilauta.liikutaNappulaa(0, 4, 0, 5);
+        assertEquals(null, pelilauta.getNappulaRuudusta(0, 4));
+    }
+
+    @Test
+    public void laudanAlustusToimii() {
+        pelilauta.alustaLauta();
+        assertEquals(Lahetti.class, pelilauta.getNappulaRuudusta(0, 5).getClass());
+    }
+
+    @Test
+    public void hevosetPaikallaan() {
+        pelilauta.alustaLauta();
+        assertEquals(pelilauta.getNappulaRuudusta(0, 1).getClass(), pelilauta.getNappulaRuudusta(0, 6).getClass());
+    }
+
+    @Test
+    public void heppaHaviaaAlustuksenJalkeen() {
+        pelilauta.alustaLauta();
+        assertNotSame(heppa.getClass(), pelilauta.getNappulaRuudusta(0, 5).getClass());
     }
 }

@@ -37,7 +37,22 @@ public class Pelilauta {
      * @return
      */
     public boolean peliKaynnissa() {
+        while (onMatti() == true || onPatti() == true) {
+            return false;
+        }
         return true;
+    }
+
+    public boolean onMatti() {
+        return false;
+    }
+
+    public boolean onShakki() {
+        return false;
+    }
+
+    public boolean onPatti() {
+        return false;
     }
 
     /**
@@ -51,20 +66,28 @@ public class Pelilauta {
      * @param nappula
      */
     public void liikutaNappulaa(int vanhaX, int vanhaY, int uusiX, int uusiY) {
-        Nappula apunappula = lauta[vanhaX][vanhaY].getNappula();
-        if (apunappula != null) {
-            if (apunappula.liiku(uusiX, uusiY)
-                    && onkoRuutuLaudalla(lauta[uusiX][uusiY])
-                    && kulkureitillaEiNappulaa(uusiX, uusiY, lauta[vanhaX][vanhaY])
-                    && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
+        try {
+            if (lauta[vanhaX][vanhaY].getNappula() != null) {
+                Nappula apunappula = lauta[vanhaX][vanhaY].getNappula();
+                if (apunappula.liiku(uusiX, uusiY)
+                        && onkoRuutuLaudalla(lauta[uusiX][uusiY])
+                        && kulkureitillaEiNappulaa(uusiX, uusiY, lauta[vanhaX][vanhaY])
+                        && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
 
-                lauta[uusiX][uusiY].setNappula(apunappula);
-                sotilasMuuttuuKuningattareksi(uusiX, uusiY);
-                apunappula.setKoordinaatit(uusiX, uusiY);
-                lauta[vanhaX][vanhaY].setTyhjaksi();
+                    if (muuttuukoSotilasKuningattareksi(uusiX, uusiY)) {
+                        sotilasMuuttuuKuningattareksi(uusiX, uusiY);
+                    } else {
+                        lauta[uusiX][uusiY].setNappula(apunappula);
+                    }
+                    apunappula.setKoordinaatit(uusiX, uusiY);
+                    lauta[vanhaX][vanhaY].setTyhjaksi();
+                }
+
             }
-
+        } catch (Exception e) {
         }
+
+
     }
 
     /**
@@ -153,6 +176,7 @@ public class Pelilauta {
     private boolean voikoSyoda(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (lauta[vanhaX][vanhaY].getNappula().valkoinenko()
                 != lauta[uusiX][uusiY].getNappula().valkoinenko()) {
+            
             return true;
         }
         return false;
@@ -169,27 +193,30 @@ public class Pelilauta {
     }
 
     private boolean muuttuukoSotilasKuningattareksi(int uusiX, int uusiY) {
-        Nappula apunappula = lauta[uusiX][uusiY].getNappula();
-        if (apunappula.getClass().equals(Sotilas.class)) {
-            if (apunappula.valkoinenko) {
-                if (apunappula.getX() == 0) {
+        try {
+            Nappula apunappula = lauta[uusiX][uusiY].getNappula();
+            if (apunappula.getClass().equals(Sotilas.class)) {
+                if (apunappula.valkoinenko) {
+                    if (apunappula.getX() == 0) {
+                        return true;
+                    }
+                } else if (apunappula.getX() == 7) {
                     return true;
                 }
-            } else if (apunappula.getX() == 7) {
-                return true;
             }
+        } catch (Exception e) {
         }
+
         return false;
     }
 
     private void sotilasMuuttuuKuningattareksi(int uusiX, int uusiY) {
-        if (muuttuukoSotilasKuningattareksi(uusiX, uusiY)) {
-            if (lauta[uusiX][uusiY].getNappula().valkoinenko()) {
-                lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiY, uusiY, true));
-            } else {
-                lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiY, uusiY, false));
-            }
+        if (lauta[uusiX][uusiY].getNappula().valkoinenko()) {
+            lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiX, uusiY, true));
+        } else {
+            lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiX, uusiY, false));
         }
+
     }
 
     private boolean kulkureitillaEiNappulaa(int uusiX, int uusiY, Ruutu ruutu) {
