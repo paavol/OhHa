@@ -4,6 +4,8 @@
  */
 package shakki;
 
+import java.util.List;
+
 /**
  * Pelilauta on logiikkaosion tärkein luokka, jossa tapahtuu kaikki nappuloiden
  * hallinnointi ja laudalla liikkuminen.
@@ -27,7 +29,11 @@ public class Pelilauta {
     public void alustaLauta() {
         luoRuudutPelilautaan();
         luoNappulatRuutuihin();
-        luoPelilauta();
+        System.out.println("pöö");
+    }
+
+    public Ruutu[][] getLauta() {
+        return lauta;
     }
 
     /**
@@ -65,15 +71,16 @@ public class Pelilauta {
      * @param uusiY
      * @param nappula
      */
-    public void liikutaNappulaa(int vanhaX, int vanhaY, int uusiX, int uusiY) {
+    public boolean liikutaNappulaa(int vanhaX, int vanhaY, int uusiX, int uusiY, boolean valkoisenVuoro) {
         try {
             if (lauta[vanhaX][vanhaY].getNappula() != null) {
                 Nappula apunappula = lauta[vanhaX][vanhaY].getNappula();
+                if (apunappula.valkoinenko() != valkoisenVuoro) {
+                    return false;
+                }
                 if (apunappula.voikoLiikkua(uusiX, uusiY)
-                        && onkoRuutuLaudalla(lauta[uusiX][uusiY])
-                        && kulkureitillaEiNappulaa(uusiX, uusiY, lauta[vanhaX][vanhaY])
+                        && kulkureitillaEiNappulaa(apunappula, uusiX, uusiY)
                         && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
-
                     if (muuttuukoSotilasKuningattareksi(uusiX, uusiY)) {
                         sotilasMuuttuuKuningattareksi(uusiX, uusiY);
                     } else {
@@ -82,9 +89,12 @@ public class Pelilauta {
                     apunappula.setKoordinaatit(uusiX, uusiY);
                     lauta[vanhaX][vanhaY].setTyhjaksi();
                 }
-
+            } else {
+                return false;
             }
+            return true;
         } catch (Exception e) {
+            return false;
         }
 
 
@@ -108,10 +118,9 @@ public class Pelilauta {
     /**
      * Luo uuden kuvan pelilaudan tilanteesta.
      */
-    public void paivitaLauta() {
-        luoPelilauta();
-    }
-
+//    public void paivitaLauta() {
+//        luoPelilauta();
+//    }
     /**
      * Asettaa laudalle paikkaan x,y ruudun koordinaateilla x,y.
      *
@@ -141,23 +150,23 @@ public class Pelilauta {
         }
 
     }
-
-    private void luoPelilauta() {
-        System.out.println("");
-
-        for (Ruutu[] rivi : lauta) {
-            for (Ruutu ruutu : rivi) {
-                if (ruutu.getNappula() != null) {
-                    System.out.print(ruutu.getNappula());
-                }
-                if (ruutu.getNappula() == null) {
-                    System.out.print("_ ");
-                }
-            }
-            System.out.println("");
-        }
-        System.out.println("");
-    }
+//
+//    private void luoPelilauta() {
+//        System.out.println("");
+//
+//        for (Ruutu[] rivi : lauta) {
+//            for (Ruutu ruutu : rivi) {
+//                if (ruutu.getNappula() != null) {
+//                    System.out.print(ruutu.getNappula());
+//                }
+//                if (ruutu.getNappula() == null) {
+//                    System.out.print("_ ");
+//                }
+//            }
+//            System.out.println("");
+//        }
+//        System.out.println("");
+//    }
 
     private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (onkoRuutuVapaa(uusiX, uusiY) || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY)) {
@@ -176,21 +185,21 @@ public class Pelilauta {
     private boolean voikoSyoda(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (lauta[vanhaX][vanhaY].getNappula().valkoinenko()
                 != lauta[uusiX][uusiY].getNappula().valkoinenko()) {
-            
             return true;
         }
         return false;
     }
-
-    private boolean onkoRuutuLaudalla(Ruutu ruutu) {
-        if (ruutu == null) {
-            return false;
-        }
-        if (ruutu.getX() > 7 || ruutu.getX() < 0 || ruutu.getY() > 7 || ruutu.getY() < 0) {
-            return false;
-        }
-        return true;
-    }
+//
+//    private boolean onkoRuutuLaudalla(Ruutu ruutu) {
+//
+//        if (ruutu == null) {
+//            return false;
+//        }
+//        if (ruutu.getX() > 7 || ruutu.getX() < 0 || ruutu.getY() > 7 || ruutu.getY() < 0) {
+//            return false;
+//        }
+//        return true;
+//    }
 
     private boolean muuttuukoSotilasKuningattareksi(int uusiX, int uusiY) {
         try {
@@ -216,21 +225,17 @@ public class Pelilauta {
         } else {
             lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiX, uusiY, false));
         }
-
     }
 
-    private boolean kulkureitillaEiNappulaa(int uusiX, int uusiY, Ruutu ruutu) {
+    private boolean kulkureitillaEiNappulaa(Nappula nappula, int x, int y) {
+        List<int[]> reitti = nappula.reitillaEiNappuloita(x, y);
+        for (int[] koordinaatit : reitti) {
 
+            if (lauta[ (koordinaatit[ 0])][ (koordinaatit[ 1])].getNappula() != null) {
+                return false;
+            }
+        }
         return true;
-//        return liikkuminenOikealle(uusiX, uusiY, ruutu)
-//                || liikkuminenVasemmalle(uusiX, uusiY, ruutu)
-//                || liikkuminenAlas(uusiX, uusiY, ruutu)
-//                || liikkuminenYlos(uusiX, uusiY, ruutu)
-//                || liikkuminenAlaoikealle(uusiX, uusiY, ruutu)
-//                || liikkuminenAlavasemmalle(uusiX, uusiY, ruutu)
-//                || liikkuminenYlavasemmalle(uusiX, uusiY, ruutu)
-//                || liikkuminenYlaoikealle(uusiX, uusiY, ruutu)
-//                || hevosenLiikkuminen(ruutu);
     }
 
     private boolean liikkuminenAlas(int uusiX, int uusiY, Ruutu ruutu) {

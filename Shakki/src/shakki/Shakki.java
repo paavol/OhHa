@@ -7,19 +7,17 @@ package shakki;
 import Kayttoliittyma.Tekstikayttoliittyma;
 
 /**
- * Main-luokka luo uuden pelilaudan ja käyttöliittymän, sekä käynnistää pelin.
+ * Shakki-luokka luo uuden pelilaudan ja käyttöliittymän, sekä käynnistää pelin.
  *
  * @author paavolyy
  */
-public class Main {
+public class Shakki {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Pelilauta lauta = new Pelilauta();
-        Tekstikayttoliittyma teksti = new Tekstikayttoliittyma(lauta);
-        teksti.kaynnista();
-
+        Peli peli = new Peli();
+        peli.kaynnista();
     }
 }

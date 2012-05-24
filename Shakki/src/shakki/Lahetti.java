@@ -4,6 +4,9 @@
  */
 package shakki;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
  * shakkinappulan erikoistoiminnot.
@@ -46,4 +49,28 @@ public class Lahetti extends Nappula {
         }
         return false;
     }
+
+    @Override
+    public List<int[]> reitillaEiNappuloita(int x, int y) {
+        int xx = getX();
+        int yy = getY();
+        List<int[]> reitti = new ArrayList<int[]>();
+        while (xx != x && yy != y) {
+            if (xx < x) {
+                ++xx;
+            } else {
+                --xx;
+            }
+            if (yy < y) {
+                ++yy;
+            } else {
+                --yy;
+            }
+
+            reitti.add(new int[]{xx, yy});
+        }
+        reitti.remove(reitti.size());
+        return reitti;
+    }
+
 }

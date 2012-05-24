@@ -4,6 +4,8 @@
  */
 package shakki;
 
+import java.util.List;
+
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
  * shakkinappulan erikoistoiminnot.
@@ -52,5 +54,10 @@ public class Kuningatar extends Nappula {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<int[]> reitillaEiNappuloita(int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

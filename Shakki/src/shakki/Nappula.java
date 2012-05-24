@@ -4,6 +4,8 @@
  */
 package shakki;
 
+import java.util.List;
+
 /**
  * Nappula on abstrakti luokka, jonka kaikki shakkinappulaluokat perivät.
  * Nappulalla on olemassa myös abstrakteja metodeja.
@@ -89,4 +91,6 @@ public abstract class Nappula {
      * @return
      */
     public abstract boolean voikoLiikkua(int uusiX, int uusiY);
+
+    public abstract List<int[]> reitillaEiNappuloita(int x, int y);
 }

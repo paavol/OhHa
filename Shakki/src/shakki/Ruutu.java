@@ -74,4 +74,5 @@ public class Ruutu {
     public void setTyhjaksi() {
         this.nappi = null;
     }
+ 
 }

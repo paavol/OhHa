@@ -4,6 +4,8 @@
  */
 package shakki;
 
+import java.util.List;
+
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
  * shakkinappulan erikoistoiminnot.
@@ -18,7 +20,7 @@ public class Kuningas extends Nappula {
      *
      * @param x
      * @param y
-     * @param valkoinenko 
+     * @param valkoinenko
      */
     public Kuningas(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
@@ -58,5 +60,10 @@ public class Kuningas extends Nappula {
     @Override
     public String toString() {
         return "K ";
+    }
+
+    @Override
+    public List<int[]> reitillaEiNappuloita(int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
