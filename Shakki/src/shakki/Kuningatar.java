@@ -41,7 +41,7 @@ public class Kuningatar extends Nappula {
      *
      */
     @Override
-    public boolean liiku(int uusiX, int uusiY) {
+    public boolean voikoLiikkua(int uusiX, int uusiY) {
         int muutosX = Math.abs(uusiX - getX());
         int muutosY = Math.abs(uusiY - getY());
         if (uusiY != getY() && uusiX != getX() && muutosX == muutosY) {

@@ -88,5 +88,5 @@ public abstract class Nappula {
      * @param uusiY
      * @return
      */
-    public abstract boolean liiku(int uusiX, int uusiY);
+    public abstract boolean voikoLiikkua(int uusiX, int uusiY);
 }

@@ -69,7 +69,7 @@ public class Pelilauta {
         try {
             if (lauta[vanhaX][vanhaY].getNappula() != null) {
                 Nappula apunappula = lauta[vanhaX][vanhaY].getNappula();
-                if (apunappula.liiku(uusiX, uusiY)
+                if (apunappula.voikoLiikkua(uusiX, uusiY)
                         && onkoRuutuLaudalla(lauta[uusiX][uusiY])
                         && kulkureitillaEiNappulaa(uusiX, uusiY, lauta[vanhaX][vanhaY])
                         && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {

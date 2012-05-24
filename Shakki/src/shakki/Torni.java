@@ -42,7 +42,7 @@ public class Torni extends Nappula {
      *
      */
     @Override
-    public boolean liiku(int uusiX, int uusiY) {
+    public boolean voikoLiikkua(int uusiX, int uusiY) {
         if ((uusiX == getX() && uusiY >= 0 && uusiY != getY())
                 || ((uusiX >= 0 && uusiX != getX() && uusiY == getY()))) {
             return true;

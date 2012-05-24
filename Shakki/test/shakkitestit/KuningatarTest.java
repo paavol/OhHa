@@ -48,17 +48,17 @@ public class KuningatarTest {
      */
     @Test
     public void liikkuuKutenKuningatar() {
-        assertTrue(m.liiku(6, 3));
-        assertTrue(v.liiku(4, 0));
+        assertTrue(m.voikoLiikkua(6, 3));
+        assertTrue(v.voikoLiikkua(4, 0));
     }
 
     /**
-     * Testataan, ettei kuningattaret liiku shakkisääntöjen vastaisesti.
+     * Testataan, ettei kuningattaret voikoLiikkua shakkisääntöjen vastaisesti.
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
-        assertFalse(v.liiku(1, 4));
-        assertFalse(m.liiku(4, 0));
+        assertFalse(v.voikoLiikkua(1, 4));
+        assertFalse(m.voikoLiikkua(4, 0));
     }
 
     /**

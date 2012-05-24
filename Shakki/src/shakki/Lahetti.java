@@ -37,7 +37,7 @@ public class Lahetti extends Nappula {
      * @return
      */
     @Override
-    public boolean liiku(int uusiX, int uusiY) {
+    public boolean voikoLiikkua(int uusiX, int uusiY) {
         int muutosX = Math.abs(uusiX - getX());
         int muutosY = Math.abs(uusiY - getY());
 

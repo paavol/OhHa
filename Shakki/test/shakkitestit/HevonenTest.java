@@ -42,10 +42,10 @@ public class HevonenTest {
      */
     @Test
     public void liikkuuKutenHevonen() {
-        assertTrue(vasenMus.liiku(2, 2));
-        assertTrue(oikeaMus.liiku(2, 5));
-        assertTrue(vasenVal.liiku(6, 3));
-        assertTrue(oikeaVal.liiku(6, 4));
+        assertTrue(vasenMus.voikoLiikkua(2, 2));
+        assertTrue(oikeaMus.voikoLiikkua(2, 5));
+        assertTrue(vasenVal.voikoLiikkua(6, 3));
+        assertTrue(oikeaVal.voikoLiikkua(6, 4));
     }
 
     /**
@@ -53,10 +53,10 @@ public class HevonenTest {
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
-        assertFalse(vasenMus.liiku(3, 0));
-        assertFalse(oikeaMus.liiku(2, 4));
-        assertFalse(vasenVal.liiku(6, 4));
-        assertFalse(oikeaVal.liiku(6, 3));
+        assertFalse(vasenMus.voikoLiikkua(3, 0));
+        assertFalse(oikeaMus.voikoLiikkua(2, 4));
+        assertFalse(vasenVal.voikoLiikkua(6, 4));
+        assertFalse(oikeaVal.voikoLiikkua(6, 3));
     }
 
     /**

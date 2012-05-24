@@ -45,10 +45,10 @@ public class KuningasTest {
      */
     @Test
     public void liikkuuKutenKuningas() {
-        assertTrue(m.liiku(1, 4));
-        assertTrue(m.liiku(1, 5));
-        assertTrue(v.liiku(6, 3));
-        assertTrue(v.liiku(6, 4));
+        assertTrue(m.voikoLiikkua(1, 4));
+        assertTrue(m.voikoLiikkua(1, 5));
+        assertTrue(v.voikoLiikkua(6, 3));
+        assertTrue(v.voikoLiikkua(6, 4));
     }
 
     /**
@@ -56,8 +56,8 @@ public class KuningasTest {
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
-        assertFalse(m.liiku(3, 0));
-        assertFalse(v.liiku(6, 2));
+        assertFalse(m.voikoLiikkua(3, 0));
+        assertFalse(v.voikoLiikkua(6, 2));
     }
 
     /**

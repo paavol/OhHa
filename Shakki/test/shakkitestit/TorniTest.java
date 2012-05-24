@@ -52,10 +52,10 @@ public class TorniTest {
      */
     @Test
     public void liikkuuKutenTorni() {
-        assertTrue(vasenMus.liiku(3, 0));
-        assertTrue(oikeaMus.liiku(0, 2));
-        assertTrue(vasenVal.liiku(7, 4));
-        assertTrue(oikeaVal.liiku(2, 7));
+        assertTrue(vasenMus.voikoLiikkua(3, 0));
+        assertTrue(oikeaMus.voikoLiikkua(0, 2));
+        assertTrue(vasenVal.voikoLiikkua(7, 4));
+        assertTrue(oikeaVal.voikoLiikkua(2, 7));
 
     }
 
@@ -64,10 +64,10 @@ public class TorniTest {
      */
     @Test
     public void yrittaaLiikkuaVaarin() {
-        assertFalse(vasenMus.liiku(3, 1));
-        assertFalse(oikeaMus.liiku(1, 2));
-        assertFalse(vasenVal.liiku(6, 4));
-        assertFalse(oikeaVal.liiku(2, 6));
+        assertFalse(vasenMus.voikoLiikkua(3, 1));
+        assertFalse(oikeaMus.voikoLiikkua(1, 2));
+        assertFalse(vasenVal.voikoLiikkua(6, 4));
+        assertFalse(oikeaVal.voikoLiikkua(2, 6));
     }
 
     /**

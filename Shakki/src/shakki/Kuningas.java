@@ -34,7 +34,7 @@ public class Kuningas extends Nappula {
      *
      */
     @Override
-    public boolean liiku(int uusiX, int uusiY) {
+    public boolean voikoLiikkua(int uusiX, int uusiY) {
 
         if (uusiX == getX() + 1 && uusiY == getY()
                 || uusiX == getX() + 1 && uusiY == getY() - 1

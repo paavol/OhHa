@@ -36,8 +36,8 @@ public class SotilasTest {
      */
     @Test
     public void liikkuuKutenEhtaSotilas() {
-        assertTrue(s1m.liiku(3, 4));
-        assertTrue(s1v.liiku(5, 5));
+        assertTrue(s1m.voikoLiikkua(3, 4));
+        assertTrue(s1v.voikoLiikkua(5, 5));
         /**
          * Testataan, ettei sotilaat yritä liikkua shakkisääntöjen vastaisesti.
          */
@@ -45,8 +45,8 @@ public class SotilasTest {
 
     @Test
     public void yrittaaLiikkuaVaarin() {
-        assertFalse(s1m.liiku(4, 4));
-        assertFalse(s1v.liiku(4, 6));
+        assertFalse(s1m.voikoLiikkua(4, 4));
+        assertFalse(s1v.voikoLiikkua(4, 6));
     }
 
     /**

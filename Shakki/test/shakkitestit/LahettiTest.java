@@ -51,10 +51,10 @@ public class LahettiTest {
      */
     @Test
     public void liikkuuKutenLahetti() {
-        assertTrue(vasenMus.liiku(2, 4));
-        assertTrue(oikeaMus.liiku(5, 0));
-        assertTrue(vasenVal.liiku(4, 5));
-        assertTrue(oikeaVal.liiku(3, 1));
+        assertTrue(vasenMus.voikoLiikkua(2, 4));
+        assertTrue(oikeaMus.voikoLiikkua(5, 0));
+        assertTrue(vasenVal.voikoLiikkua(4, 5));
+        assertTrue(oikeaVal.voikoLiikkua(3, 1));
 
     }
 
@@ -64,10 +64,10 @@ public class LahettiTest {
     @Test
     public void yrittaaLiikkuaVaarin() {
 
-        assertFalse(vasenMus.liiku(3, 4));
-        assertFalse(oikeaMus.liiku(4, 0));
-        assertFalse(vasenVal.liiku(4, 4));
-        assertFalse(oikeaVal.liiku(3, 2));
+        assertFalse(vasenMus.voikoLiikkua(3, 4));
+        assertFalse(oikeaMus.voikoLiikkua(4, 0));
+        assertFalse(vasenVal.voikoLiikkua(4, 4));
+        assertFalse(oikeaVal.voikoLiikkua(3, 2));
     }
 
     /**

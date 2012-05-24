@@ -43,7 +43,7 @@ public class Sotilas extends Nappula {
      * @return
      */
     @Override
-    public boolean liiku(int uusiX, int uusiY) {
+    public boolean voikoLiikkua(int uusiX, int uusiY) {
         if (this.valkoinenko) {
             if (getX() == 6) {
                 if ((uusiX < getX() && uusiX >= getX() - 2 && uusiY == getY())) {
