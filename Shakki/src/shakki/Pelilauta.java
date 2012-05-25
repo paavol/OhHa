@@ -54,19 +54,15 @@ public class Pelilauta {
                 if (apunappula.voikoLiikkua(uusiX, uusiY)
                         && kulkureitillaEiNappulaa(apunappula, uusiX, uusiY)
                         && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
-                    System.out.println("liikuminen onnistuisi");
-//                    if (muuttuukoSotilasKuningattareksi(uusiX, uusiY)) {
-//                        sotilasMuuttuuKuningattareksi(uusiX, uusiY);
-//                    } else 
-                    {
-                        lauta[uusiX][uusiY].setNappula(apunappula);
-                    }
                     apunappula.setKoordinaatit(uusiX, uusiY);
+                    lauta[uusiX][uusiY].setNappula(apunappula);
+
                     lauta[vanhaX][vanhaY].setTyhjaksi();
                 }
             } else {
                 return false;
             }
+            System.out.println("toka");
             return true;
         } catch (Exception e) {
             return false;
