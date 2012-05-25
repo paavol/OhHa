@@ -48,13 +48,10 @@ public class Sotilas extends Nappula {
     public boolean valkoisenLiikkuminen(int uusiX, int uusiY) {
         if (this.valkoinenko) {
             if (getX() == 6) {
-                if ((uusiX < getX() && uusiX >= getX() - 2 && uusiY == getY())) {
-                    return true;
-                }
-            } else if ((uusiX == getX() - 1) && uusiY == getY()) {
+                return (liikkuuKaksiYlos(uusiX, uusiY) || liikkuuYhdenYlos(uusiX, uusiY));
+            } else if (liikkuuYhdenYlos(uusiX, uusiY)) {
                 return true;
             }
-
         }
         return false;
     }
@@ -62,10 +59,8 @@ public class Sotilas extends Nappula {
     public boolean mustanLiikkuminen(int uusiX, int uusiY) {
         if (this.valkoinenko == false) {
             if (getX() == 1) {
-                if ((uusiX > getX() && uusiX <= getX() + 2 && uusiY == getY())) {
-                    return true;
-                }
-            } else if ((uusiX == getX() + 1) && uusiY == getY()) {
+                return (liikkuuKaksiAlas(uusiX, uusiY) || liikkuuYhdenAlas(uusiX, uusiY));
+            } else if (liikkuuYhdenAlas(uusiX, uusiY)) {
                 return true;
             }
         }
@@ -80,24 +75,38 @@ public class Sotilas extends Nappula {
         return false;
     }
 
+    private boolean liikkuuYhdenYlos(int uusiX, int uusiY) {
+        return ((uusiX == getX() - 1) && uusiY == getY());
+    }
+
+    private boolean liikkuuKaksiYlos(int uusiX, int uusiY) {
+        return ((uusiX == getX() - 2) && uusiY == getY());
+    }
+
+    private boolean liikkuuYhdenAlas(int uusiX, int uusiY) {
+        return ((uusiX == getX() + 1) && uusiY == getY());
+    }
+
+    private boolean liikkuuKaksiAlas(int uusiX, int uusiY) {
+        return ((uusiX == getX() + 2) && uusiY == getY());
+    }
+
     @Override
-    public List<int[]> reitillaEiNappuloita(int x, int y) {
-        int xx = getX();
-        int yy = getY();
+    public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
+
+        int vanhaX = getX();
+        int vanhaY = getY();
+        if (Math.abs(uusiX - vanhaX) < 2) {
+            return new ArrayList<int[]>();
+        }
         List<int[]> reitti = new ArrayList<int[]>();
 
-        if (valkoisenLiikkuminen(x, y)) {
-            while (xx > x && yy == y) {
-                --xx;
-                reitti.add(new int[]{xx, yy});
-            }
-        } else {
-            while (xx < x && yy == y) {
-                ++xx;
-                reitti.add(new int[]{xx, yy});
-            }
+        if (uusiX < vanhaX) {
+            reitti.add(new int[]{vanhaX - 1, vanhaY});
+
+        } else if (uusiX > vanhaX) {
+            reitti.add(new int[]{vanhaX + 1, vanhaY});
         }
-        reitti.remove(reitti.size());
         return reitti;
     }
 }

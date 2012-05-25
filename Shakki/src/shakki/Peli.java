@@ -24,14 +24,13 @@ public class Peli {
         kayttoliittyma.piirraLauta(lauta.getLauta(), valkoisenVuoro);
 
         while (lauta.peliKaynnissa()) {
-            int[] xyxy;
+            int[] siirronKoordinaatit;
             do {
-                xyxy = kayttoliittyma.siirto();
-            } while (!(lauta.liikutaNappulaa(xyxy[ 0], xyxy[ 1], xyxy[ 2], xyxy[ 3], valkoisenVuoro)));
+                siirronKoordinaatit = kayttoliittyma.siirto();
+            } while (!(lauta.liikutaNappulaa(siirronKoordinaatit[ 0], siirronKoordinaatit[ 1],
+                    siirronKoordinaatit[ 2], siirronKoordinaatit[ 3], valkoisenVuoro)));
             valkoisenVuoro = !valkoisenVuoro;
             kayttoliittyma.piirraLauta(lauta.getLauta(), valkoisenVuoro);
-
-
         }
     }
 }

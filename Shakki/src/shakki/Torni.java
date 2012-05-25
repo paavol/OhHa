@@ -54,7 +54,7 @@ public class Torni extends Nappula {
     }
 
     @Override
-    public List<int[]> reitillaEiNappuloita(int x, int y) {
+    public List<int[]> tallennaReittiTaulukkoon(int x, int y) {
         int xx = getX();
         int yy = getY();
         List<int[]> reitti = new ArrayList<int[]>();

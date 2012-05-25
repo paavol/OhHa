@@ -113,7 +113,6 @@ public class PelilautaTest {
             assertEquals(Kuningatar.class, pelilauta.getNappulaRuudusta(0, 0).getClass());
         } catch (Exception e) {
         }
-
     }
 
     @Test

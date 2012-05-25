@@ -51,25 +51,25 @@ public class Lahetti extends Nappula {
     }
 
     @Override
-    public List<int[]> reitillaEiNappuloita(int x, int y) {
-        int xx = getX();
-        int yy = getY();
+    public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
+        int vanhaX = getX();
+        int vanhaY = getY();
         List<int[]> reitti = new ArrayList<int[]>();
-        while (xx != x && yy != y) {
-            if (xx < x) {
-                ++xx;
+        while (vanhaX != uusiX && vanhaY != uusiY) {
+            if (vanhaX < uusiX) {
+                ++vanhaX;
             } else {
-                --xx;
+                --vanhaX;
             }
-            if (yy < y) {
-                ++yy;
+            if (vanhaY < uusiY) {
+                ++vanhaY;
             } else {
-                --yy;
+                --vanhaY;
             }
 
-            reitti.add(new int[]{xx, yy});
+            reitti.add(new int[]{vanhaX, vanhaY});
         }
-        reitti.remove(reitti.size());
+       
         return reitti;
     }
 }

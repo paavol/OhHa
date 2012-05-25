@@ -92,5 +92,5 @@ public abstract class Nappula {
      */
     public abstract boolean voikoLiikkua(int uusiX, int uusiY);
 
-    public abstract List<int[]> reitillaEiNappuloita(int x, int y);
+    public abstract List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY);
 }

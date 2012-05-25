@@ -20,7 +20,6 @@ public class Pelilauta {
     public Pelilauta() {
         this.lauta = new Ruutu[8][8];
         this.nappulat = new NappulatAlkutilanteessa();
-
     }
 
     /**
@@ -33,31 +32,6 @@ public class Pelilauta {
 
     public Ruutu[][] getLauta() {
         return lauta;
-    }
-
-    /**
-     * Peli on käynnissä metodin ollessa true.Saa arvokseen false, kun peli
-     * loppuu.
-     *
-     * @return
-     */
-    public boolean peliKaynnissa() {
-        while (onMatti() == true || onPatti() == true) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean onMatti() {
-        return false;
-    }
-
-    public boolean onShakki() {
-        return false;
-    }
-
-    public boolean onPatti() {
-        return false;
     }
 
     /**
@@ -80,9 +54,11 @@ public class Pelilauta {
                 if (apunappula.voikoLiikkua(uusiX, uusiY)
                         && kulkureitillaEiNappulaa(apunappula, uusiX, uusiY)
                         && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
-                    if (muuttuukoSotilasKuningattareksi(uusiX, uusiY)) {
-                        sotilasMuuttuuKuningattareksi(uusiX, uusiY);
-                    } else {
+                    System.out.println("liikuminen onnistuisi");
+//                    if (muuttuukoSotilasKuningattareksi(uusiX, uusiY)) {
+//                        sotilasMuuttuuKuningattareksi(uusiX, uusiY);
+//                    } else 
+                    {
                         lauta[uusiX][uusiY].setNappula(apunappula);
                     }
                     apunappula.setKoordinaatit(uusiX, uusiY);
@@ -142,6 +118,47 @@ public class Pelilauta {
 
     }
 
+    private boolean muuttuukoSotilasKuningattareksi(int uusiX, int uusiY) {
+        Nappula apunappula = lauta[uusiX][uusiY].getNappula();
+        if (apunappula.getClass().equals(Sotilas.class)) {
+            if (apunappula.valkoinenko) {
+                if (apunappula.getX() == 0) {
+                    return true;
+                }
+            } else if (apunappula.getX() == 7) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void sotilasMuuttuuKuningattareksi(int uusiX, int uusiY) {
+        if (lauta[uusiX][uusiY].getNappula().valkoinenko()) {
+            lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiX, uusiY, true));
+        } else {
+            lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiX, uusiY, false));
+        }
+    }
+
+    private boolean kulkureitillaEiNappulaa(Nappula nappula, int x, int y) {
+        List<int[]> reitti = nappula.tallennaReittiTaulukkoon(x, y);
+        for (int[] koordinaatit : reitti) {
+
+            if (lauta[ (koordinaatit[ 0])][ (koordinaatit[ 1])].getNappula() != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean voikoTornittaa() {
+        return true;
+    }
+
+    private boolean voikoOhittaa() {
+        return true;
+    }
+
     private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (onkoRuutuVapaa(uusiX, uusiY) || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY)) {
             return true;
@@ -164,40 +181,28 @@ public class Pelilauta {
         return false;
     }
 
-    private boolean muuttuukoSotilasKuningattareksi(int uusiX, int uusiY) {
-        try {
-            Nappula apunappula = lauta[uusiX][uusiY].getNappula();
-            if (apunappula.getClass().equals(Sotilas.class)) {
-                if (apunappula.valkoinenko) {
-                    if (apunappula.getX() == 0) {
-                        return true;
-                    }
-                } else if (apunappula.getX() == 7) {
-                    return true;
-                }
-            }
-        } catch (Exception e) {
+    /**
+     * Peli on käynnissä metodin ollessa true.Saa arvokseen false, kun peli
+     * loppuu.
+     *
+     * @return
+     */
+    public boolean peliKaynnissa() {
+        while (onMatti() == true || onPatti() == true) {
+            return false;
         }
+        return true;
+    }
 
+    public boolean onMatti() {
         return false;
     }
 
-    private void sotilasMuuttuuKuningattareksi(int uusiX, int uusiY) {
-        if (lauta[uusiX][uusiY].getNappula().valkoinenko()) {
-            lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiX, uusiY, true));
-        } else {
-            lauta[uusiX][uusiY].setNappula(new Kuningatar(uusiX, uusiY, false));
-        }
+    public boolean onShakki() {
+        return false;
     }
 
-    private boolean kulkureitillaEiNappulaa(Nappula nappula, int x, int y) {
-        List<int[]> reitti = nappula.reitillaEiNappuloita(x, y);
-        for (int[] koordinaatit : reitti) {
-
-            if (lauta[ (koordinaatit[ 0])][ (koordinaatit[ 1])].getNappula() != null) {
-                return false;
-            }
-        }
-        return true;
+    public boolean onPatti() {
+        return false;
     }
 }
