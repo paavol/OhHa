@@ -94,7 +94,7 @@ public class PelilautaTest {
     @Test
     public void nappulaLiikkuuLaudalla() {
 
-        pelilauta.liikutaNappulaa(k1.getX(), k1.getY(), 6, 4);
+        pelilauta.liikutaNappulaa(k1.getX(), k1.getY(), 6, 4,true);
     }
 
     /**
@@ -109,7 +109,7 @@ public class PelilautaTest {
     @Test
     public void muuttuukoSotilas() {
         try {
-            pelilauta.liikutaNappulaa(1, 0, 0, 0);
+            pelilauta.liikutaNappulaa(1, 0, 0, 0,true);
             assertEquals(Kuningatar.class, pelilauta.getNappulaRuudusta(0, 0).getClass());
         } catch (Exception e) {
         }
@@ -123,14 +123,14 @@ public class PelilautaTest {
 
     @Test
     public void voikoSyoda() {
-        pelilauta.liikutaNappulaa(0, 4, 0, 5);
+        pelilauta.liikutaNappulaa(0, 4, 0, 5,false);
         assertEquals(k2, pelilauta.getNappulaRuudusta(0, 5));
     }
 
     @Test
     public void ruutuunEiVoiSiirtya() {
-        pelilauta.liikutaNappulaa(0, 5, 2, 6);
-        pelilauta.liikutaNappulaa(0, 4, 0, 5);
+        pelilauta.liikutaNappulaa(0, 5, 2, 6,true);
+        pelilauta.liikutaNappulaa(0, 4, 0, 5,false);
         Hevonen histamiini = new Hevonen(0, 5, false);
         ruutu4.setNappula(histamiini);
         assertEquals(histamiini, pelilauta.getNappulaRuudusta(0, 5));
@@ -138,7 +138,7 @@ public class PelilautaTest {
 
     @Test
     public void siirronJalkeenRuutuVapaa() {
-        pelilauta.liikutaNappulaa(0, 4, 0, 5);
+        pelilauta.liikutaNappulaa(0, 4, 0, 5,false);
         assertEquals(null, pelilauta.getNappulaRuudusta(0, 4));
     }
 

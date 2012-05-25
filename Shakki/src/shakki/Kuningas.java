@@ -4,6 +4,7 @@
  */
 package shakki;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +65,6 @@ public class Kuningas extends Nappula {
 
     @Override
     public List<int[]> reitillaEiNappuloita(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new ArrayList<int[]>();
     }
 }

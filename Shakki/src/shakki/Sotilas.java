@@ -4,6 +4,7 @@
  */
 package shakki;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,8 +45,7 @@ public class Sotilas extends Nappula {
      * @param uusiY
      * @return
      */
-    @Override
-    public boolean voikoLiikkua(int uusiX, int uusiY) {
+    public boolean valkoisenLiikkuminen(int uusiX, int uusiY) {
         if (this.valkoinenko) {
             if (getX() == 6) {
                 if ((uusiX < getX() && uusiX >= getX() - 2 && uusiY == getY())) {
@@ -54,8 +54,12 @@ public class Sotilas extends Nappula {
             } else if ((uusiX == getX() - 1) && uusiY == getY()) {
                 return true;
             }
-            return false;
+
         }
+        return false;
+    }
+
+    public boolean mustanLiikkuminen(int uusiX, int uusiY) {
         if (this.valkoinenko == false) {
             if (getX() == 1) {
                 if ((uusiX > getX() && uusiX <= getX() + 2 && uusiY == getY())) {
@@ -69,8 +73,31 @@ public class Sotilas extends Nappula {
     }
 
     @Override
-    public List<int[]> reitillaEiNappuloita(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public boolean voikoLiikkua(int uusiX, int uusiY) {
+        if (valkoisenLiikkuminen(uusiX, uusiY) || mustanLiikkuminen(uusiX, uusiY)) {
+            return true;
+        }
+        return false;
     }
 
+    @Override
+    public List<int[]> reitillaEiNappuloita(int x, int y) {
+        int xx = getX();
+        int yy = getY();
+        List<int[]> reitti = new ArrayList<int[]>();
+
+        if (valkoisenLiikkuminen(x, y)) {
+            while (xx > x && yy == y) {
+                --xx;
+                reitti.add(new int[]{xx, yy});
+            }
+        } else {
+            while (xx < x && yy == y) {
+                ++xx;
+                reitti.add(new int[]{xx, yy});
+            }
+        }
+        reitti.remove(reitti.size());
+        return reitti;
+    }
 }

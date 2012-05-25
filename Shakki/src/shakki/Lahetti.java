@@ -72,5 +72,4 @@ public class Lahetti extends Nappula {
         reitti.remove(reitti.size());
         return reitti;
     }
-
 }

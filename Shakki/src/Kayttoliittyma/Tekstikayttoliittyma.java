@@ -36,7 +36,7 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
         } else {
             System.out.println("MUSTAN VUORO");
         }
-
+        System.out.println("");
         for (Ruutu[] rivi : lauta) {
             for (Ruutu ruutu : rivi) {
                 if (ruutu.getNappula() != null) {

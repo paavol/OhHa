@@ -4,6 +4,7 @@
  */
 package shakki;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class Kuningatar extends Nappula {
      *
      * @param x
      * @param y
-     * @param valkoinenko 
+     * @param valkoinenko
      */
     public Kuningatar(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
@@ -58,6 +59,23 @@ public class Kuningatar extends Nappula {
 
     @Override
     public List<int[]> reitillaEiNappuloita(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int xx = getX();
+        int yy = getY();
+        List<int[]> reitti = new ArrayList<int[]>();
+        while (voikoLiikkua(x, y)) {
+            if (xx < x) {
+                ++xx;
+            } else {
+                --xx;
+            }
+            if (yy < y) {
+                ++yy;
+            } else {
+                --yy;
+            }
+            reitti.add(new int[]{xx, yy});
+        }
+        reitti.remove(reitti.size());
+        return reitti;
     }
 }

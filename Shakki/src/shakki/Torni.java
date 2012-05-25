@@ -4,6 +4,7 @@
  */
 package shakki;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,16 +38,16 @@ public class Torni extends Nappula {
 
     /**
      * Metodi kertoo tornin shakkisääntöjen mukaiset liikkumismahdollisuudet ja
-     * palauttaa true, mikäli siirto on mahdollinen.
+     * palauttaa true, mikäli siirto on mahdollinen.TOISTOA!!
      *
-     * @param uusiX
-     * @param uusiY
+     * @param x
+     * @param y
      *
      */
     @Override
-    public boolean voikoLiikkua(int uusiX, int uusiY) {
-        if ((uusiX == getX() && uusiY >= 0 && uusiY != getY())
-                || ((uusiX >= 0 && uusiX != getX() && uusiY == getY()))) {
+    public boolean voikoLiikkua(int x, int y) {
+        if ((x == getX() && y != getY())
+                || ((x != getX() && y == getY()))) {
             return true;
         }
         return false;
@@ -54,6 +55,25 @@ public class Torni extends Nappula {
 
     @Override
     public List<int[]> reitillaEiNappuloita(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int xx = getX();
+        int yy = getY();
+        List<int[]> reitti = new ArrayList<int[]>();
+        while ((xx != x && yy == y) || (yy != y && xx == x)) {
+            if (xx < x) {
+                ++xx;
+            } else {
+                --xx;
+            }
+            if (yy < y) {
+                ++yy;
+            } else {
+                --yy;
+            }
+            reitti.add(new int[]{xx, yy});
+        }
+        if (reitti.size() >= 1) {
+            reitti.remove(reitti.get(reitti.size()));
+        }
+        return reitti;
     }
 }
