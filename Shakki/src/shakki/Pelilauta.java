@@ -56,13 +56,14 @@ public class Pelilauta {
                         && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
                     apunappula.setKoordinaatit(uusiX, uusiY);
                     lauta[uusiX][uusiY].setNappula(apunappula);
-
                     lauta[vanhaX][vanhaY].setTyhjaksi();
+                } else {
+                    return false;
                 }
             } else {
                 return false;
             }
-            System.out.println("toka");
+
             return true;
         } catch (Exception e) {
             return false;
@@ -139,8 +140,8 @@ public class Pelilauta {
     private boolean kulkureitillaEiNappulaa(Nappula nappula, int x, int y) {
         List<int[]> reitti = nappula.tallennaReittiTaulukkoon(x, y);
         for (int[] koordinaatit : reitti) {
-
             if (lauta[ (koordinaatit[ 0])][ (koordinaatit[ 1])].getNappula() != null) {
+
                 return false;
             }
         }
@@ -156,22 +157,31 @@ public class Pelilauta {
     }
 
     private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
-        if (onkoRuutuVapaa(uusiX, uusiY) || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY)) {
+        
+        if ((onkoRuutuVapaa(uusiX, uusiY)
+                && (!(lauta[vanhaX][vanhaY].getNappula().getClass().getName().equals(Sotilas.class.getName()))
+                || vanhaY == uusiY))
+                || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY)) {
+
             return true;
         }
         return false;
     }
 
     private boolean onkoRuutuVapaa(int uusiX, int uusiY) {
+        System.out.println("seppo");
         if (lauta[uusiX][uusiY].getNappula() == null) {
+            System.out.println("gei");
             return true;
         }
         return false;
     }
 
     private boolean voikoSyoda(int vanhaX, int vanhaY, int uusiX, int uusiY) {
+        System.out.println("voikosyoda");
         if (lauta[vanhaX][vanhaY].getNappula().valkoinenko()
                 != lauta[uusiX][uusiY].getNappula().valkoinenko()) {
+            System.out.println("geizer");
             return true;
         }
         return false;

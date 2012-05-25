@@ -50,12 +50,22 @@ public class Lahetti extends Nappula {
         return false;
     }
 
+    private boolean muutoksetSamat(int uusiX, int uusiY) {
+        int muutosX = Math.abs(uusiX - getX());
+        int muutosY = Math.abs(uusiY - getY());
+        return muutosX == muutosY;
+    }
+
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
         int vanhaX = getX();
         int vanhaY = getY();
+        int reitinPituus = Math.abs(uusiX - vanhaX) - 1;
         List<int[]> reitti = new ArrayList<int[]>();
-        while (vanhaX != uusiX && vanhaY != uusiY) {
+        if (!muutoksetSamat(uusiX, uusiY)) {
+            return reitti;
+        }
+        for (int i = 0; i < reitinPituus; i++) {
             if (vanhaX < uusiX) {
                 ++vanhaX;
             } else {
@@ -68,8 +78,10 @@ public class Lahetti extends Nappula {
             }
 
             reitti.add(new int[]{vanhaX, vanhaY});
+//            System.out.println(vanhaX);
+//            System.out.println(vanhaY);
         }
-       
+
         return reitti;
     }
 }

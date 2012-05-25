@@ -45,18 +45,19 @@ public class Sotilas extends Nappula {
      * @param uusiY
      * @return
      */
-    public boolean valkoisenLiikkuminen(int uusiX, int uusiY) {
+    private boolean valkoisenLiikkuminen(int uusiX, int uusiY) {
         if (this.valkoinenko) {
             if (getX() == 6) {
-                return (liikkuuKaksiYlos(uusiX, uusiY) || liikkuuYhdenYlos(uusiX, uusiY));
-            } else if (liikkuuYhdenYlos(uusiX, uusiY)) {
+                return (liikkuuKaksiYlos(uusiX, uusiY) || liikkuuYhdenYlos(uusiX, uusiY)
+                        || valkoinenSyoKulmittain(uusiX, uusiY));
+            } else if (liikkuuYhdenYlos(uusiX, uusiY) || valkoinenSyoKulmittain(uusiX, uusiY)) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean mustanLiikkuminen(int uusiX, int uusiY) {
+    private boolean mustanLiikkuminen(int uusiX, int uusiY) {
         if (this.valkoinenko == false) {
             if (getX() == 1) {
                 return (liikkuuKaksiAlas(uusiX, uusiY) || liikkuuYhdenAlas(uusiX, uusiY));
@@ -73,6 +74,11 @@ public class Sotilas extends Nappula {
             return true;
         }
         return false;
+    }
+
+    private boolean valkoinenSyoKulmittain(int uusiX, int uusiY) {
+        return ((uusiX == getX() - 1) && (uusiY == getY() + 1
+                || uusiY == getY() - 1));
     }
 
     private boolean liikkuuYhdenYlos(int uusiX, int uusiY) {
