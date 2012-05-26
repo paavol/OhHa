@@ -4,8 +4,10 @@
  */
 package shakki;
 
+import Kayttoliittyma.GraafinenKayttoliittyma;
 import Kayttoliittyma.Kayttoliittyma;
 import Kayttoliittyma.Tekstikayttoliittyma;
+import javax.swing.JFrame;
 
 /**
  *
@@ -32,5 +34,13 @@ public class Peli {
             valkoisenVuoro = !valkoisenVuoro;
             kayttoliittyma.piirraLauta(lauta.getLauta(), valkoisenVuoro);
         }
+    }
+
+    public void kaynnistaGraafinen() {
+        Pelilauta lauta = new Pelilauta();
+        lauta.alustaLauta();
+        Kayttoliittyma kayttoliittyma = new GraafinenKayttoliittyma();
+        kayttoliittyma.piirraLauta(lauta.getLauta(), true);
+        
     }
 }

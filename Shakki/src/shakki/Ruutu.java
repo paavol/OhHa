@@ -4,11 +4,13 @@
  */
 package shakki;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author paavolyy
  */
-public class Ruutu {
+public class Ruutu extends JPanel{
 
     private int x;
     private int y;

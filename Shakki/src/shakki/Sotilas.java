@@ -60,8 +60,9 @@ public class Sotilas extends Nappula {
     private boolean mustanLiikkuminen(int uusiX, int uusiY) {
         if (this.valkoinenko == false) {
             if (getX() == 1) {
-                return (liikkuuKaksiAlas(uusiX, uusiY) || liikkuuYhdenAlas(uusiX, uusiY));
-            } else if (liikkuuYhdenAlas(uusiX, uusiY)) {
+                return (liikkuuKaksiAlas(uusiX, uusiY) || liikkuuYhdenAlas(uusiX, uusiY)
+                        || mustaSyoKulmittain(uusiX, uusiY));
+            } else if (liikkuuYhdenAlas(uusiX, uusiY) || mustaSyoKulmittain(uusiX, uusiY)) {
                 return true;
             }
         }
@@ -78,6 +79,11 @@ public class Sotilas extends Nappula {
 
     private boolean valkoinenSyoKulmittain(int uusiX, int uusiY) {
         return ((uusiX == getX() - 1) && (uusiY == getY() + 1
+                || uusiY == getY() - 1));
+    }
+
+    private boolean mustaSyoKulmittain(int uusiX, int uusiY) {
+        return ((uusiX == getX() + 1) && (uusiY == getY() + 1
                 || uusiY == getY() - 1));
     }
 

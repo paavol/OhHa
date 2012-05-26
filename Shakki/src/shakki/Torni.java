@@ -54,25 +54,24 @@ public class Torni extends Nappula {
     }
 
     @Override
-    public List<int[]> tallennaReittiTaulukkoon(int x, int y) {
-        int xx = getX();
-        int yy = getY();
+    public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
+        int vanhaX = getX();
+        int vanhaY = getY();
+        int reitinPituus = Math.abs(uusiX - vanhaX) - 1;
         List<int[]> reitti = new ArrayList<int[]>();
-        while ((xx != x && yy == y) || (yy != y && xx == x)) {
-            if (xx < x) {
-                ++xx;
+
+        for (int i = 0; i < reitinPituus; i++) {
+            if (vanhaX < uusiX) {
+                ++vanhaX;
             } else {
-                --xx;
+                --vanhaX;
             }
-            if (yy < y) {
-                ++yy;
+            if (vanhaY < uusiY) {
+                ++vanhaY;
             } else {
-                --yy;
+                --vanhaY;
             }
-            reitti.add(new int[]{xx, yy});
-        }
-        if (reitti.size() >= 1) {
-            reitti.remove(reitti.get(reitti.size()));
+            reitti.add(new int[]{vanhaX, vanhaY});
         }
         return reitti;
     }

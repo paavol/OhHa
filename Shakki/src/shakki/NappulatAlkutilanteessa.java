@@ -4,6 +4,8 @@
  */
 package shakki;
 
+import javax.swing.ImageIcon;
+
 /**
  * Luokka pitää sisällään taulukon shakkipelin nappuloista.
  *
@@ -32,6 +34,7 @@ public class NappulatAlkutilanteessa {
         nappulat[5] = new Lahetti(0, 2, false);
         nappulat[6] = new Hevonen(0, 1, false);
         nappulat[7] = new Torni(0, 0, false);
+
         nappulat[8] = new Sotilas(1, 0, false);
         nappulat[9] = new Sotilas(1, 1, false);
         nappulat[10] = new Sotilas(1, 2, false);
@@ -49,6 +52,7 @@ public class NappulatAlkutilanteessa {
         nappulat[21] = new Lahetti(7, 5, true);
         nappulat[22] = new Hevonen(7, 6, true);
         nappulat[23] = new Torni(7, 7, true);
+
         nappulat[24] = new Sotilas(6, 0, true);
         nappulat[25] = new Sotilas(6, 1, true);
         nappulat[26] = new Sotilas(6, 2, true);
@@ -77,4 +81,27 @@ public class NappulatAlkutilanteessa {
     public Nappula getNappula(int x) {
         return nappulat[x];
     }
+
+    protected static ImageIcon luoKuvaNappulalle(String filename, String kuvaus) {
+//        java.net.URL imgURL = Pelilauta.class.getResource(path);
+        if (filename != null) {
+            return new ImageIcon(filename);
+        } else {
+            System.err.println("Ei löytynyt tiedostoa: " + filename);
+            return null;
+        
+    }
+    }
+    ImageIcon mustaLahetti = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/8", "Musta lähetti");
+    ImageIcon mustaKuningas = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/11", "Musta kuningas");
+    ImageIcon mustaHevonen = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/7", "Musta hevonen");
+    ImageIcon mustaSotilas = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/6", "Musta sotilas");
+    ImageIcon mustaKuningatar = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/10", "Musta kuningatar");
+    ImageIcon mustaTorni = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/9", "Musta torni");
+    ImageIcon valkoinenLahetti = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/2", "Valkoinen lähetti");
+    ImageIcon valkoinenKuningas = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/5", "Valkoinen kuningas");
+    ImageIcon valkoinenHevonen = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/1", "Valkoinen hevonen");
+    ImageIcon valkoinenSotilas = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/0", "Valkoinen sotilas");
+    ImageIcon valkoinenKuningatar = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/4", "Valkoinen kuningatar");
+    ImageIcon valkoinenTorni = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/3", "Valkoinen torni");
 }

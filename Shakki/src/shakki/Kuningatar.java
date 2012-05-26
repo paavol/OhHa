@@ -45,9 +45,7 @@ public class Kuningatar extends Nappula {
      */
     @Override
     public boolean voikoLiikkua(int uusiX, int uusiY) {
-        int muutosX = Math.abs(uusiX - getX());
-        int muutosY = Math.abs(uusiY - getY());
-        if (uusiY != getY() && uusiX != getX() && muutosX == muutosY) {
+        if (uusiY != getY() && uusiX != getX() && muutoksetSamat(uusiX, uusiY)) {
             return true;
         }
         if ((uusiX == getX() && uusiY != getY())
@@ -57,25 +55,32 @@ public class Kuningatar extends Nappula {
         return false;
     }
 
+    private boolean muutoksetSamat(int uusiX, int uusiY) {
+        int muutosX = Math.abs(uusiX - getX());
+        int muutosY = Math.abs(uusiY - getY());
+        return muutosX == muutosY;
+    }
+
     @Override
-    public List<int[]> tallennaReittiTaulukkoon(int x, int y) {
-        int xx = getX();
-        int yy = getY();
+    public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
+        int vanhaX = getX();
+        int vanhaY = getY();
+        int reitinPituus = Math.abs(uusiX - vanhaX) - 1;
         List<int[]> reitti = new ArrayList<int[]>();
-        while (voikoLiikkua(x, y)) {
-            if (xx < x) {
-                ++xx;
+
+        for (int i = 0; i < reitinPituus; i++) {
+            if (vanhaX < uusiX) {
+                ++vanhaX;
             } else {
-                --xx;
+                --vanhaX;
             }
-            if (yy < y) {
-                ++yy;
+            if (vanhaY < uusiY) {
+                ++vanhaY;
             } else {
-                --yy;
+                --vanhaY;
             }
-            reitti.add(new int[]{xx, yy});
+            reitti.add(new int[]{vanhaX, vanhaY});
         }
-        reitti.remove(reitti.size());
         return reitti;
     }
 }

@@ -5,6 +5,7 @@
 package shakki;
 
 import java.util.List;
+import javax.swing.JLabel;
 
 /**
  * Nappula on abstrakti luokka, jonka kaikki shakkinappulaluokat perivät.
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author paavolyy
  */
-public abstract class Nappula {
+public abstract class Nappula extends JLabel{
 
     private int x;
     private int y;
@@ -30,6 +31,7 @@ public abstract class Nappula {
      * Asettaa palauttaa x:n arvon.
      *
      */
+    @Override
     public int getX() {
         return x;
     }
@@ -48,6 +50,7 @@ public abstract class Nappula {
      * Palautta y:n arvon.
      *
      */
+    @Override
     public int getY() {
         return y;
     }

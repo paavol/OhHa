@@ -6,6 +6,7 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
@@ -61,11 +62,24 @@ public class Hevonen extends Nappula {
     private boolean hevosenMahdollisetLiikkumiset(int uusiX, int uusiY) {
         int muutosX = Math.abs(uusiX - getX());
         int muutosY = Math.abs(uusiY - getY());
-        return (muutosX == 2 && muutosY == 1 || muutosX == 1 && muutosY == 2);
+        return ((muutosX == 2 && muutosY == 1) || (muutosX == 1 && muutosY == 2));
     }
 
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int x, int y) {
         return new ArrayList<int[]>();
     }
+
+    protected static ImageIcon kuva(String filename, String kuvaus) {
+        if (filename != null) {
+
+            return new ImageIcon(filename);
+        } else {
+            System.err.println("Ei löytynyt tiedostoa: " + filename);
+            return null;
+
+        }
+    }
+    ImageIcon mustaHevonen = kuva("/Users/Maijanen/Downloads/jchess/images/7", "Musta hevonen");
+    ImageIcon valkoinenHevonen = kuva("/Users/Maijanen/Downloads/jchess/images/1", "Valkoinen hevonen");
 }

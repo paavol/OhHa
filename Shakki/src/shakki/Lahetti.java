@@ -41,10 +41,7 @@ public class Lahetti extends Nappula {
      */
     @Override
     public boolean voikoLiikkua(int uusiX, int uusiY) {
-        int muutosX = Math.abs(uusiX - getX());
-        int muutosY = Math.abs(uusiY - getY());
-
-        if (uusiY != getY() && uusiX != getX() && muutosX == muutosY) {
+        if (uusiY != getY() && uusiX != getX() && muutoksetSamat(uusiX, uusiY)) {
             return true;
         }
         return false;
@@ -76,10 +73,7 @@ public class Lahetti extends Nappula {
             } else {
                 --vanhaY;
             }
-
             reitti.add(new int[]{vanhaX, vanhaY});
-//            System.out.println(vanhaX);
-//            System.out.println(vanhaY);
         }
 
         return reitti;
