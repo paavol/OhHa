@@ -15,11 +15,12 @@ import java.util.List;
 public class Pelilauta {
 
     private Ruutu[][] lauta;
-    private NappulatAlkutilanteessa nappulat;
+    private Nappula valkoinenKuningas;
+    private Nappula mustaKuningas;
 
     public Pelilauta() {
         this.lauta = new Ruutu[8][8];
-        this.nappulat = new NappulatAlkutilanteessa();
+
     }
 
     /**
@@ -53,12 +54,18 @@ public class Pelilauta {
                 }
                 if (apunappula.voikoLiikkua(uusiX, uusiY)
                         && kulkureitillaEiNappulaa(apunappula, uusiX, uusiY)
-                        && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)
-                        && eiTulisiShakkia(vanhaX, vanhaY, uusiX, uusiY)) {
-                    System.out.println("meni shakituksen ohi");
+                        && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
+
                     apunappula.setKoordinaatit(uusiX, uusiY);
+                    Nappula apunappula2 = lauta[uusiX][uusiY].getNappula();
                     lauta[uusiX][uusiY].setNappula(apunappula);
                     lauta[vanhaX][vanhaY].setTyhjaksi();
+
+                    if (tuleekoShakki(valkoisenVuoro)) {
+                        lauta[uusiX][uusiY].setNappula(apunappula2);
+                        lauta[vanhaX][vanhaY].setNappula(apunappula);
+                        apunappula.setKoordinaatit(vanhaX, vanhaY);
+                    }
                 } else {
                     return false;
                 }
@@ -67,56 +74,6 @@ public class Pelilauta {
             }
             return true;
         } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean eiTulisiShakkia(int vanhaX, int vanhaY, int uusiX, int uusiY) {
-        if (lauta[vanhaX][vanhaY].getNappula().valkoinenko()) {
-            for (Nappula nappula : nappulat.getNappulat()) {
-                if (nappula.valkoinenko() == false) {
-                    if (pystyykoNappulaShakittamaan(nappula)) {
-                        return false;
-                    }
-                }
-            }
-            System.out.println("ohitti ekan pisteen");
-        } else {
-            for (Nappula nappula : nappulat.getNappulat()) {
-                if (nappula.valkoinenko()) {
-                    if (pystyykoNappulaShakittamaan(nappula)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        System.out.println("ohitti tokan pisteen");
-        return true;
-    }
-
-    public boolean pystyykoNappulaShakittamaan(Nappula nappula) {
-
-        if (nappula.valkoinenko()) {
-            int mustanKunkunX = nappulat.mustanKunkunSijainti().getX();
-            int mustanKunkunY = nappulat.mustanKunkunSijainti().getY();
-            System.out.println("jonkun nappulan shakitus");
-            if (nappula.voikoLiikkua(mustanKunkunX, mustanKunkunY)
-                    && kulkureitillaEiNappulaa(nappula, mustanKunkunX, mustanKunkunY)
-                    && voikoRuutuunSiirtya(nappula.getX(), nappula.getY(), mustanKunkunX, mustanKunkunY)) {
-            }
-            System.out.println("ohitti shakituksen ekan");
-            return true;
-        } else if (nappula.valkoinenko() == false) {
-            int valkoisenKunkunX = nappulat.valkoisenKunkunSijainti().getX();
-            int valkoisenKunkunY = nappulat.valkoisenKunkunSijainti().getY();
-            System.out.println("jonkun napin shakki");
-            if (nappula.voikoLiikkua(valkoisenKunkunX, valkoisenKunkunY)
-                    && kulkureitillaEiNappulaa(nappula, valkoisenKunkunX, valkoisenKunkunY)) {
-            }
-            System.out.println("ohitti shakituksen tokan");
-            return true;
-        } else {
-            System.out.println("falset shakitukseen pystymisestä");
             return false;
         }
     }
@@ -182,14 +139,16 @@ public class Pelilauta {
                 lauta[i][j] = new Ruutu(i, j);
             }
         }
-        luoNappulatRuutuihin();
     }
 
     private void luoNappulatRuutuihin() {
         try {
+            NappulatAlkutilanteessa nappulat = new NappulatAlkutilanteessa();
             for (Nappula nappula : nappulat.getNappulat()) {
                 lauta[nappula.getX()][nappula.getY()].setNappula(nappula);
             }
+            valkoinenKuningas = lauta[7][4].getNappula();
+            mustaKuningas = lauta[0][4].getNappula();
         } catch (Exception e) {
         }
 
@@ -271,10 +230,113 @@ public class Pelilauta {
         }
         return false;
     }
-    /**
-     * Peli on käynnissä metodin ollessa true.Saa arvokseen false, kun peli
-     * loppuu.
-     *
-     * @return
-     */
+
+    public boolean tuleekoShakki(boolean valkoinenko) {
+        int kunkkuX;
+        int kunkkuY;
+        if (valkoinenko) {
+            kunkkuX = valkoinenKuningas.getX();
+            kunkkuY = valkoinenKuningas.getY();
+        } else {
+            kunkkuX = mustaKuningas.getX();
+            kunkkuY = mustaKuningas.getY();
+        }
+
+        for (int x = kunkkuX + 1; x < 8; x++) {
+            if (lauta[ x][ kunkkuY] != null) {
+                if (lauta[ x][ kunkkuY].getNappula().valkoinenko() != valkoinenko
+                        && lauta[ x][ kunkkuY].getNappula().voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+
+        for (int x = kunkkuX - 1; x >= 0; x--) {
+            if (lauta[ x][ kunkkuY] != null) {
+                if (lauta[ x][ kunkkuY].getNappula().valkoinenko() != valkoinenko
+                        && lauta[ x][ kunkkuY].getNappula().voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        for (int y = kunkkuY + 1; y < 8; y++) {
+            if (lauta[ kunkkuX][ y] != null) {
+                if (lauta[ kunkkuX][ y].getNappula().valkoinenko() != valkoinenko
+                        && lauta[ kunkkuX][ y].getNappula().voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+                break;
+            }
+        }
+
+        for (int y = kunkkuY - 1; y >= 0; y--) {
+            if (lauta[ kunkkuX][ y] != null) {
+                if (lauta[ kunkkuX][ y].getNappula().valkoinenko() != valkoinenko
+                        && lauta[  kunkkuX][ y].getNappula().voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+                break;
+            }
+        }
+        int x = kunkkuX + 1;
+        int y = kunkkuY + 1;
+        while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
+
+            if (lauta[ x][ y] != null) {
+                if (lauta[ x][ y].getNappula().valkoinenko() != valkoinenko
+                        && lauta[  x][ y].getNappula().voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+                break;
+            }
+            x++;
+            y++;
+        }
+        x = kunkkuX + 1;
+        y = kunkkuY - 1;
+        while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
+
+            if (lauta[ x][ y] != null) {
+                if (lauta[ x][ y].getNappula().valkoinenko() != valkoinenko
+                        && lauta[  x][ y].getNappula().voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+                break;
+            }
+            x++;
+            y--;
+        }
+        x = kunkkuX - 1;
+        y = kunkkuY + 1;
+        while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
+
+            if (lauta[ x][ y] != null) {
+                if (lauta[ x][ y].getNappula().valkoinenko() != valkoinenko
+                        && lauta[  x][ y].getNappula().voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+                break;
+            }
+            x--;
+            y++;
+        }
+        x = kunkkuX - 1;
+        y = kunkkuY - 1;
+        while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
+            if (lauta[ x][ y] != null) {
+                if (lauta[ x][ y].getNappula().valkoinenko() != valkoinenko
+                        && lauta[  x][ y].getNappula().voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+                break;
+            }
+            x--;
+            y--;
+        }
+        return false;
+    }
 }
