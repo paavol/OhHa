@@ -41,16 +41,6 @@ public class Kuningas extends Nappula {
         return kuninkaanMahdollisetLiikkumiset(uusiX, uusiY);
     }
 
-//    private boolean kuninkaanMahdollisetLiikkumiset(int uusiX, int uusiY) {
-//        return (ylaoikealleLiikkuminen(uusiX, uusiY)
-//                || ylavasemmalleLiikkuminen(uusiX, uusiY)
-//                || ylosLiikkuminen(uusiX, uusiY)
-//                || alasLiikkuminen(uusiX, uusiY)
-//                || alaoikealleLiikkuminen(uusiX, uusiY)
-//                || alavasemmalleLiikkuminen(uusiX, uusiY)
-//                || vasemmalleLiikkuminen(uusiX, uusiY)
-//                || oikealleLiikkuminen(uusiX, uusiY));
-//    }
     private boolean kuninkaanMahdollisetLiikkumiset(int uusiX, int uusiY) {
         int muutosX = Math.abs(uusiX - getX());
         int muutosY = Math.abs(uusiY - getY());
@@ -59,38 +49,6 @@ public class Kuningas extends Nappula {
         }
         return (muutosX >= -1 && muutosX <= 1 && muutosY >= -1 && muutosY <= 1);
     }
-//
-//    private boolean ylaoikealleLiikkuminen(int uusiX, int uusiY) {
-//        return (uusiX == getX() - 1 && uusiY == getY() - 1);
-//    }
-//
-//    private boolean ylavasemmalleLiikkuminen(int uusiX, int uusiY) {
-//        return (uusiX == getX() - 1 && uusiY == getY() + 1);
-//    }
-//
-//    private boolean ylosLiikkuminen(int uusiX, int uusiY) {
-//        return (uusiX == getX() - 1 && uusiY == getY());
-//    }
-//
-//    private boolean alasLiikkuminen(int uusiX, int uusiY) {
-//        return (uusiX == getX() + 1 && uusiY == getY());
-//    }
-//
-//    private boolean alaoikealleLiikkuminen(int uusiX, int uusiY) {
-//        return (uusiX == getX() + 1 && uusiY == getY() + 1);
-//    }
-//
-//    private boolean alavasemmalleLiikkuminen(int uusiX, int uusiY) {
-//        return (uusiX == getX() + 1 && uusiY == getY() - 1);
-//    }
-//
-//    private boolean vasemmalleLiikkuminen(int uusiX, int uusiY) {
-//        return (uusiX == getX() && uusiY == getY() - 1);
-//    }
-//
-//    private boolean oikealleLiikkuminen(int uusiX, int uusiY) {
-//        return (uusiX == getX() && uusiY == getY() + 1);
-//    }
 
     /**
      * Kuningas-luokan toString.

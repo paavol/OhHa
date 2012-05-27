@@ -18,8 +18,8 @@ public class Shakki {
      */
     public static void main(String[] args) {
         Peli peli = new Peli();
-//        peli.kaynnista();
-        peli.kaynnistaGraafinen();
+        peli.kaynnista();
+//        peli.kaynnistaGraafinen();
         
     }
 }

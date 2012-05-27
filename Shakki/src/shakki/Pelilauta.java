@@ -53,7 +53,9 @@ public class Pelilauta {
                 }
                 if (apunappula.voikoLiikkua(uusiX, uusiY)
                         && kulkureitillaEiNappulaa(apunappula, uusiX, uusiY)
-                        && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
+                        && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)
+                        && eiTulisiShakkia(vanhaX, vanhaY, uusiX, uusiY)) {
+                    System.out.println("meni shakituksen ohi");
                     apunappula.setKoordinaatit(uusiX, uusiY);
                     lauta[uusiX][uusiY].setNappula(apunappula);
                     lauta[vanhaX][vanhaY].setTyhjaksi();
@@ -63,11 +65,89 @@ public class Pelilauta {
             } else {
                 return false;
             }
-
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean eiTulisiShakkia(int vanhaX, int vanhaY, int uusiX, int uusiY) {
+        if (lauta[vanhaX][vanhaY].getNappula().valkoinenko()) {
+            for (Nappula nappula : nappulat.getNappulat()) {
+                if (nappula.valkoinenko() == false) {
+                    if (pystyykoNappulaShakittamaan(nappula)) {
+                        return false;
+                    }
+                }
+            }
+            System.out.println("ohitti ekan pisteen");
+        } else {
+            for (Nappula nappula : nappulat.getNappulat()) {
+                if (nappula.valkoinenko()) {
+                    if (pystyykoNappulaShakittamaan(nappula)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        System.out.println("ohitti tokan pisteen");
+        return true;
+    }
+
+    public boolean pystyykoNappulaShakittamaan(Nappula nappula) {
+
+        if (nappula.valkoinenko()) {
+            int mustanKunkunX = nappulat.mustanKunkunSijainti().getX();
+            int mustanKunkunY = nappulat.mustanKunkunSijainti().getY();
+            System.out.println("jonkun nappulan shakitus");
+            if (nappula.voikoLiikkua(mustanKunkunX, mustanKunkunY)
+                    && kulkureitillaEiNappulaa(nappula, mustanKunkunX, mustanKunkunY)
+                    && voikoRuutuunSiirtya(nappula.getX(), nappula.getY(), mustanKunkunX, mustanKunkunY)) {
+            }
+            System.out.println("ohitti shakituksen ekan");
+            return true;
+        } else if (nappula.valkoinenko() == false) {
+            int valkoisenKunkunX = nappulat.valkoisenKunkunSijainti().getX();
+            int valkoisenKunkunY = nappulat.valkoisenKunkunSijainti().getY();
+            System.out.println("jonkun napin shakki");
+            if (nappula.voikoLiikkua(valkoisenKunkunX, valkoisenKunkunY)
+                    && kulkureitillaEiNappulaa(nappula, valkoisenKunkunX, valkoisenKunkunY)) {
+            }
+            System.out.println("ohitti shakituksen tokan");
+            return true;
+        } else {
+            System.out.println("falset shakitukseen pystymisestä");
+            return false;
+        }
+    }
+
+    public boolean peliKaynnissa() {
+//        while (onMatti() == true || onPatti() == true) {
+//            return false;
+//        }
+        return true;
+    }
+
+    public boolean onMatti(int vanhaX, int vanhaY) {
+        if (shakkitilanne(vanhaX, vanhaY) && eiVoiLiikkuaMihinkaan(vanhaX, vanhaY)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean eiVoiLiikkuaMihinkaan(int vanhaX, int vanhaY) {
+        return false;
+    }
+
+    private boolean shakkitilanne(int uusiX, int uusiY) {
+        return true;
+    }
+
+    public boolean onPatti(int vanhaX, int vanhaY) {
+        if (!shakkitilanne(vanhaX, vanhaY) && eiVoiLiikkuaMihinkaan(vanhaX, vanhaY)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -157,7 +237,7 @@ public class Pelilauta {
     }
 
     private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
-        
+
         if ((onkoRuutuVapaa(uusiX, uusiY)
                 && (!(lauta[vanhaX][vanhaY].getNappula().getClass().getName().equals(Sotilas.class.getName()))
                 || vanhaY == uusiY))
@@ -168,10 +248,15 @@ public class Pelilauta {
         return false;
     }
 
+    public boolean ruudussaEiKuningasta(int uusiX, int uusiY) {
+        if (lauta[uusiX][uusiY].getNappula().getClass().getName().equals(Kuningas.class.getName())) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean onkoRuutuVapaa(int uusiX, int uusiY) {
-        System.out.println("seppo");
         if (lauta[uusiX][uusiY].getNappula() == null) {
-            System.out.println("gei");
             return true;
         }
         return false;
@@ -180,35 +265,16 @@ public class Pelilauta {
     private boolean voikoSyoda(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         System.out.println("voikosyoda");
         if (lauta[vanhaX][vanhaY].getNappula().valkoinenko()
-                != lauta[uusiX][uusiY].getNappula().valkoinenko()) {
-            System.out.println("geizer");
+                != lauta[uusiX][uusiY].getNappula().valkoinenko()
+                && ruudussaEiKuningasta(uusiX, uusiY)) {
             return true;
         }
         return false;
     }
-
     /**
      * Peli on käynnissä metodin ollessa true.Saa arvokseen false, kun peli
      * loppuu.
      *
      * @return
      */
-    public boolean peliKaynnissa() {
-        while (onMatti() == true || onPatti() == true) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean onMatti() {
-        return false;
-    }
-
-    public boolean onShakki() {
-        return false;
-    }
-
-    public boolean onPatti() {
-        return false;
-    }
 }

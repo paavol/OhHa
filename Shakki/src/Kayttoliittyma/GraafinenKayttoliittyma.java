@@ -22,6 +22,7 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
     private JLayeredPane pelialusta;
     private JPanel pelilauta;
     private JLabel shakkinappula;
+    private NappulatAlkutilanteessa nappulat;
 
     public GraafinenKayttoliittyma() {
         luoKomponentit();

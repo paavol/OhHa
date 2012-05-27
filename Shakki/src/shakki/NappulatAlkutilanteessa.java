@@ -14,6 +14,8 @@ import javax.swing.ImageIcon;
 public class NappulatAlkutilanteessa {
 
     private Nappula[] nappulat;
+    private Kuningas valkoinenKuningas;
+    private Kuningas mustaKuningas;
 
     /**
      * Konstruktori luo 32-paikkaisen taulukon ja kutsuu lisaaNappulat-metodia,
@@ -22,6 +24,8 @@ public class NappulatAlkutilanteessa {
      */
     public NappulatAlkutilanteessa() {
         nappulat = new Nappula[32];
+        mustaKuningas = new Kuningas(0, 4, false);
+        valkoinenKuningas = new Kuningas(7, 4, true);
         lisaaNappulat();
     }
 
@@ -29,7 +33,7 @@ public class NappulatAlkutilanteessa {
         nappulat[0] = new Torni(0, 7, false);
         nappulat[1] = new Hevonen(0, 6, false);
         nappulat[2] = new Lahetti(0, 5, false);
-        nappulat[3] = new Kuningas(0, 4, false);
+        nappulat[3] = mustaKuningas;
         nappulat[4] = new Kuningatar(0, 3, false);
         nappulat[5] = new Lahetti(0, 2, false);
         nappulat[6] = new Hevonen(0, 1, false);
@@ -48,7 +52,7 @@ public class NappulatAlkutilanteessa {
         nappulat[17] = new Hevonen(7, 1, true);
         nappulat[18] = new Lahetti(7, 2, true);
         nappulat[19] = new Kuningatar(7, 3, true);
-        nappulat[20] = new Kuningas(7, 4, true);
+        nappulat[20] = valkoinenKuningas;
         nappulat[21] = new Lahetti(7, 5, true);
         nappulat[22] = new Hevonen(7, 6, true);
         nappulat[23] = new Torni(7, 7, true);
@@ -62,6 +66,14 @@ public class NappulatAlkutilanteessa {
         nappulat[30] = new Sotilas(6, 6, true);
         nappulat[31] = new Sotilas(6, 7, true);
 
+    }
+
+    public Kuningas valkoisenKunkunSijainti() {
+        return valkoinenKuningas;
+    }
+
+    public Kuningas mustanKunkunSijainti() {
+        return mustaKuningas;
     }
 
     /**
@@ -82,26 +94,26 @@ public class NappulatAlkutilanteessa {
         return nappulat[x];
     }
 
-    protected static ImageIcon luoKuvaNappulalle(String filename, String kuvaus) {
+    protected static ImageIcon kuva(String filename, String kuvaus) {
 //        java.net.URL imgURL = Pelilauta.class.getResource(path);
         if (filename != null) {
             return new ImageIcon(filename);
         } else {
             System.err.println("Ei löytynyt tiedostoa: " + filename);
             return null;
-        
+
+        }
     }
-    }
-    ImageIcon mustaLahetti = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/8", "Musta lähetti");
-    ImageIcon mustaKuningas = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/11", "Musta kuningas");
-    ImageIcon mustaHevonen = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/7", "Musta hevonen");
-    ImageIcon mustaSotilas = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/6", "Musta sotilas");
-    ImageIcon mustaKuningatar = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/10", "Musta kuningatar");
-    ImageIcon mustaTorni = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/9", "Musta torni");
-    ImageIcon valkoinenLahetti = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/2", "Valkoinen lähetti");
-    ImageIcon valkoinenKuningas = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/5", "Valkoinen kuningas");
-    ImageIcon valkoinenHevonen = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/1", "Valkoinen hevonen");
-    ImageIcon valkoinenSotilas = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/0", "Valkoinen sotilas");
-    ImageIcon valkoinenKuningatar = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/4", "Valkoinen kuningatar");
-    ImageIcon valkoinenTorni = luoKuvaNappulalle("/Users/Maijanen/Downloads/jchess/images/3", "Valkoinen torni");
+//    ImageIcon mustaLahetti = kuva("/Users/Maijanen/Downloads/jchess/images/8", "Musta lähetti");
+//    ImageIcon mustaKuningas = kuva("/Users/Maijanen/Downloads/jchess/images/11", "Musta kuningas");
+//    ImageIcon mustaHevonen = kuva("/Users/Maijanen/Downloads/jchess/images/7", "Musta hevonen");
+//    ImageIcon mustaSotilas = kuva("/Users/Maijanen/Downloads/jchess/images/6", "Musta sotilas");
+//    ImageIcon mustaKuningatar = kuva("/Users/Maijanen/Downloads/jchess/images/10", "Musta kuningatar");
+//    ImageIcon mustaTorni = kuva("/Users/Maijanen/Downloads/jchess/images/9", "Musta torni");
+//    ImageIcon valkoinenLahetti = kuva("/Users/Maijanen/Downloads/jchess/images/2", "Valkoinen lähetti");
+//    ImageIcon valkoinenKuningas = kuva("/Users/Maijanen/Downloads/jchess/images/5", "Valkoinen kuningas");
+//    ImageIcon valkoinenHevonen = kuva("/Users/Maijanen/Downloads/jchess/images/1", "Valkoinen hevonen");
+//    ImageIcon valkoinenSotilas = kuva("/Users/Maijanen/Downloads/jchess/images/0", "Valkoinen sotilas");
+//    ImageIcon valkoinenKuningatar = kuva("/Users/Maijanen/Downloads/jchess/images/4", "Valkoinen kuningatar");
+//    ImageIcon valkoinenTorni = kuva("/Users/Maijanen/Downloads/jchess/images/3", "Valkoinen torni");
 }
