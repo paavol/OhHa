@@ -28,9 +28,9 @@ public class Kuningas extends Nappula {
     public Kuningas(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
         if (valkoinenko) {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/5.gif");
+            icon = new ImageIcon("nappulakuvakkeet/5.gif");
         } else {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/11.gif");
+            icon = new ImageIcon("nappulakuvakkeet/11.gif");
         }
     }
 

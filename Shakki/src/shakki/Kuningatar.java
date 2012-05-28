@@ -27,9 +27,9 @@ public class Kuningatar extends Nappula {
     public Kuningatar(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
         if (valkoinenko) {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/4.gif");
+            icon = new ImageIcon("nappulakuvakkeet/4.gif");
         } else {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/10.gif");
+            icon = new ImageIcon("nappulakuvakkeet/10.gif");
         }
     }
 

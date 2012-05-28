@@ -177,6 +177,13 @@ public class Pelilauta extends JPanel {
         return false;
     }
 
+    /**
+     * Metodi tarkistaa onko kyseisessä ruudussa kuningasta.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return
+     */
     public boolean ruudussaEiKuningasta(int uusiX, int uusiY) {
         if (lauta[uusiX][uusiY].getNappula().getClass().getName().equals(Kuningas.class.getName())) {
             return false;
@@ -201,6 +208,13 @@ public class Pelilauta extends JPanel {
         return false;
     }
 
+    /**
+     * Tämän metodin on tarkoitus tarkastaa onko pelitilanne shakki.Toistaiseksi
+     * metodi ei tunnista tilanteita.
+     *
+     * @param valkoinenko
+     * @return
+     */
     public boolean tuleekoShakki(boolean valkoinenko) {
         int kunkkuX;
         int kunkkuY;
@@ -211,7 +225,7 @@ public class Pelilauta extends JPanel {
             kunkkuX = mustaKuningas.getX();
             kunkkuY = mustaKuningas.getY();
         }
-//Tutkitaan kaikki kuningakseen pääsevät suunnat. Metodi on ylipitkä mutta silti mielestäni looginen kokonaisuus.
+//Tutkitaan kaikki kuningakseen pääsevät suunnat. Metodi on ylipitkä mutta silti mielestäni looginen kokonaisuus. Jahka se ensin toimisi...
 
         for (int x = kunkkuX + 1; x < 8; x++) {
             if (lauta[ x][ kunkkuY] != null) {

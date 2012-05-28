@@ -27,9 +27,9 @@ public class Lahetti extends Nappula {
     public Lahetti(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
         if (valkoinenko) {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/0.gif");
+            icon = new ImageIcon("nappulakuvakkeet/0.gif");
         } else {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/6.gif");
+            icon = new ImageIcon("nappulakuvakkeet/6.gif");
         }
     }
 

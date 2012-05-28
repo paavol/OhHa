@@ -27,9 +27,9 @@ public class Hevonen extends Nappula {
     public Hevonen(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
         if (valkoinenko) {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/1.gif");
+            icon = new ImageIcon("nappulakuvakkeet/1.gif");
         } else {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/7.gif");
+            icon = new ImageIcon("nappulakuvakkeet/7.gif");
         }
     }
 

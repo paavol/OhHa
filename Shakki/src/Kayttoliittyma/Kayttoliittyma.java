@@ -7,7 +7,7 @@ package Kayttoliittyma;
 import shakki.Ruutu;
 
 /**
- *
+ * Käyttöliittymä-rajapintaa hyödyntävä kaikki eri käyttöliittymät.Se tarjoaa kaksi metodia: piirra
  * @author Maijanen
  */
 public interface Kayttoliittyma {

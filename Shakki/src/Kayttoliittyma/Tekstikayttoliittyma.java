@@ -29,7 +29,12 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
 
     }
 
-  
+    /**
+     * Metodi piirtää pelilaudan ja kertoo kummanko pelaajan vuoro on menossa.
+     *
+     * @param lauta
+     * @param valkoisenVuoro
+     */
     @Override
     public void piirraLauta(Ruutu[][] lauta, boolean valkoisenVuoro) {
         if (valkoisenVuoro) {
@@ -52,7 +57,12 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
         System.out.println("");
     }
 
-
+    /**
+     * Metodi kyselee käyttäjältä x:n ja y:n arvoja ja tallentaa ne taulukkoon,
+     * jonka se palauttaa.
+     *
+     * @return
+     */
     @Override
     public int[] siirto() {
         System.out.println("Anna siirrettävän nappulan koordinaatit.");

@@ -27,9 +27,9 @@ public class Torni extends Nappula {
     public Torni(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
         if (valkoinenko) {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/3.gif");
+            icon = new ImageIcon("nappulakuvakkeet/3.gif");
         } else {
-            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/9.gif");
+            icon = new ImageIcon("nappulakuvakkeet/9.gif");
         }
     }
 

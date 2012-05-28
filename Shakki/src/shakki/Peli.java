@@ -42,7 +42,7 @@ public class Peli {
 
         Kayttoliittyma kayttoliittyma = new GraafinenKayttoliittyma();
         Boolean valkoisenVuoro = true;
-//        lauta.alustaLauta();
+        lauta.alustaLauta();
         kayttoliittyma.piirraLauta(lauta.getLauta(),valkoisenVuoro);
         
         while (lauta.peliKaynnissa()) {

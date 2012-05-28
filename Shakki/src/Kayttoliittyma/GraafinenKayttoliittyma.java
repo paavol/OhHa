@@ -11,56 +11,48 @@ import javax.swing.*;
 import shakki.*;
 
 /**
+ * Graafinen käyttöliittymä mahdollistaa pelin pelaamisen graafisesti
+ * hiirenklikkauksilla.
  *
  * @author paavolyy
  */
 public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, MouseListener {
 
-    private JLayeredPane pelialusta;
-    private Pelilauta pelilauta;
-    private Nappula nappula;
-    int muutosX;
-    int muutosY;
+    private boolean ensimmainenKaynnistys;
+    private JFrame frame;
+    private JPanel pelilauta;
+    private JPanel[][] ruudut;
 
     public GraafinenKayttoliittyma() {
-        run();
+        ensimmainenKaynnistys = true;
+        ruudut = new JPanel[8][8];
     }
 
     private void run() {
-        luoKomponentit();
-        JFrame frame = this;
+
+        frame = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setPreferredSize(new Dimension(600, 600));
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
+        luoKomponentit(frame.getContentPane());
     }
 
-    private void luoKomponentit() {
-        Dimension laudanKoko = new Dimension(600, 600);
-        pelialusta = new JLayeredPane();
-        getContentPane().add(pelialusta);
-        pelialusta.setPreferredSize(laudanKoko);
-        pelialusta.addMouseListener(this);
-
-        pelilauta = new Pelilauta();
-        
-        pelialusta.add(pelilauta, JLayeredPane.DEFAULT_LAYER);
+    private void luoKomponentit(Container container) {
+        pelilauta = new JPanel();
+        pelilauta.setPreferredSize(new Dimension(600, 600));
+        container.add(pelilauta);
         pelilauta.setLayout(new GridLayout(8, 8));
+        //pelilauta.setBounds(0, 0, laudanKoko.width, laudanKoko.height);
 
-        pelilauta.setBounds(0, 0, laudanKoko.width, laudanKoko.height);
-        ruudutMustavalkoisiksi();
-     
-    }
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                JPanel graafinenRuutu = new JPanel();
+                ////graafinenRuutu.setEnabled(true);
 
-    private void ruudutMustavalkoisiksi() {
-        pelilauta.alustaLauta();
-        for (int i = 0; i < pelilauta.getLauta().length; i++) {
-            for (int j = 0; j < pelilauta.getLauta().length; j++) {
-                JPanel graafinenRuutu = new JPanel(new BorderLayout());
-                graafinenRuutu.setEnabled(true);
-                graafinenRuutu.setBackground(Color.white);
                 if (i % 2 != j % 2) {
                     graafinenRuutu.setBackground(Color.darkGray);
                 } else {
@@ -68,38 +60,33 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
                 }
                 pelilauta.add(graafinenRuutu);
 
-                if (pelilauta.getNappulaRuudusta(i, j) != null) {
-                    if (i % 2 == j % 2) {
-                        pelilauta.getNappulaRuudusta(i, j).setBackground(Color.white);
-                    } else {
-                        pelilauta.getNappulaRuudusta(i, j).setBackground(Color.darkGray);
-
-                    }
-                    graafinenRuutu.add(pelilauta.getNappulaRuudusta(i, j));
-
-                }
-
+                ruudut[i][j] = graafinenRuutu;
             }
         }
     }
 
     @Override
     public void mousePressed(MouseEvent me) {
-        Component c = pelilauta.findComponentAt(me.getX(), me.getY());
-        Point alkusijainti = c.getParent().getLocation();
-        if (pelilauta.getNappulaRuudusta(alkusijainti.x, alkusijainti.y).valkoinenko()) {
-            pelilauta.liikutaNappulaa(alkusijainti.x, alkusijainti.y, me.getX(), me.getY(), true);
-        } else {
-            pelilauta.liikutaNappulaa(alkusijainti.x, alkusijainti.y, me.getX(), me.getY(), false);
-        }
     }
 
     @Override
     public void mouseReleased(MouseEvent me) {
     }
 
+    /**
+     * Metodi reagoi hiiren painalluksiin.
+     *
+     * @param me
+     */
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent me) {
+//        Component c = pelilauta.findComponentAt(me.getX(), me.getY());
+//        Point alkusijainti = c.getParent().getLocation();
+//        if (pelilauta.getNappulaRuudusta(alkusijainti.x, alkusijainti.y).valkoinenko()) {
+//            pelilauta.liikutaNappulaa(alkusijainti.x, alkusijainti.y, me.getX(), me.getY(), true);
+//        } else {
+//            pelilauta.liikutaNappulaa(alkusijainti.x, alkusijainti.y, me.getX(), me.getY(), false);
+//        }
     }
 
     @Override
@@ -110,6 +97,12 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+     * Metodi piirtää pelilaudan annetuin parametrein.
+     *
+     * @param lauta
+     * @param valkoisenVuoro
+     */
     @Override
     public void piirraLauta(Ruutu[][] lauta, boolean valkoisenVuoro) {
         if (valkoisenVuoro) {
@@ -117,9 +110,34 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
         } else {
             System.out.println("MUSTAN VUORO");
         }
-        
+
+        if (ensimmainenKaynnistys) {
+            run();
+            ensimmainenKaynnistys = false;
+        }
+
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (lauta[i][j].getNappula() != null) {
+                    JButton nappula = lauta[i][j].getNappula();
+                    if (i % 2 == j % 2) {
+                        nappula.setBackground(Color.white);
+                    } else {
+                        nappula.setBackground(Color.darkGray);
+                    }
+
+                    this.ruudut[i][j].add(nappula); 
+                }
+            }
+        }
     }
 
+    /**
+     * Metodi kuvaa yhden siirron toiminnan ja palauttaa taulukon siirrosta.
+     *
+     * @return
+     */
     @Override
     public int[] siirto() {
 
