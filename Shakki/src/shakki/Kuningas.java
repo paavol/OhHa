@@ -6,6 +6,7 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
@@ -17,7 +18,8 @@ public class Kuningas extends Nappula {
 
     /**
      * Konstruktori luo Kuningas luokan ilmentymän, joka saa parametreina x- ja
-     * y-koordinaatit ja perii abstraktin Nappula-luokan.
+     * y-koordinaatit ja perii abstraktin Nappula-luokan.Lisäksi kuninkaalla on
+     * värin mukaan määritelty imageIcon.
      *
      * @param x
      * @param y
@@ -25,6 +27,11 @@ public class Kuningas extends Nappula {
      */
     public Kuningas(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
+        if (valkoinenko) {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/5.gif");
+        } else {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/11.gif");
+        }
     }
 
     /**
@@ -60,6 +67,15 @@ public class Kuningas extends Nappula {
         return "K ";
     }
 
+    /**
+     * Nappula-luokalta peritty metodi, jota ei tarvitse kuninkaalla huomioida,
+     * koska se liikkuu ainoastaan yhden ruudun kerrallaan.Metodi palauttaa siis
+     * tyhjän taulukon.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int x, int y) {
         return new ArrayList<int[]>();

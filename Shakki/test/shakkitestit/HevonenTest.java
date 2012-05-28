@@ -76,7 +76,7 @@ public class HevonenTest {
      */
     @Test
     public void mustaOnMusta() {
-        assertEquals(vasenMus.valkoinenko(), false);
+        assertFalse(vasenMus.valkoinenko());
     }
 
     /**
@@ -85,7 +85,7 @@ public class HevonenTest {
      */
     @Test
     public void valkoinenOnValkoinen() {
-        assertEquals(vasenVal.valkoinenko(), true);
+        assertTrue(vasenVal.valkoinenko());
     }
 
     /**
@@ -95,4 +95,5 @@ public class HevonenTest {
     public void toStringToimiiOikein() {
         assertEquals(vasenVal.toString(), "H ");
     }
+    
 }

@@ -5,6 +5,7 @@
 package shakki;
 
 import java.util.List;
+import javax.swing.JPanel;
 
 /**
  * Pelilauta on logiikkaosion tärkein luokka, jossa tapahtuu kaikki nappuloiden
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author Maijanen
  */
-public class Pelilauta {
+public class Pelilauta extends JPanel {
 
     private Ruutu[][] lauta;
     private Nappula valkoinenKuningas;
@@ -66,8 +67,6 @@ public class Pelilauta {
                         lauta[vanhaX][vanhaY].setNappula(apunappula);
                         apunappula.setKoordinaatit(vanhaX, vanhaY);
                     }
-                } else {
-                    return false;
                 }
             } else {
                 return false;
@@ -193,7 +192,7 @@ public class Pelilauta {
     }
 
     private boolean voikoSyoda(int vanhaX, int vanhaY, int uusiX, int uusiY) {
-        System.out.println("voikosyoda");
+
         if (lauta[vanhaX][vanhaY].getNappula().valkoinenko()
                 != lauta[uusiX][uusiY].getNappula().valkoinenko()
                 && ruudussaEiKuningasta(uusiX, uusiY)) {
@@ -212,8 +211,8 @@ public class Pelilauta {
             kunkkuX = mustaKuningas.getX();
             kunkkuY = mustaKuningas.getY();
         }
-//Tutkitaan kaikki kuningakseen pääsevät suunnat. 
-        
+//Tutkitaan kaikki kuningakseen pääsevät suunnat. Metodi on ylipitkä mutta silti mielestäni looginen kokonaisuus.
+
         for (int x = kunkkuX + 1; x < 8; x++) {
             if (lauta[ x][ kunkkuY] != null) {
                 if (lauta[ x][ kunkkuY].getNappula().valkoinenko() != valkoinenko

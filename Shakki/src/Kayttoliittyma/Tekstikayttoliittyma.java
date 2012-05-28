@@ -29,6 +29,7 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
 
     }
 
+  
     @Override
     public void piirraLauta(Ruutu[][] lauta, boolean valkoisenVuoro) {
         if (valkoisenVuoro) {
@@ -50,6 +51,7 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
         }
         System.out.println("");
     }
+
 
     @Override
     public int[] siirto() {

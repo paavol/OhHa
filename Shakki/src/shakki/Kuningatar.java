@@ -6,6 +6,7 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
@@ -16,7 +17,8 @@ import java.util.List;
 public class Kuningatar extends Nappula {
 
     /**
-     * Kuningatar perii konstruktorissaan parametrit Nappula-luokalta.
+     * Kuningatar perii konstruktorissaan parametrit Nappula-luokalta.Lisäksi
+     * kuningattarella on värin mukaan määritelty ImageIcon.
      *
      * @param x
      * @param y
@@ -24,6 +26,11 @@ public class Kuningatar extends Nappula {
      */
     public Kuningatar(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
+        if (valkoinenko) {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/4.gif");
+        } else {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/10.gif");
+        }
     }
 
     /**
@@ -61,6 +68,14 @@ public class Kuningatar extends Nappula {
         return muutosX == muutosY;
     }
 
+    /**
+     * Nappula-luokalta peritty metodi palauttaa taulukon, joka pitää sisällään
+     * kuningattaren reitin uusiin koordinaatteihin.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return
+     */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
         int vanhaX = getX();

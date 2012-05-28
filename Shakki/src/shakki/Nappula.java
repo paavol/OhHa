@@ -5,7 +5,9 @@
 package shakki;
 
 import java.util.List;
-import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 
 /**
  * Nappula on abstrakti luokka, jonka kaikki shakkinappulaluokat perivät.
@@ -13,11 +15,12 @@ import javax.swing.JLabel;
  *
  * @author paavolyy
  */
-public abstract class Nappula extends JLabel{
+public abstract class Nappula extends JButton {
 
     private int x;
     private int y;
     final boolean valkoinenko;
+    protected ImageIcon icon;
 
     public Nappula(int x, int y, boolean valkoinenko) {
 
@@ -96,4 +99,13 @@ public abstract class Nappula extends JLabel{
     public abstract boolean voikoLiikkua(int uusiX, int uusiY);
 
     public abstract List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY);
+
+    @Override
+    public ImageIcon getIcon() {
+        return icon;
+    }
+
+    public void setIcon(ImageIcon icon) {
+        this.icon = icon;
+    }
 }

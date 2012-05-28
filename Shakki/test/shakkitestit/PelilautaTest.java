@@ -180,7 +180,7 @@ public class PelilautaTest {
         pelilauta.liikutaNappulaa(6, 3, 5, 2, true);
         pelilauta.liikutaNappulaa(5, 2, 4, 2, true);
         pelilauta.liikutaNappulaa(4, 2, 3, 2, true);
-        
+
         pelilauta.liikutaNappulaa(1, 4, 2, 4, false);
         pelilauta.liikutaNappulaa(0, 3, 4, 7, false);
         pelilauta.liikutaNappulaa(3, 2, 4, 2, true);
@@ -188,6 +188,7 @@ public class PelilautaTest {
 
 
     }
+
     @Test
     public void yritetaanSiirtaaSotilastaKuninkaanEdesta() {
         pelilauta.alustaLauta();
@@ -195,13 +196,13 @@ public class PelilautaTest {
         pelilauta.liikutaNappulaa(7, 4, 6, 3, true);
         pelilauta.liikutaNappulaa(6, 3, 5, 2, true);
         pelilauta.liikutaNappulaa(5, 2, 4, 2, true);
-        
-        
+
+
         pelilauta.liikutaNappulaa(1, 4, 2, 4, false);
         pelilauta.liikutaNappulaa(0, 3, 4, 7, false);
         pelilauta.liikutaNappulaa(3, 2, 4, 2, true);
         pelilauta.liikutaNappulaa(4, 3, 3, 3, true);
-        
+
         assertEquals(null, pelilauta.getNappulaRuudusta(3, 3));
 
 

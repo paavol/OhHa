@@ -17,7 +17,8 @@ import javax.swing.ImageIcon;
 public class Hevonen extends Nappula {
 
     /**
-     * Hevonen perii konstruktorissaan parametrit Nappula-luokalta.
+     * Hevonen perii konstruktorissaan parametrit Nappula-luokalta.Lisäksi
+     * hevosella on värin mukaan määritelty imageIcon.
      *
      * @param x
      * @param y
@@ -25,6 +26,11 @@ public class Hevonen extends Nappula {
      */
     public Hevonen(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
+        if (valkoinenko) {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/1.gif");
+        } else {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/7.gif");
+        }
     }
 
     /**
@@ -46,17 +52,6 @@ public class Hevonen extends Nappula {
     @Override
     public boolean voikoLiikkua(int uusiX, int uusiY) {
         return hevosenMahdollisetLiikkumiset(uusiX, uusiY);
-//        if (uusiX == getX() - 1 && uusiY == getY() - 2
-//                || uusiX == getX() - 2 && uusiY == getY() - 1
-//                || uusiX == getX() - 2 && uusiY == getY() + 1
-//                || uusiX == getX() - 1 && uusiY == getY() + 2
-//                || uusiX == getX() + 1 && uusiY == getY() - 2
-//                || uusiX == getX() + 2 && uusiY == getY() - 1
-//                || uusiX == getX() + 2 && uusiY == getY() + 1
-//                || uusiX == getX() + 1 && uusiY == getY() + 2) {
-//            return true;
-//        }
-//        return false;
     }
 
     private boolean hevosenMahdollisetLiikkumiset(int uusiX, int uusiY) {
@@ -65,21 +60,16 @@ public class Hevonen extends Nappula {
         return ((muutosX == 2 && muutosY == 1) || (muutosX == 1 && muutosY == 2));
     }
 
+    /**
+     * Nappula-luokalta peritty metodi, jota ei tarvitse hevoselle toteuttaa,
+     * koska hevosella ei ole reittiä, vaan ainoastaan lähtöpiste ja päätepiste.
+     *
+     * @param x
+     * @param y
+     * @return
+     */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int x, int y) {
         return new ArrayList<int[]>();
     }
-
-    protected static ImageIcon kuva(String filename, String kuvaus) {
-        if (filename != null) {
-
-            return new ImageIcon(filename);
-        } else {
-            System.err.println("Ei löytynyt tiedostoa: " + filename);
-            return null;
-
-        }
-    }
-    ImageIcon mustaHevonen = kuva("/Users/Maijanen/Downloads/jchess/images/7", "Musta hevonen");
-    ImageIcon valkoinenHevonen = kuva("/Users/Maijanen/Downloads/jchess/images/1", "Valkoinen hevonen");
 }

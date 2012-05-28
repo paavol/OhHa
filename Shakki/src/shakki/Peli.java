@@ -7,6 +7,7 @@ package shakki;
 import Kayttoliittyma.GraafinenKayttoliittyma;
 import Kayttoliittyma.Kayttoliittyma;
 import Kayttoliittyma.Tekstikayttoliittyma;
+import java.awt.Point;
 import javax.swing.JFrame;
 
 /**
@@ -38,9 +39,22 @@ public class Peli {
 
     public void kaynnistaGraafinen() {
         Pelilauta lauta = new Pelilauta();
-        lauta.alustaLauta();
+
         Kayttoliittyma kayttoliittyma = new GraafinenKayttoliittyma();
-        kayttoliittyma.piirraLauta(lauta.getLauta(), true);
+        Boolean valkoisenVuoro = true;
+//        lauta.alustaLauta();
+        kayttoliittyma.piirraLauta(lauta.getLauta(),valkoisenVuoro);
         
+        while (lauta.peliKaynnissa()) {
+            
+            int[] siirronKoordinaatit;
+            do {
+                siirronKoordinaatit = kayttoliittyma.siirto();
+            } while (!(lauta.liikutaNappulaa(siirronKoordinaatit[ 0], siirronKoordinaatit[ 1],
+                    siirronKoordinaatit[ 2], siirronKoordinaatit[ 3], valkoisenVuoro)));
+            valkoisenVuoro = !valkoisenVuoro;
+            kayttoliittyma.piirraLauta(lauta.getLauta(),valkoisenVuoro);
+        }
+
     }
 }

@@ -6,6 +6,7 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
@@ -16,7 +17,8 @@ import java.util.List;
 public class Sotilas extends Nappula {
 
     /**
-     * Sotilas perii konstruktorissaan parametrit Nappula-luokasta.
+     * Sotilas perii konstruktorissaan parametrit Nappula-luokasta.Lisäksi
+     * sotilaalla on värin mukaan määritelty imageIcon.
      *
      * @param x
      * @param y
@@ -24,6 +26,11 @@ public class Sotilas extends Nappula {
      */
     public Sotilas(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
+        if (valkoinenko) {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/0.gif");
+        } else {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/6.gif");
+        }
     }
 
     /**
@@ -36,15 +43,6 @@ public class Sotilas extends Nappula {
         return "s ";
     }
 
-    /**
-     * Metodi tarkistaa sotilaan shakkisääntöjen mukaiset siirrot ja palauttaa
-     * true, mikäli siirto parametreina saatuihin koordinaatteihin on
-     * mahdollinen.
-     *
-     * @param uusiX
-     * @param uusiY
-     * @return
-     */
     private boolean valkoisenLiikkuminen(int uusiX, int uusiY) {
         if (this.valkoinenko) {
             if (getX() == 6) {
@@ -69,6 +67,17 @@ public class Sotilas extends Nappula {
         return false;
     }
 
+    /**
+     * Metodi tarkistaa sotilaan shakkisääntöjen mukaiset siirrot ja palauttaa
+     * true, mikäli siirto parametreina saatuihin koordinaatteihin on
+     * mahdollinen.Valkoisella ja mustalla sotilaalla on erilaiset liikkumiset,
+     * joten esimerkiksi valkoinen sotilas pystyy liikkumaan ainoastaan
+     * ylöspäin.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return
+     */
     @Override
     public boolean voikoLiikkua(int uusiX, int uusiY) {
         if (valkoisenLiikkuminen(uusiX, uusiY) || mustanLiikkuminen(uusiX, uusiY)) {
@@ -103,6 +112,16 @@ public class Sotilas extends Nappula {
         return ((uusiX == getX() + 2) && uusiY == getY());
     }
 
+    /**
+     * Nappula-luokalta peritty metodi, joka palauttaa sotilaan uusiin
+     * koordinaatteihin kulkeman reitin taulukossa.Taulukko sisältää siis
+     * maksimissaan yhden arvon, koska päätepisteitä ei tallenneta taulukkoon ja
+     * sotilas voi liikkua enintään kaksi ruutua kerralla.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return
+     */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
 

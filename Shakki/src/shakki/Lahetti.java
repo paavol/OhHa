@@ -6,6 +6,7 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
@@ -16,7 +17,8 @@ import java.util.List;
 public class Lahetti extends Nappula {
 
     /**
-     * Lahetti perii konstruktorissaan parametrit Nappula-luokalta.
+     * Lahetti perii konstruktorissaan parametrit Nappula-luokalta.Lisäksi
+     * lähetillä on värin mukaan määritelty imageIcon.
      *
      * @param x
      * @param y
@@ -24,8 +26,18 @@ public class Lahetti extends Nappula {
      */
     public Lahetti(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
+        if (valkoinenko) {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/0.gif");
+        } else {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/6.gif");
+        }
     }
 
+    /**
+     * Lähetin toString.
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "L ";
@@ -53,6 +65,14 @@ public class Lahetti extends Nappula {
         return muutosX == muutosY;
     }
 
+    /**
+     * Nappula-luokalta peritty metodi, joka palauttaa taulukon, jossa on
+     * tallennettuna lähetin uusiin koordinaatteihin kulkema reitti.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return
+     */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
         int vanhaX = getX();

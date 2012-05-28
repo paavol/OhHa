@@ -6,6 +6,7 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
@@ -16,7 +17,8 @@ import java.util.List;
 public class Torni extends Nappula {
 
     /**
-     * Torni perii konstruktorissaan parametrit Nappula-luokasta.
+     * Torni perii konstruktorissaan parametrit Nappula-luokasta.Lisäksi
+     * tornilla on värin mukaan määritelty imageIcon.
      *
      * @param x
      * @param y
@@ -24,6 +26,11 @@ public class Torni extends Nappula {
      */
     public Torni(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
+        if (valkoinenko) {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/3.gif");
+        } else {
+            icon = new ImageIcon("/cs/fs/home/paavolyy/OhHa/nappulakuvakkeet/9.gif");
+        }
     }
 
     /**
@@ -53,6 +60,14 @@ public class Torni extends Nappula {
         return false;
     }
 
+    /**
+     * Nappula-luokalta peritty metodi joka palauttaa taulukon, jossa on
+     * tallennettuna tornin uusiin koordinaatteihin kulkema reitti.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return
+     */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
         int vanhaX = getX();
