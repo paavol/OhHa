@@ -79,32 +79,7 @@ public class Pelilauta {
     }
 
     public boolean peliKaynnissa() {
-//        while (onMatti() == true || onPatti() == true) {
-//            return false;
-//        }
         return true;
-    }
-
-    public boolean onMatti(int vanhaX, int vanhaY) {
-        if (shakkitilanne(vanhaX, vanhaY) && eiVoiLiikkuaMihinkaan(vanhaX, vanhaY)) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean eiVoiLiikkuaMihinkaan(int vanhaX, int vanhaY) {
-        return false;
-    }
-
-    private boolean shakkitilanne(int uusiX, int uusiY) {
-        return true;
-    }
-
-    public boolean onPatti(int vanhaX, int vanhaY) {
-        if (!shakkitilanne(vanhaX, vanhaY) && eiVoiLiikkuaMihinkaan(vanhaX, vanhaY)) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -191,10 +166,6 @@ public class Pelilauta {
         return true;
     }
 
-    private boolean voikoOhittaa() {
-        return true;
-    }
-
     private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
 
         if ((onkoRuutuVapaa(uusiX, uusiY)
@@ -241,7 +212,8 @@ public class Pelilauta {
             kunkkuX = mustaKuningas.getX();
             kunkkuY = mustaKuningas.getY();
         }
-
+//Tutkitaan kaikki kuningakseen pääsevät suunnat. 
+        
         for (int x = kunkkuX + 1; x < 8; x++) {
             if (lauta[ x][ kunkkuY] != null) {
                 if (lauta[ x][ kunkkuY].getNappula().valkoinenko() != valkoinenko
@@ -251,7 +223,6 @@ public class Pelilauta {
                 break;
             }
         }
-
 
         for (int x = kunkkuX - 1; x >= 0; x--) {
             if (lauta[ x][ kunkkuY] != null) {

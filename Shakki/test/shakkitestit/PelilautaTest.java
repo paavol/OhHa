@@ -160,7 +160,7 @@ public class PelilautaTest {
     }
 
     @Test
-    public void yritetaanSiirtaaKuningastaShakkiin() {
+    public void yritetaanSiirtaaKuningastaShakkiinSotilaanEteen() {
         pelilauta.alustaLauta();
         pelilauta.liikutaNappulaa(6, 3, 4, 3, true);
         pelilauta.liikutaNappulaa(7, 4, 6, 3, true);
@@ -173,7 +173,7 @@ public class PelilautaTest {
     }
 
     @Test
-    public void yritetaanSiirtaaKuningastaShakkiin2() {
+    public void yritetaanSiirtaaKuningastaShakkiinKuningattarenEteen() {
         pelilauta.alustaLauta();
         pelilauta.liikutaNappulaa(6, 3, 5, 3, true);
         pelilauta.liikutaNappulaa(7, 4, 6, 3, true);
