@@ -80,21 +80,46 @@ public class Kuningatar extends Nappula {
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
         int vanhaX = getX();
         int vanhaY = getY();
+        int muutettavaX = vanhaX;
+        int muutettavaY = vanhaY;
+
         int reitinPituus = Math.abs(uusiX - vanhaX) - 1;
         List<int[]> reitti = new ArrayList<int[]>();
 
-        for (int i = 0; i < reitinPituus; i++) {
-            if (vanhaX < uusiX) {
-                ++vanhaX;
-            } else {
-                --vanhaX;
+        if (muutoksetSamat(uusiX, uusiY)) {
+
+            for (int i = 0; i < reitinPituus; i++) {
+                if (vanhaX < uusiX) {
+                    ++vanhaX;
+                } else {
+                    --vanhaX;
+                }
+                if (vanhaY < uusiY) {
+                    ++vanhaY;
+                } else {
+                    --vanhaY;
+                }
+                reitti.add(new int[]{vanhaX, vanhaY});
             }
-            if (vanhaY < uusiY) {
-                ++vanhaY;
-            } else {
-                --vanhaY;
+        } else {
+            for (int i = 0; i < reitinPituus; i++) {
+                if (vanhaY == uusiY) {
+                    if (muutettavaX < uusiX) {
+                        ++muutettavaX;
+                    } else {
+                        --muutettavaX;
+                    }
+                } else if (vanhaX == uusiX) {
+                    if (muutettavaY < uusiY) {
+                        ++muutettavaY;
+                    } else {
+                        --muutettavaY;
+                    }
+                }
+
+                reitti.add(new int[]{muutettavaX, muutettavaY});
             }
-            reitti.add(new int[]{vanhaX, vanhaY});
+
         }
         return reitti;
     }

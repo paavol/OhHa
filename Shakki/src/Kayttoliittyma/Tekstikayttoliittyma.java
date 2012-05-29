@@ -14,7 +14,7 @@ import shakki.Ruutu;
  *
  * @author paavolyy
  */
-public class Tekstikayttoliittyma implements Kayttoliittyma {
+public class Tekstikayttoliittyma {
 
     private Pelilauta lauta;
     private Scanner lukija;
@@ -35,7 +35,7 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
      * @param lauta
      * @param valkoisenVuoro
      */
-    @Override
+
     public void piirraLauta(Ruutu[][] lauta, boolean valkoisenVuoro) {
         if (valkoisenVuoro) {
             System.out.println("VALKOISEN VUORO");
@@ -63,7 +63,7 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
      *
      * @return
      */
-    @Override
+
     public int[] siirto() {
         System.out.println("Anna siirrettävän nappulan koordinaatit.");
         System.out.print("x: ");

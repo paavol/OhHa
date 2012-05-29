@@ -99,7 +99,6 @@ public abstract class Nappula {
 
     public abstract List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY);
 
-
     public ImageIcon getIcon() {
         return icon;
     }

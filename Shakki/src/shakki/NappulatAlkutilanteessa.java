@@ -74,13 +74,4 @@ public class NappulatAlkutilanteessa {
         return nappulat;
     }
 
-    /**
-     * Palauttaa taulukon kohdassa x olevan Nappulan.
-     *
-     * @param x
-     * @return
-     */
-    public Nappula getNappula(int x) {
-        return nappulat[x];
-    }
 }

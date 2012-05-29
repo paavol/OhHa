@@ -16,28 +16,30 @@ import shakki.*;
  *
  * @author paavolyy
  */
-public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, ActionListener {
+public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Runnable {
 
     private boolean ensimmainenKaynnistys;
     private JFrame frame;
-    private JPanel pelilauta;
-    private JPanel[][] ruudut;
+    private JPanel pelialusta;
     private int vanhaX;
     private int vanhaY;
     private int uusiX;
     private int uusiY;
+    private Pelilauta lauta;
+    private Kuvat kuvat;
 
-    public GraafinenKayttoliittyma(Peli peli) {
-        peli = new Peli();
+    public GraafinenKayttoliittyma(Pelilauta lauta) {
+        this.lauta = lauta;
+        this.kuvat = new Kuvat();
         ensimmainenKaynnistys = true;
-        ruudut = new JPanel[8][8];
         vanhaX = -1;
         vanhaY = -1;
         uusiX = -1;
         uusiY = -1;
     }
 
-    private void run() {
+    @Override
+    public void run() {
 
         frame = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,32 +49,31 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, A
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
         luoKomponentit(frame.getContentPane());
+
+        Boolean valkoisenVuoro = true;
+        lauta.alustaLauta();
+        piirraLauta(valkoisenVuoro);
+
+        while (true) {
+
+            int[] siirronKoordinaatit;
+            do {
+                siirronKoordinaatit = siirto();
+            } while (!(lauta.liikutaNappulaa(siirronKoordinaatit[ 0], siirronKoordinaatit[ 1],
+                    siirronKoordinaatit[ 2], siirronKoordinaatit[ 3], valkoisenVuoro)));
+            valkoisenVuoro = !valkoisenVuoro;
+            piirraLauta(valkoisenVuoro);
+        }
     }
 
     private void luoKomponentit(Container container) {
-        pelilauta = new JPanel();
-        pelilauta.setPreferredSize(new Dimension(600, 600));
+        pelialusta = new JPanel();
+        pelialusta.setPreferredSize(new Dimension(600, 600));
 
-        container.add(pelilauta);
-        pelilauta.setLayout(new GridLayout(8, 8));
-        //pelilauta.setBounds(0, 0, laudanKoko.width, laudanKoko.height);
+        container.add(pelialusta);
+        pelialusta.setLayout(new GridLayout(8, 8));
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                JPanel graafinenRuutu = new JPanel();
-
-                if (i % 2 != j % 2) {
-                    graafinenRuutu.setBackground(Color.darkGray);
-                } else {
-                    graafinenRuutu.setBackground(Color.white);
-                }
-                pelilauta.add(graafinenRuutu);
-
-                ruudut[i][j] = graafinenRuutu;
-            }
-        }
     }
 
     /**
@@ -81,8 +82,10 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, A
      * @param lauta
      * @param valkoisenVuoro
      */
-    @Override
-    public void piirraLauta(Ruutu[][] lauta, boolean valkoisenVuoro) {
+    public void piirraLauta(boolean valkoisenVuoro) {
+        pelialusta.invalidate();
+        pelialusta.removeAll();
+
         if (valkoisenVuoro) {
             System.out.println("VALKOISEN VUORO");
         } else {
@@ -90,45 +93,30 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, A
         }
 
         if (ensimmainenKaynnistys) {
-            run();
+
             ensimmainenKaynnistys = false;
         }
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                JButton nappula;
-                if (lauta[i][j].getNappula() != null) {
-                    nappula = lauta[i][j].getNappula();
-                } else {
-                    nappula = new Tyhja(i, j, false);
+                Ruutu ruutu = new Ruutu(i, j);
+
+                if (lauta.getNappulaLaudalta(i, j) != null) {
+                    kuvat.lisaaKuva(ruutu, lauta.getNappulaLaudalta(i, j));
                 }
 
                 if (i % 2 == j % 2) {
-                    nappula.setBackground(Color.white);
+                    ruutu.setBackground(Color.white);
                 } else {
-                    nappula.setBackground(Color.darkGray);
+                    ruutu.setBackground(Color.darkGray);
                 }
-                nappula.addActionListener(this);
-                this.ruudut[i][j].removeAll();
-                this.ruudut[i][j].add(nappula);
+                ruutu.setOpaque(true);
+                ruutu.addMouseListener(this);
+
+                pelialusta.add(ruutu);
             }
         }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        Nappula apunappula = (Nappula) ae.getSource();
-        if (vanhaX < 0) {
-            vanhaX = apunappula.getX();
-        } else {
-            uusiX = apunappula.getX();
-        }
-        if (vanhaY < 0) {
-            vanhaY = apunappula.getY();
-        } else {
-            uusiY = apunappula.getY();
-        }
-        System.out.println(apunappula.getX());
-        System.out.println(apunappula.getY());
+        pelialusta.validate();
     }
 
     /**
@@ -136,7 +124,6 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, A
      *
      * @return
      */
-    @Override
     public int[] siirto() {
         if (uusiY >= 0) {
             int a = vanhaX;
@@ -152,6 +139,39 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, A
         } else {
             return new int[]{-1, -1, -1, -1};
         }
+    }
 
+    @Override
+    public void mouseClicked(MouseEvent me) {
+
+        Ruutu ruutu = (Ruutu) me.getSource();
+        if (vanhaX < 0) {
+            vanhaX = ruutu.getI();
+        } else {
+            uusiX = ruutu.getI();
+        }
+        if (vanhaY < 0) {
+            vanhaY = ruutu.getJ();
+        } else {
+            uusiY = ruutu.getJ();
+        }
+        System.out.println(ruutu.getI());
+        System.out.println(ruutu.getJ());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
     }
 }

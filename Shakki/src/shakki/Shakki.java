@@ -17,11 +17,10 @@ public class Shakki {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Peli peli = new Peli();
-//        peli.kaynnista();
-        GraafinenKayttoliittyma g = new GraafinenKayttoliittyma(peli);
+        Pelilauta lauta = new Pelilauta();
+        GraafinenKayttoliittyma g = new GraafinenKayttoliittyma(lauta);
         g.run();
-//        peli.kaynnistaGraafinen();
+
 
     }
 }

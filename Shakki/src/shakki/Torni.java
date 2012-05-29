@@ -72,21 +72,31 @@ public class Torni extends Nappula {
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
         int vanhaX = getX();
         int vanhaY = getY();
+        int muutettavaX = vanhaX;
+        int muutettavaY = vanhaY;
+
         int reitinPituus = Math.abs(uusiX - vanhaX) - 1;
         List<int[]> reitti = new ArrayList<int[]>();
 
         for (int i = 0; i < reitinPituus; i++) {
-            if (vanhaX < uusiX) {
-                ++vanhaX;
-            } else {
-                --vanhaX;
+            if (vanhaY == uusiY) {
+                if (muutettavaX < uusiX) {
+                    ++muutettavaX;
+                } else {
+                    --muutettavaX;
+                }
+            } else if (vanhaX == uusiX) {
+                if (muutettavaY < uusiY) {
+                    ++muutettavaY;
+                } else {
+                    --muutettavaY;
+                }
             }
-            if (vanhaY < uusiY) {
-                ++vanhaY;
-            } else {
-                --vanhaY;
-            }
-            reitti.add(new int[]{vanhaX, vanhaY});
+
+            System.out.println("hintero");
+            System.out.println(muutettavaX);
+            System.out.println(muutettavaY);
+            reitti.add(new int[]{muutettavaX, muutettavaY});
         }
         return reitti;
     }
