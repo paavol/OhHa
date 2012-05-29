@@ -16,16 +16,24 @@ import shakki.*;
  *
  * @author paavolyy
  */
-public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, MouseListener {
+public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, ActionListener {
 
     private boolean ensimmainenKaynnistys;
     private JFrame frame;
     private JPanel pelilauta;
     private JPanel[][] ruudut;
+    private int vanhaX;
+    private int vanhaY;
+    private int uusiX;
+    private int uusiY;
 
     public GraafinenKayttoliittyma() {
         ensimmainenKaynnistys = true;
         ruudut = new JPanel[8][8];
+        vanhaX = -1;
+        vanhaY = -1;
+        uusiX = -1;
+        uusiY = -1;
     }
 
     private void run() {
@@ -34,6 +42,7 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setPreferredSize(new Dimension(600, 600));
+        frame.setSize(600, 600);
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -44,6 +53,7 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
     private void luoKomponentit(Container container) {
         pelilauta = new JPanel();
         pelilauta.setPreferredSize(new Dimension(600, 600));
+
         container.add(pelilauta);
         pelilauta.setLayout(new GridLayout(8, 8));
         //pelilauta.setBounds(0, 0, laudanKoko.width, laudanKoko.height);
@@ -51,7 +61,6 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 JPanel graafinenRuutu = new JPanel();
-                ////graafinenRuutu.setEnabled(true);
 
                 if (i % 2 != j % 2) {
                     graafinenRuutu.setBackground(Color.darkGray);
@@ -63,38 +72,6 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
                 ruudut[i][j] = graafinenRuutu;
             }
         }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent me) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent me) {
-    }
-
-    /**
-     * Metodi reagoi hiiren painalluksiin.
-     *
-     * @param me
-     */
-    @Override
-    public void mouseClicked(MouseEvent me) {
-//        Component c = pelilauta.findComponentAt(me.getX(), me.getY());
-//        Point alkusijainti = c.getParent().getLocation();
-//        if (pelilauta.getNappulaRuudusta(alkusijainti.x, alkusijainti.y).valkoinenko()) {
-//            pelilauta.liikutaNappulaa(alkusijainti.x, alkusijainti.y, me.getX(), me.getY(), true);
-//        } else {
-//            pelilauta.liikutaNappulaa(alkusijainti.x, alkusijainti.y, me.getX(), me.getY(), false);
-//        }
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
     }
 
     /**
@@ -115,22 +92,42 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
             run();
             ensimmainenKaynnistys = false;
         }
-
-
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                JButton nappula;
                 if (lauta[i][j].getNappula() != null) {
-                    JButton nappula = lauta[i][j].getNappula();
-                    if (i % 2 == j % 2) {
-                        nappula.setBackground(Color.white);
-                    } else {
-                        nappula.setBackground(Color.darkGray);
-                    }
-
-                    this.ruudut[i][j].add(nappula); 
+                    nappula = lauta[i][j].getNappula();
+                } else {
+                    nappula = new Tyhja(i, j, false);
                 }
+
+                if (i % 2 == j % 2) {
+                    nappula.setBackground(Color.white);
+                } else {
+                    nappula.setBackground(Color.darkGray);
+                }
+                nappula.addActionListener(this);
+                this.ruudut[i][j].removeAll();
+                this.ruudut[i][j].add(nappula);
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        Nappula apunappula = (Nappula) ae.getSource();
+        if (vanhaX < 0) {
+            vanhaX = apunappula.getX();
+        } else {
+            uusiX = apunappula.getX();
+        }
+        if (vanhaY < 0) {
+            vanhaY = apunappula.getY();
+        } else {
+            uusiY = apunappula.getY();
+        }
+        System.out.println(apunappula.getX());
+        System.out.println(apunappula.getY());
     }
 
     /**
@@ -140,8 +137,20 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, M
      */
     @Override
     public int[] siirto() {
+        if (uusiY >= 0) {
+            int a = vanhaX;
+            int b = vanhaY;
+            int c = uusiX;
+            int d = uusiY;
 
-//        return new int[]{vanhaX, vanhaY, uusiX, uusiY};
-        throw new UnsupportedOperationException("Not supported yet.");
+            vanhaX = -1;
+            vanhaY = -1;
+            uusiX = -1;
+            uusiY = -1;
+            return new int[]{a, b, c, d};
+        } else {
+            return new int[]{-1, -1, -1, -1};
+        }
+
     }
 }
