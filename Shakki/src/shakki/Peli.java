@@ -13,16 +13,20 @@ import Kayttoliittyma.Tekstikayttoliittyma;
  * @author Maijanen
  */
 public class Peli {
-
+Pelilauta lauta;
     public Peli() {
     }
 
+    public Pelilauta getLauta() {
+        return lauta;
+    }
+
     public void kaynnista() {
-        Pelilauta lauta = new Pelilauta();
-        Kayttoliittyma kayttoliittyma = new Tekstikayttoliittyma();
+        lauta = new Pelilauta();
+        //Kayttoliittyma kayttoliittyma = new Tekstikayttoliittyma();
         Boolean valkoisenVuoro = true;
         lauta.alustaLauta();
-        kayttoliittyma.piirraLauta(lauta.getLauta(), valkoisenVuoro);
+       // kayttoliittyma.piirraLauta(lauta.getLauta(), valkoisenVuoro);
 
         while (lauta.peliKaynnissa()) {
             int[] siirronKoordinaatit;
@@ -31,7 +35,7 @@ public class Peli {
             } while (!(lauta.liikutaNappulaa(siirronKoordinaatit[ 0], siirronKoordinaatit[ 1],
                     siirronKoordinaatit[ 2], siirronKoordinaatit[ 3], valkoisenVuoro)));
             valkoisenVuoro = !valkoisenVuoro;
-            kayttoliittyma.piirraLauta(lauta.getLauta(), valkoisenVuoro);
+     //       kayttoliittyma.piirraLauta(lauta.getLauta(), valkoisenVuoro);
         }
     }
 
