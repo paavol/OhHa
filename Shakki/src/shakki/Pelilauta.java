@@ -5,7 +5,6 @@
 package shakki;
 
 import java.util.List;
-import javax.swing.JPanel;
 
 /**
  * Pelilauta on logiikkaosion tärkein luokka, jossa tapahtuu kaikki nappuloiden
@@ -13,7 +12,7 @@ import javax.swing.JPanel;
  *
  * @author Maijanen
  */
-public class Pelilauta extends JPanel {
+public class Pelilauta {
 
     private Ruutu[][] lauta;
     private Nappula valkoinenKuningas;

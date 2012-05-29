@@ -4,6 +4,8 @@
  */
 package shakki;
 
+import Kayttoliittyma.GraafinenKayttoliittyma;
+
 /**
  * Shakki-luokka luo uuden pelilaudan ja käyttöliittymän, sekä käynnistää pelin.
  *
@@ -17,7 +19,9 @@ public class Shakki {
     public static void main(String[] args) {
         Peli peli = new Peli();
 //        peli.kaynnista();
-        peli.kaynnistaGraafinen();
-        
+        GraafinenKayttoliittyma g = new GraafinenKayttoliittyma(peli);
+        g.run();
+//        peli.kaynnistaGraafinen();
+
     }
 }

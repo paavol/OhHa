@@ -30,8 +30,9 @@ public class PelilautaTest {
     }
 
     /**
-     * Alustaa pelilaudan ja lisää laudalle kuninkaan molempiin päihin oleviin
-     * ruutuihin.
+     * setupissa luodaan tyhjälle laudalle ruutuja, joihin heitetään muutamia
+     * nappuloita pelin testaamiseksi.
+     *
      *
      */
     @Before
@@ -117,7 +118,7 @@ public class PelilautaTest {
 
     @Test
     public void onkoRuutuVapaa() {
-        assertEquals(null, pelilauta.getNappulaRuudusta(5, 5));
+        assertNull(pelilauta.getNappulaRuudusta(5, 5));
     }
 
     @Test
@@ -138,7 +139,7 @@ public class PelilautaTest {
     @Test
     public void siirronJalkeenRuutuVapaa() {
         pelilauta.liikutaNappulaa(0, 4, 0, 5, false);
-        assertEquals(null, pelilauta.getNappulaRuudusta(0, 4));
+        assertNull(pelilauta.getNappulaRuudusta(0, 4));
     }
 
     @Test
@@ -168,7 +169,7 @@ public class PelilautaTest {
         pelilauta.liikutaNappulaa(5, 2, 4, 2, true);
         pelilauta.liikutaNappulaa(4, 2, 3, 2, true);
         pelilauta.liikutaNappulaa(3, 2, 2, 1, true);
-        assertEquals(null, pelilauta.getNappulaRuudusta(2, 1));
+        assertNull(pelilauta.getNappulaRuudusta(2, 1));
 
     }
 
@@ -184,7 +185,7 @@ public class PelilautaTest {
         pelilauta.liikutaNappulaa(1, 4, 2, 4, false);
         pelilauta.liikutaNappulaa(0, 3, 4, 7, false);
         pelilauta.liikutaNappulaa(3, 2, 4, 2, true);
-        assertEquals(null, pelilauta.getNappulaRuudusta(4, 2));
+        assertNull(pelilauta.getNappulaRuudusta(4, 2));
 
 
     }
@@ -203,7 +204,7 @@ public class PelilautaTest {
         pelilauta.liikutaNappulaa(3, 2, 4, 2, true);
         pelilauta.liikutaNappulaa(4, 3, 3, 3, true);
 
-        assertEquals(null, pelilauta.getNappulaRuudusta(3, 3));
+        assertNull(pelilauta.getNappulaRuudusta(3, 3));
 
 
     }

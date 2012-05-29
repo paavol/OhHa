@@ -4,13 +4,11 @@
  */
 package shakki;
 
-import javax.swing.JPanel;
-
 /**
  *
  * @author paavolyy
  */
-public class Ruutu extends JPanel {
+public class Ruutu {
 
     private int x;
     private int y;
@@ -34,7 +32,7 @@ public class Ruutu extends JPanel {
      *
      * @return
      */
-    @Override
+
     public int getX() {
         return x;
     }
@@ -44,7 +42,7 @@ public class Ruutu extends JPanel {
      *
      * @return
      */
-    @Override
+
     public int getY() {
         return y;
     }

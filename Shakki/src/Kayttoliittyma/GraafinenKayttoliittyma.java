@@ -27,7 +27,8 @@ public class GraafinenKayttoliittyma extends JFrame implements Kayttoliittyma, A
     private int uusiX;
     private int uusiY;
 
-    public GraafinenKayttoliittyma() {
+    public GraafinenKayttoliittyma(Peli peli) {
+        peli = new Peli();
         ensimmainenKaynnistys = true;
         ruudut = new JPanel[8][8];
         vanhaX = -1;
