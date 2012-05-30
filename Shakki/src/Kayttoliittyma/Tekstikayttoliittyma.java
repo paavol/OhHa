@@ -5,8 +5,8 @@
 package Kayttoliittyma;
 
 import java.util.Scanner;
-import shakki.Nappula;
-import shakki.Pelilauta;
+import sovelluslogiikka.Nappula;
+import sovelluslogiikka.Pelilauta;
 
 /**
  * Tekstikäyttöliittymä luodaan Main-luokan main-osiossa.Käyttöliittymän kautta

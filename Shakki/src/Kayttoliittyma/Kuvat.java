@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import shakki.Nappula;
+import sovelluslogiikka.Nappula;
 
 /**
  *
