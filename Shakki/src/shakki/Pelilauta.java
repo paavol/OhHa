@@ -36,6 +36,10 @@ public class Pelilauta {
         return lauta;
     }
 
+    public void lisaaNappulaLaudalle(Nappula nappula) {
+        lauta[nappula.getX()][nappula.getY()] = nappula;
+    }
+
     /**
      *
      * Liikutetaan haluttua nappulaa uusiin koordinaatteihin, jos kaikki annetut
@@ -61,7 +65,8 @@ public class Pelilauta {
                     Nappula apunappula2 = lauta[uusiX][uusiY];
                     lauta[uusiX][uusiY] = apunappula;
                     lauta[vanhaX][vanhaY] = null;
-
+                    if (muuttuukoSotilasKuningattareksi(apunappula)) {
+                    }
                     if (tuleekoShakki(valkoisenVuoro)) {
                         lauta[uusiX][uusiY] = apunappula2;
                         lauta[vanhaX][vanhaY] = apunappula;
@@ -181,11 +186,17 @@ public class Pelilauta {
             kunkkuX = mustaKuningas.getX();
             kunkkuY = mustaKuningas.getY();
         }
-//Tutkitaan kaikki kuningakseen pääsevät suunnat. Metodi on ylipitkä mutta silti mielestäni looginen kokonaisuus. Jahka se ensin toimisi...
-       
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                if (lauta[i][j].valkoinenko() != valkoinenko
+//                        && lauta[i][j].voikoLiikkua(kunkkuX, kunkkuY)) {
+//                    return true;
+//                }
+//            }
+//        }
+        //     Tutkitaan kaikki kuninkaaseen pääsevät suunnat.Metodi on ylipitkä mutta silti mielestäni looginen kokonaisuus. Jahka se ensin toimisi        
+
         {
-
-
             for (int x = kunkkuX + 1; x < 8; x++) {
                 if (lauta[ x][ kunkkuY] != null) {
                     if (lauta[ x][ kunkkuY].valkoinenko() != valkoinenko
@@ -196,7 +207,6 @@ public class Pelilauta {
                 }
             }
         }
-
         for (int x = kunkkuX - 1; x >= 0; x--) {
             if (lauta[ x][ kunkkuY] != null) {
                 if (lauta[ x][ kunkkuY].valkoinenko() != valkoinenko
@@ -206,7 +216,6 @@ public class Pelilauta {
                 break;
             }
         }
-
         for (int y = kunkkuY + 1; y < 8; y++) {
             if (lauta[ kunkkuX][ y] != null) {
                 if (lauta[ kunkkuX][ y].valkoinenko() != valkoinenko
@@ -216,7 +225,6 @@ public class Pelilauta {
                 break;
             }
         }
-
         for (int y = kunkkuY - 1; y >= 0; y--) {
             if (lauta[ kunkkuX][ y] != null) {
                 if (lauta[ kunkkuX][ y].valkoinenko() != valkoinenko
@@ -226,6 +234,7 @@ public class Pelilauta {
                 break;
             }
         }
+
         int x = kunkkuX + 1;
         int y = kunkkuY + 1;
         while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
@@ -240,6 +249,7 @@ public class Pelilauta {
             x++;
             y++;
         }
+
         x = kunkkuX + 1;
         y = kunkkuY - 1;
         while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
@@ -254,6 +264,7 @@ public class Pelilauta {
             x++;
             y--;
         }
+
         x = kunkkuX - 1;
         y = kunkkuY + 1;
         while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
@@ -268,6 +279,7 @@ public class Pelilauta {
             x--;
             y++;
         }
+
         x = kunkkuX - 1;
         y = kunkkuY - 1;
         while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
@@ -281,6 +293,16 @@ public class Pelilauta {
             x--;
             y--;
         }
+//
+//        for (Nappula nappula : nappulat.getNappulat()) {
+//            if (nappula.getClass().getName().equals(Hevonen.class.getName())) {
+//                if (nappula.valkoinenko() != valkoinenko
+//                        && nappula.voikoLiikkua(kunkkuX, kunkkuY)) {
+//                    return true;
+//                }
+//            }
+//        }
+
         return false;
     }
 
@@ -288,25 +310,27 @@ public class Pelilauta {
         return true;
     }
 
-    private boolean muuttuukoSotilasKuningattareksi(int uusiX, int uusiY) {
-        Nappula apunappula = lauta[uusiX][uusiY];
-        if (apunappula.getClass().equals(Sotilas.class)) {
-            if (apunappula.valkoinenko) {
-                if (apunappula.getX() == 0) {
+    private boolean muuttuukoSotilasKuningattareksi(Nappula nappula) {
+        nappula = lauta[nappula.getX()][nappula.getY()];
+        if (nappula.getClass().equals(Sotilas.class)) {
+            if (nappula.valkoinenko) {
+                if (nappula.getX() == 0 || nappula.getX() == 7) {
+                    sotilasMuuttuuKuningattareksi(nappula);
                     return true;
                 }
-            } else if (apunappula.getX() == 7) {
-                return true;
             }
         }
         return false;
     }
 
-    private void sotilasMuuttuuKuningattareksi(int uusiX, int uusiY) {
-        if (lauta[uusiX][uusiY].valkoinenko()) {
-            lauta[uusiX][uusiY] = new Kuningatar(uusiX, uusiY, true);
+    private void sotilasMuuttuuKuningattareksi(Nappula nappula) {
+
+        nappula = lauta[nappula.getX()][nappula.getY()];
+        if (nappula.valkoinenko()) {
+            lisaaNappulaLaudalle(new Kuningatar(nappula.getX(), nappula.getY(), true));
         } else {
-            lauta[uusiX][uusiY] = new Kuningatar(uusiX, uusiY, false);
+            lisaaNappulaLaudalle(new Kuningatar(nappula.getX(), nappula.getY(), false));
         }
+
     }
 }

@@ -4,11 +4,15 @@
  */
 package Kayttoliittyma;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Random;
-import javax.swing.*;
-import shakki.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import shakki.Pelilauta;
 
 /**
  * Graafinen käyttöliittymä mahdollistaa pelin pelaamisen graafisesti
@@ -18,7 +22,6 @@ import shakki.*;
  */
 public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Runnable {
 
-    private boolean ensimmainenKaynnistys;
     private JFrame frame;
     private JPanel pelialusta;
     private int vanhaX;
@@ -31,7 +34,6 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     public GraafinenKayttoliittyma(Pelilauta lauta) {
         this.lauta = lauta;
         this.kuvat = new Kuvat();
-        ensimmainenKaynnistys = true;
         vanhaX = -1;
         vanhaY = -1;
         uusiX = -1;
@@ -69,7 +71,7 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
 
     private void luoKomponentit(Container container) {
         pelialusta = new JPanel();
-        pelialusta.setPreferredSize(new Dimension(600, 600));
+        pelialusta.setPreferredSize(new Dimension(600, 1000));
 
         container.add(pelialusta);
         pelialusta.setLayout(new GridLayout(8, 8));
@@ -92,11 +94,6 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
             System.out.println("MUSTAN VUORO");
         }
 
-        if (ensimmainenKaynnistys) {
-
-            ensimmainenKaynnistys = false;
-        }
-
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Ruutu ruutu = new Ruutu(i, j);
@@ -112,7 +109,6 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
                 }
                 ruutu.setOpaque(true);
                 ruutu.addMouseListener(this);
-
                 pelialusta.add(ruutu);
             }
         }

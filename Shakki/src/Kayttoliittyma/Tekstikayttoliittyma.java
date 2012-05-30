@@ -5,8 +5,8 @@
 package Kayttoliittyma;
 
 import java.util.Scanner;
+import shakki.Nappula;
 import shakki.Pelilauta;
-import shakki.Ruutu;
 
 /**
  * Tekstikäyttöliittymä luodaan Main-luokan main-osiossa.Käyttöliittymän kautta
@@ -24,9 +24,25 @@ public class Tekstikayttoliittyma {
      *
      * @param lauta
      */
-    public Tekstikayttoliittyma() {
+    public Tekstikayttoliittyma(Pelilauta lauta) {
+        this.lauta = lauta;
         this.lukija = new Scanner(System.in);
+    }
 
+    public void run() {
+        Boolean valkoisenVuoro = true;
+        lauta.alustaLauta();
+        piirraLauta(valkoisenVuoro);
+        while (true) {
+
+            int[] siirronKoordinaatit;
+            do {
+                siirronKoordinaatit = siirto();
+            } while (!(lauta.liikutaNappulaa(siirronKoordinaatit[ 0], siirronKoordinaatit[ 1],
+                    siirronKoordinaatit[ 2], siirronKoordinaatit[ 3], valkoisenVuoro)));
+            valkoisenVuoro = !valkoisenVuoro;
+            piirraLauta(valkoisenVuoro);
+        }
     }
 
     /**
@@ -35,20 +51,19 @@ public class Tekstikayttoliittyma {
      * @param lauta
      * @param valkoisenVuoro
      */
-
-    public void piirraLauta(Ruutu[][] lauta, boolean valkoisenVuoro) {
+    public void piirraLauta(boolean valkoisenVuoro) {
         if (valkoisenVuoro) {
             System.out.println("VALKOISEN VUORO");
         } else {
             System.out.println("MUSTAN VUORO");
         }
         System.out.println("");
-        for (Ruutu[] rivi : lauta) {
-            for (Ruutu ruutu : rivi) {
-                if (ruutu.getNappula() != null) {
-                    System.out.print(ruutu.getNappula());
+        for (Nappula[] rivi : lauta.getLauta()) {
+            for (Nappula nappula : rivi) {
+                if (nappula != null) {
+                    System.out.print(nappula);
                 }
-                if (ruutu.getNappula() == null) {
+                if (nappula == null) {
                     System.out.print("_ ");
                 }
             }
@@ -63,7 +78,6 @@ public class Tekstikayttoliittyma {
      *
      * @return
      */
-
     public int[] siirto() {
         System.out.println("Anna siirrettävän nappulan koordinaatit.");
         System.out.print("x: ");

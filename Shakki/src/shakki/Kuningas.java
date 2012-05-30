@@ -6,7 +6,6 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
@@ -27,11 +26,7 @@ public class Kuningas extends Nappula {
      */
     public Kuningas(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
-        if (valkoinenko) {
-            icon = new ImageIcon("nappulakuvakkeet/5.gif");
-        } else {
-            icon = new ImageIcon("nappulakuvakkeet/11.gif");
-        }
+
     }
 
     /**

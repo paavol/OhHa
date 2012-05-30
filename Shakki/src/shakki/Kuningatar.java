@@ -6,7 +6,6 @@ package shakki;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 
 /**
  * Abstraktin Nappula-luokan perivä luokka, joka pitää sisällään kyseisen
@@ -26,11 +25,6 @@ public class Kuningatar extends Nappula {
      */
     public Kuningatar(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
-        if (valkoinenko) {
-            icon = new ImageIcon("nappulakuvakkeet/4.gif");
-        } else {
-            icon = new ImageIcon("nappulakuvakkeet/10.gif");
-        }
     }
 
     /**

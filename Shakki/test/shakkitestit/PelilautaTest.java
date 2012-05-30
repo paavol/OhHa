@@ -38,7 +38,10 @@ public class PelilautaTest {
         k2 = new Kuningas(0, 4, false);
         solttu = new Sotilas(1, 0, true);
         heppa = new Hevonen(0, 5, true);
-
+        pelilauta.lisaaNappulaLaudalle(k1);
+        pelilauta.lisaaNappulaLaudalle(k2);
+        pelilauta.lisaaNappulaLaudalle(solttu);
+        pelilauta.lisaaNappulaLaudalle(heppa);
     }
 
     /**
@@ -107,14 +110,13 @@ public class PelilautaTest {
         pelilauta.liikutaNappulaa(0, 4, 0, 5, false);
         assertEquals(k2, pelilauta.getNappulaLaudalta(0, 5));
     }
-
+//Tämän pitäisi toimia heti, kun shakkitarkastus toimii pollella.
     @Test
     public void ruutuunEiVoiSiirtya() {
         pelilauta.liikutaNappulaa(0, 5, 2, 6, true);
         pelilauta.liikutaNappulaa(0, 4, 0, 5, false);
-        Hevonen histamiini = new Hevonen(0, 5, false);
-        
-        assertEquals(histamiini, pelilauta.getNappulaLaudalta(0, 5));
+
+        assertEquals(k2, pelilauta.getNappulaLaudalta(0, 4));
     }
 
     @Test
@@ -153,7 +155,7 @@ public class PelilautaTest {
         assertNull(pelilauta.getNappulaLaudalta(2, 1));
 
     }
-
+//tämä testi aiheuttaa kuninkaalle jumin
     @Test
     public void yritetaanSiirtaaKuningastaShakkiinKuningattarenEteen() {
         pelilauta.alustaLauta();
