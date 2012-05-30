@@ -192,6 +192,7 @@ public class Pelilauta {
 //                        && lauta[i][j].voikoLiikkua(kunkkuX, kunkkuY)) {
 //                    return true;
 //                }
+//
 //            }
 //        }
         //     Tutkitaan kaikki kuninkaaseen pääsevät suunnat.Metodi on ylipitkä mutta silti mielestäni looginen kokonaisuus. Jahka se ensin toimisi        
@@ -293,15 +294,15 @@ public class Pelilauta {
             x--;
             y--;
         }
-//
-//        for (Nappula nappula : nappulat.getNappulat()) {
-//            if (nappula.getClass().getName().equals(Hevonen.class.getName())) {
-//                if (nappula.valkoinenko() != valkoinenko
-//                        && nappula.voikoLiikkua(kunkkuX, kunkkuY)) {
-//                    return true;
-//                }
-//            }
-//        }
+
+        for (Nappula nappula : nappulat.getNappulat()) {
+            if (nappula.getClass().getName().equals(Hevonen.class.getName())) {
+                if (nappula.valkoinenko() != valkoinenko
+                        && nappula.voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+            }
+        }
 
         return false;
     }
