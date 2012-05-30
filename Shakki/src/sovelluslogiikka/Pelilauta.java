@@ -13,16 +13,15 @@ import java.util.List;
  * @author Maijanen
  */
 public class Pelilauta {
-    
+
     private Nappula[][] lauta;
     private NappulatAlkutilanteessa nappulat;
     private Nappula valkoinenKuningas;
     private Nappula mustaKuningas;
-    
+
     public Pelilauta() {
         this.lauta = new Nappula[8][8];
         nappulat = new NappulatAlkutilanteessa();
-        
     }
 
     /**
@@ -76,7 +75,7 @@ public class Pelilauta {
                 if (apunappula.voikoLiikkua(uusiX, uusiY)
                         && kulkureitillaEiNappulaa(apunappula, uusiX, uusiY)
                         && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
-                    
+
                     apunappula.setKoordinaatit(uusiX, uusiY);
                     Nappula apunappula2 = lauta[uusiX][uusiY];
                     lauta[uusiX][uusiY] = apunappula;
@@ -115,7 +114,7 @@ public class Pelilauta {
         }
         return lauta[x][y];
     }
-    
+
     private void luoNappulatPelilautaan() {
         try {
             for (Nappula nappula : nappulat.getNappulat()) {
@@ -125,9 +124,9 @@ public class Pelilauta {
             mustaKuningas = lauta[0][4];
         } catch (Exception e) {
         }
-        
+
     }
-    
+
     private boolean kulkureitillaEiNappulaa(Nappula nappula, int x, int y) {
         List<int[]> reitti = nappula.tallennaReittiTaulukkoon(x, y);
         for (int[] koordinaatit : reitti) {
@@ -137,14 +136,14 @@ public class Pelilauta {
         }
         return true;
     }
-    
+
     private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
-        
+
         if ((onkoRuutuVapaa(uusiX, uusiY)
-                && (!(lauta[vanhaX][vanhaY].getClass().getName().equals(Sotilas.class.getName()))
+                && (!(lauta[vanhaX][vanhaY].getClass().equals(Sotilas.class))
                 || vanhaY == uusiY))
                 || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY)) {
-            
+
             return true;
         }
         return false;
@@ -165,16 +164,15 @@ public class Pelilauta {
         }
         return true;
     }
-    
+
     private boolean onkoRuutuVapaa(int uusiX, int uusiY) {
         if (lauta[uusiX][uusiY] == null) {
             return true;
         }
         return false;
     }
-    
+
     private boolean voikoSyoda(int vanhaX, int vanhaY, int uusiX, int uusiY) {
-        
         if (lauta[vanhaX][vanhaY].valkoinenko()
                 != lauta[uusiX][uusiY].valkoinenko()
                 && ruudussaEiKuningasta(uusiX, uusiY)) {
@@ -200,13 +198,17 @@ public class Pelilauta {
             kunkkuX = mustaKuningas.getX();
             kunkkuY = mustaKuningas.getY();
         }
+
 //        for (int i = 0; i < 8; i++) {
 //            for (int j = 0; j < 8; j++) {
-//                if (lauta[i][j].valkoinenko() != valkoinenko
-//                        && lauta[i][j].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                    return true;
+//                if (lauta[i][j] != null) {
+//                    if (lauta[i][j].valkoinenko() != valkoinenko) {
+//                        if (lauta[i][j].voikoLiikkua(kunkkuX, kunkkuY)
+//                                && kulkureitillaEiNappulaa(lauta[i][j], kunkkuX, kunkkuY)) {
+//                            return true;
+//                        }
+//                    }
 //                }
-//
 //            }
 //        }
         //     Tutkitaan kaikki kuninkaaseen pääsevät suunnat.Metodi on ylipitkä mutta silti mielestäni looginen kokonaisuus. Jahka se ensin toimisi        
@@ -249,11 +251,11 @@ public class Pelilauta {
                 break;
             }
         }
-        
+
         int x = kunkkuX + 1;
         int y = kunkkuY + 1;
         while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-            
+
             if (lauta[ x][ y] != null) {
                 if (lauta[ x][ y].valkoinenko() != valkoinenko
                         && lauta[  x][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
@@ -264,11 +266,11 @@ public class Pelilauta {
             x++;
             y++;
         }
-        
+
         x = kunkkuX + 1;
         y = kunkkuY - 1;
         while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-            
+
             if (lauta[ x][ y] != null) {
                 if (lauta[ x][ y].valkoinenko() != valkoinenko
                         && lauta[  x][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
@@ -279,11 +281,11 @@ public class Pelilauta {
             x++;
             y--;
         }
-        
+
         x = kunkkuX - 1;
         y = kunkkuY + 1;
         while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-            
+
             if (lauta[ x][ y] != null) {
                 if (lauta[ x][ y].valkoinenko() != valkoinenko
                         && lauta[  x][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
@@ -294,7 +296,7 @@ public class Pelilauta {
             x--;
             y++;
         }
-        
+
         x = kunkkuX - 1;
         y = kunkkuY - 1;
         while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
@@ -309,22 +311,22 @@ public class Pelilauta {
             y--;
         }
 
-//        for (Nappula nappula : nappulat.getNappulat()) {
-//            if (nappula.getClass().getName().equals(Hevonen.class.getName())) {
-//                if (nappula.valkoinenko() != valkoinenko
-//                        && nappula.voikoLiikkua(kunkkuX, kunkkuY)) {
-//                    return true;
-//                }
-//            }
-//        }
+        for (Nappula nappula : nappulat.getNappulat()) {
+            if (nappula.getClass().getName().equals(Hevonen.class.getName())) {
+                if (nappula.valkoinenko() != valkoinenko
+                        && nappula.voikoLiikkua(kunkkuX, kunkkuY)) {
+                    return true;
+                }
+            }
+        }
 
         return false;
     }
-    
+
     private boolean voikoTornittaa() {
         return true;
     }
-    
+
     private boolean muuttuukoSotilasKuningattareksi(Nappula nappula) {
         nappula = lauta[nappula.getX()][nappula.getY()];
         if (nappula.getClass().equals(Sotilas.class)) {
@@ -339,15 +341,15 @@ public class Pelilauta {
         }
         return false;
     }
-    
+
     private void sotilasMuuttuuKuningattareksi(Nappula nappula) {
-        
+
         nappula = lauta[nappula.getX()][nappula.getY()];
         if (nappula.valkoinenko()) {
             lisaaNappulaLaudalle(new Kuningatar(nappula.getX(), nappula.getY(), true));
         } else {
             lisaaNappulaLaudalle(new Kuningatar(nappula.getX(), nappula.getY(), false));
         }
-        
+
     }
 }

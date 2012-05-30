@@ -87,7 +87,6 @@ public class Torni extends Nappula {
                 }
             }
 
-            System.out.println("hintero");
             System.out.println(muutettavaX);
             System.out.println(muutettavaY);
             reitti.add(new int[]{muutettavaX, muutettavaY});
