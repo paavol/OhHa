@@ -37,30 +37,45 @@ public class Sotilas extends Nappula {
         return "s ";
     }
 
-    private boolean valkoisenLiikkuminen(int uusiX, int uusiY) {
-        if (this.valkoinenko) {
-            if (getX() == 6) {
+    private boolean sotilaanLiikkuminen(int uusiX, int uusiY) {
+        if (getX() == 6 || getX() == 1) {
+            if (valkoinenko) {
                 return (liikkuuKaksiYlos(uusiX, uusiY) || liikkuuYhdenYlos(uusiX, uusiY)
                         || valkoinenSyoKulmittain(uusiX, uusiY));
-            } else if (liikkuuYhdenYlos(uusiX, uusiY) || valkoinenSyoKulmittain(uusiX, uusiY)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean mustanLiikkuminen(int uusiX, int uusiY) {
-        if (this.valkoinenko == false) {
-            if (getX() == 1) {
+            } else {
                 return (liikkuuKaksiAlas(uusiX, uusiY) || liikkuuYhdenAlas(uusiX, uusiY)
                         || mustaSyoKulmittain(uusiX, uusiY));
-            } else if (liikkuuYhdenAlas(uusiX, uusiY) || mustaSyoKulmittain(uusiX, uusiY)) {
-                return true;
             }
+        } else if (valkoinenko) {
+            return (liikkuuYhdenYlos(uusiX, uusiY) || valkoinenSyoKulmittain(uusiX, uusiY));
+        } else {
+            return (liikkuuYhdenAlas(uusiX, uusiY) || mustaSyoKulmittain(uusiX, uusiY));
         }
-        return false;
     }
 
+//    private boolean valkoisenLiikkuminen(int uusiX, int uusiY) {
+//        if (this.valkoinenko) {
+//            if (getX() == 6) {
+//                return (liikkuuKaksiYlos(uusiX, uusiY) || liikkuuYhdenYlos(uusiX, uusiY)
+//                        || valkoinenSyoKulmittain(uusiX, uusiY));
+//            } else if (liikkuuYhdenYlos(uusiX, uusiY) || valkoinenSyoKulmittain(uusiX, uusiY)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    private boolean mustanLiikkuminen(int uusiX, int uusiY) {
+//        if (this.valkoinenko == false) {
+//            if (getX() == 1) {
+//                return (liikkuuKaksiAlas(uusiX, uusiY) || liikkuuYhdenAlas(uusiX, uusiY)
+//                        || mustaSyoKulmittain(uusiX, uusiY));
+//            } else if (liikkuuYhdenAlas(uusiX, uusiY) || mustaSyoKulmittain(uusiX, uusiY)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
     /**
      * Metodi tarkistaa sotilaan shakkisääntöjen mukaiset siirrot ja palauttaa
      * true, mikäli siirto parametreina saatuihin koordinaatteihin on
@@ -74,10 +89,11 @@ public class Sotilas extends Nappula {
      */
     @Override
     public boolean voikoLiikkua(int uusiX, int uusiY) {
-        if (valkoisenLiikkuminen(uusiX, uusiY) || mustanLiikkuminen(uusiX, uusiY)) {
-            return true;
-        }
-        return false;
+        return sotilaanLiikkuminen(uusiX, uusiY);
+//        if (valkoisenLiikkuminen(uusiX, uusiY) || mustanLiikkuminen(uusiX, uusiY)) {
+//            return true;
+//        }
+//        return false;
     }
 
     private boolean valkoinenSyoKulmittain(int uusiX, int uusiY) {

@@ -71,7 +71,7 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
 
     private void luoKomponentit(Container container) {
         pelialusta = new JPanel();
-        pelialusta.setPreferredSize(new Dimension(600, 1000));
+        pelialusta.setPreferredSize(new Dimension(600, 600));
 
         container.add(pelialusta);
         pelialusta.setLayout(new GridLayout(8, 8));

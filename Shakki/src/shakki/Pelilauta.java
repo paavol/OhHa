@@ -32,10 +32,22 @@ public class Pelilauta {
         luoNappulatPelilautaan();
     }
 
+    /**
+     * Metodi palauttaa kaksiulotteisen taulukon "laudan".
+     *
+     * @return
+     */
     public Nappula[][] getLauta() {
         return lauta;
     }
 
+    /**
+     * Metodilla pystyy lisäämään nappuloita laudalle esimerkiksi, jos haluaa
+     * pelata kulmashakkia tai linnoitusshakkia.Tämä metodi siis mahdollistaa
+     * pelin muokkaamisen helposti.
+     *
+     * @param nappula
+     */
     public void lisaaNappulaLaudalle(Nappula nappula) {
         lauta[nappula.getX()][nappula.getY()] = nappula;
     }
@@ -44,7 +56,11 @@ public class Pelilauta {
      *
      * Liikutetaan haluttua nappulaa uusiin koordinaatteihin, jos kaikki annetut
      * ehdot täyttyvät.Käsitellään myös erikoistilanteita, kuten sotilaan
-     * ylenemistä.
+     * ylenemistä ja shakkia.Shakkitarkastus tapahtuu jokaisen vuoron lopussa,
+     * jolloin pelaaja ei ikinä pysty siirtämään kuningasta
+     * shakkitilanteeseen.Jos taas vastapelaaja on shakittanut, niin vuoron
+     * loputtua on saatava shakkitilanne pois tai liikutaNappulaa ei hyväksy
+     * toimintaa.
      *
      * @param uusiX
      * @param uusiY
@@ -83,10 +99,6 @@ public class Pelilauta {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public boolean peliKaynnissa() {
-        return true;
     }
 
     /**
@@ -146,8 +158,10 @@ public class Pelilauta {
      * @return
      */
     public boolean ruudussaEiKuningasta(int uusiX, int uusiY) {
-        if (lauta[uusiX][uusiY].getClass().getName().equals(Kuningas.class.getName())) {
-            return false;
+        if (lauta[uusiX][uusiY] != null) {
+            if (lauta[uusiX][uusiY].getClass().getName().equals(Kuningas.class.getName())) {
+                return false;
+            }
         }
         return true;
     }
@@ -176,7 +190,7 @@ public class Pelilauta {
      * @param valkoinenko
      * @return
      */
-    public boolean tuleekoShakki(boolean valkoinenko) {
+    private boolean tuleekoShakki(boolean valkoinenko) {
         int kunkkuX;
         int kunkkuY;
         if (valkoinenko) {
@@ -295,14 +309,14 @@ public class Pelilauta {
             y--;
         }
 
-        for (Nappula nappula : nappulat.getNappulat()) {
-            if (nappula.getClass().getName().equals(Hevonen.class.getName())) {
-                if (nappula.valkoinenko() != valkoinenko
-                        && nappula.voikoLiikkua(kunkkuX, kunkkuY)) {
-                    return true;
-                }
-            }
-        }
+//        for (Nappula nappula : nappulat.getNappulat()) {
+//            if (nappula.getClass().getName().equals(Hevonen.class.getName())) {
+//                if (nappula.valkoinenko() != valkoinenko
+//                        && nappula.voikoLiikkua(kunkkuX, kunkkuY)) {
+//                    return true;
+//                }
+//            }
+//        }
 
         return false;
     }

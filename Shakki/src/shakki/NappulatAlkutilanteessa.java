@@ -4,8 +4,6 @@
  */
 package shakki;
 
-import javax.swing.ImageIcon;
-
 /**
  * Luokka pitää sisällään taulukon shakkipelin nappuloista.
  *
@@ -18,7 +16,10 @@ public class NappulatAlkutilanteessa {
     /**
      * Konstruktori luo 32-paikkaisen taulukon ja kutsuu lisaaNappulat-metodia,
      * joka luo nappulat antaa niille koordinaatit ja lisää kaikki nappulat
-     * taulukkoon.
+     * taulukkoon.Jos haluaa pelata esimerkiksi linnoitusshakkia tai
+     * kulmashakkia riittää, kun muuttaa tärkeimpien upseereiden
+     * aloituskoordinaatteja.Metodilla voi myös lisätä laudalle uusia
+     * nappuloita.
      */
     public NappulatAlkutilanteessa() {
         nappulat = new Nappula[32];
@@ -73,5 +74,4 @@ public class NappulatAlkutilanteessa {
     public Nappula[] getNappulat() {
         return nappulat;
     }
-
 }
