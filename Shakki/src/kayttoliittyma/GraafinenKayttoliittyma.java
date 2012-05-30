@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Kayttoliittyma;
+package kayttoliittyma;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -16,7 +16,8 @@ import sovelluslogiikka.Pelilauta;
 
 /**
  * Graafinen käyttöliittymä mahdollistaa pelin pelaamisen graafisesti
- * hiirenklikkauksilla.
+ * hiirenklikkauksilla.Ensimmäinen klikkaus valitsee nappulan ja toinen asettaa
+ * sille paikan, jos siirto on kelvollinen.
  *
  * @author paavolyy
  */
@@ -31,6 +32,14 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     private Pelilauta lauta;
     private Kuvat kuvat;
 
+    /**
+     * Konstruktori saa Pelilaudan parametrina ja luo uuden shakkinappuloiden
+     * kuvat sisältävän luokan.Konstruktorissa asetetaan myös vanhoille ja
+     * uusille koordinaateille -1 koordinaateiksi, jotta arvot ovat varmasti
+     * epäkelvot ennen ensimmäistä siirtoa.
+     *
+     * @param lauta
+     */
     public GraafinenKayttoliittyma(Pelilauta lauta) {
         this.lauta = lauta;
         this.kuvat = new Kuvat();
@@ -40,6 +49,10 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
         uusiY = -1;
     }
 
+    /**
+     * Run-metodi ajetaan mainissa ja se luo uuden 600*600 olevan ikkunan
+     * JFrame, johon se luo pelialustan (luokomponentit).
+     */
     @Override
     public void run() {
 
@@ -79,7 +92,8 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     }
 
     /**
-     * Metodi piirtää pelilaudan annetuin parametrein.
+     * Metodi piirtää pelilaudan uudelleen jokaisen vuoron jälkeen ja ilmoittaa
+     * kenen vuoro on menossa.
      *
      * @param lauta
      * @param valkoisenVuoro
@@ -137,6 +151,11 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
         }
     }
 
+    /**
+     * Metodi ohjaa hiirenklikkauksilla tapahtuvaa toimintaa.
+     *
+     * @param me
+     */
     @Override
     public void mouseClicked(MouseEvent me) {
 
@@ -154,15 +173,24 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
         System.out.println(ruutu.getI());
         System.out.println(ruutu.getJ());
     }
-
+/**
+ * Metodi ei käytössä.
+ * @param e 
+ */
     @Override
     public void mousePressed(MouseEvent e) {
     }
-
+/**
+ * Metodi ei käytössä.
+ * @param e 
+ */
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-
+/**
+ * Metodi ei käytössä.
+ * @param e 
+ */
     @Override
     public void mouseEntered(MouseEvent e) {
     }

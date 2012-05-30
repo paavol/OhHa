@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Kayttoliittyma;
+package kayttoliittyma;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +18,11 @@ public class Kuvat {
 
     private Map<String, ImageIcon[]> kuvat;
 
+    /**
+     * Konstruktorissa annetaan jokaiselle nappulatyypille hashmapiin arvoksi
+     * kaksi kuvaa taulukossa.Avaimen toimii toString.Kuvia on kaksi, koska
+     * molemmilla nappuloille tarvitsee oman väriset kuvat.
+     */
     public Kuvat() {
         kuvat = new HashMap<String, ImageIcon[]>();
         kuvat.put("K ", new ImageIcon[]{new ImageIcon("nappulakuvakkeet/5.gif"), new ImageIcon("nappulakuvakkeet/11.gif")});
@@ -29,6 +34,13 @@ public class Kuvat {
 
     }
 
+    /**
+     * Metodi lisää kuvan JLabeliin kuvataulukosta riippuen onko parametrina
+     * oleva nappula valkoinen vai musta.
+     *
+     * @param label
+     * @param nappula
+     */
     public void lisaaKuva(JLabel label, Nappula nappula) {
         try {
             ImageIcon[] taulukko = kuvat.get(nappula.toString());

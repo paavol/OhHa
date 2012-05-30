@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Kayttoliittyma;
+package kayttoliittyma;
 
 import java.util.Scanner;
 import sovelluslogiikka.Nappula;
@@ -29,6 +29,10 @@ public class Tekstikayttoliittyma {
         this.lukija = new Scanner(System.in);
     }
 
+    /**
+     * Metodi sisältää pelilaudan alustamisen sekä do-while-loopin, joka pyörii
+     * ikuisesti.Pelaajat huomaavat itse, kun peli on loppunut.
+     */
     public void run() {
         Boolean valkoisenVuoro = true;
         lauta.alustaLauta();

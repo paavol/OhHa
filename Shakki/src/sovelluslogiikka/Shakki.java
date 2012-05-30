@@ -4,8 +4,8 @@
  */
 package sovelluslogiikka;
 
-import Kayttoliittyma.GraafinenKayttoliittyma;
-import Kayttoliittyma.Tekstikayttoliittyma;
+import kayttoliittyma.GraafinenKayttoliittyma;
+import kayttoliittyma.Tekstikayttoliittyma;
 
 /**
  * Shakki-luokka luo uuden pelilaudan ja käyttöliittymän, sekä käynnistää pelin.
