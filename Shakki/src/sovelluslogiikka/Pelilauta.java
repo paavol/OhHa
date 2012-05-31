@@ -138,15 +138,13 @@ public class Pelilauta {
     }
 
     private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
-
-        if ((onkoRuutuVapaa(uusiX, uusiY)
-                && (!(lauta[vanhaX][vanhaY].getClass().equals(Sotilas.class))
-                || vanhaY == uusiY))
-                || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY)) {
-
-            return true;
+        if (lauta[vanhaX][vanhaY].getClass().equals(Sotilas.class)) {
+            return ((onkoRuutuVapaa(uusiX, uusiY) && vanhaY == uusiY)
+                    || (voikoSyoda(vanhaX, vanhaY, uusiX, uusiY) && vanhaY != uusiY));
+        } else {
+            return ((onkoRuutuVapaa(uusiX, uusiY))
+                    || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY));
         }
-        return false;
     }
 
     /**
@@ -166,6 +164,7 @@ public class Pelilauta {
     }
 
     private boolean onkoRuutuVapaa(int uusiX, int uusiY) {
+
         if (lauta[uusiX][uusiY] == null) {
             return true;
         }
@@ -174,8 +173,8 @@ public class Pelilauta {
 
     private boolean voikoSyoda(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (lauta[vanhaX][vanhaY].valkoinenko()
-                != lauta[uusiX][uusiY].valkoinenko()
-                && ruudussaEiKuningasta(uusiX, uusiY)) {
+                != lauta[uusiX][uusiY].valkoinenko() //                && ruudussaEiKuningasta(uusiX, uusiY)
+                ) {
             return true;
         }
         return false;
@@ -197,128 +196,22 @@ public class Pelilauta {
         } else {
             kunkkuX = mustaKuningas.getX();
             kunkkuY = mustaKuningas.getY();
-            {
-                for (int i = 0; i < 8; i++) {
-                    for (int j = 0; j < 8; j++) {
-                        if (lauta[i][j] != null) {
-                            if (lauta[i][j].valkoinenko() != valkoinenko) {
-                                if (lauta[i][j].voikoLiikkua(kunkkuX, kunkkuY)
-                                        && kulkureitillaEiNappulaa(lauta[i][j], kunkkuX, kunkkuY)) {
-                                    return true;
-                                }
-                            }
+        }
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (lauta[i][j] != null) {
+                    if (lauta[i][j].valkoinenko() != valkoinenko) {
+                        if (lauta[i][j].voikoLiikkua(kunkkuX, kunkkuY)
+                                && kulkureitillaEiNappulaa(lauta[i][j], kunkkuX, kunkkuY)
+                                && voikoRuutuunSiirtya(i, j, kunkkuX, kunkkuY)) {
+                            return true;
                         }
                     }
-                }
-                //     Tutkitaan kaikki kuninkaaseen pääsevät suunnat.Metodi on ylipitkä mutta silti mielestäni looginen kokonaisuus. Jahka se ensin toimisi        
-
-
-//                for (int x = kunkkuX + 1; x < 8; x++) {
-//                    if (lauta[ x][ kunkkuY] != null) {
-//                        if (lauta[ x][ kunkkuY].valkoinenko() != valkoinenko
-//                                && lauta[ x][ kunkkuY].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                            return true;
-//                        }
-//                        break;
-//                    }
-//                }
-//            }
-//            for (int x = kunkkuX - 1; x >= 0; x--) {
-//                if (lauta[ x][ kunkkuY] != null) {
-//                    if (lauta[ x][ kunkkuY].valkoinenko() != valkoinenko
-//                            && lauta[ x][ kunkkuY].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                        return true;
-//                    }
-//                    break;
-//                }
-//            }
-//            for (int y = kunkkuY + 1; y < 8; y++) {
-//                if (lauta[ kunkkuX][ y] != null) {
-//                    if (lauta[ kunkkuX][ y].valkoinenko() != valkoinenko
-//                            && lauta[ kunkkuX][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                        return true;
-//                    }
-//                    break;
-//                }
-//            }
-//            for (int y = kunkkuY - 1; y >= 0; y--) {
-//                if (lauta[ kunkkuX][ y] != null) {
-//                    if (lauta[ kunkkuX][ y].valkoinenko() != valkoinenko
-//                            && lauta[  kunkkuX][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                        return true;
-//                    }
-//                    break;
-//                }
-//            }
-//
-//            int x = kunkkuX + 1;
-//            int y = kunkkuY + 1;
-//            while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-//
-//                if (lauta[ x][ y] != null) {
-//                    if (lauta[ x][ y].valkoinenko() != valkoinenko
-//                            && lauta[  x][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                        return true;
-//                    }
-//                    break;
-//                }
-//                x++;
-//                y++;
-//            }
-//
-//            x = kunkkuX + 1;
-//            y = kunkkuY - 1;
-//            while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-//
-//                if (lauta[ x][ y] != null) {
-//                    if (lauta[ x][ y].valkoinenko() != valkoinenko
-//                            && lauta[  x][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                        return true;
-//                    }
-//                    break;
-//                }
-//                x++;
-//                y--;
-//            }
-//
-//            x = kunkkuX - 1;
-//            y = kunkkuY + 1;
-//            while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-//
-//                if (lauta[ x][ y] != null) {
-//                    if (lauta[ x][ y].valkoinenko() != valkoinenko
-//                            && lauta[  x][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                        return true;
-//                    }
-//                    break;
-//                }
-//                x--;
-//                y++;
-//            }
-//
-//            x = kunkkuX - 1;
-//            y = kunkkuY - 1;
-//            while (x >= 0 && x <= 7 && y >= 0 && y <= 7) {
-//                if (lauta[ x][ y] != null) {
-//                    if (lauta[ x][ y].valkoinenko() != valkoinenko
-//                            && lauta[  x][ y].voikoLiikkua(kunkkuX, kunkkuY)) {
-//                        return true;
-//                    }
-//                    break;
-//                }
-//                x--;
-//                y--;
-//            }
-
-                {
                 }
             }
         }
         return false;
-    }
-
-    private boolean voikoTornittaa() {
-        return true;
     }
 
     private boolean muuttuukoSotilasKuningattareksi(Nappula nappula) {

@@ -77,7 +77,13 @@ public class Kuningatar extends Nappula {
         int muutettavaX = vanhaX;
         int muutettavaY = vanhaY;
 
-        int reitinPituus = Math.abs(uusiX - vanhaX) - 1;
+
+        int reitinPituus;
+        if (Math.abs(uusiX - vanhaX) == 0) {
+            reitinPituus = Math.abs(uusiY - vanhaY) - 1;
+        } else {
+            reitinPituus = Math.abs(uusiX - vanhaX) - 1;
+        }
         List<int[]> reitti = new ArrayList<int[]>();
 
         if (muutoksetSamat(uusiX, uusiY)) {
@@ -96,6 +102,7 @@ public class Kuningatar extends Nappula {
                 reitti.add(new int[]{vanhaX, vanhaY});
             }
         } else {
+
             for (int i = 0; i < reitinPituus; i++) {
                 if (vanhaY == uusiY) {
                     if (muutettavaX < uusiX) {

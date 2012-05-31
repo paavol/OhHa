@@ -69,7 +69,12 @@ public class Torni extends Nappula {
         int muutettavaX = vanhaX;
         int muutettavaY = vanhaY;
 
-        int reitinPituus = Math.abs(uusiX - vanhaX) - 1;
+        int reitinPituus;
+        if (Math.abs(uusiX - vanhaX) == 0) {
+            reitinPituus = Math.abs(uusiY - vanhaY) - 1;
+        } else {
+            reitinPituus = Math.abs(uusiX - vanhaX) - 1;
+        }
         List<int[]> reitti = new ArrayList<int[]>();
 
         for (int i = 0; i < reitinPituus; i++) {

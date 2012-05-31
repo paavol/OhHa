@@ -38,7 +38,7 @@ public class Sotilas extends Nappula {
     }
 
     private boolean sotilaanLiikkuminen(int uusiX, int uusiY) {
-        
+
         if (getX() == 6 || getX() == 1) {
             if (valkoinenko) {
                 return (liikkuuKaksiYlos(uusiX, uusiY) || liikkuuYhdenYlos(uusiX, uusiY)

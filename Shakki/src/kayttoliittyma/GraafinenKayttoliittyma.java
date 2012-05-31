@@ -4,14 +4,10 @@
  */
 package kayttoliittyma;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import sovelluslogiikka.Pelilauta;
 
 /**
@@ -31,6 +27,9 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     private int uusiY;
     private Pelilauta lauta;
     private Kuvat kuvat;
+    private JLabel vuoroteksti;
+    private JLabel valittu;
+    private int valitunVari;
 
     /**
      * Konstruktori saa Pelilaudan parametrina ja luo uuden shakkinappuloiden
@@ -47,6 +46,7 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
         vanhaY = -1;
         uusiX = -1;
         uusiY = -1;
+
     }
 
     /**
@@ -59,8 +59,9 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
         frame = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setPreferredSize(new Dimension(600, 600));
-        frame.setSize(600, 600);
+//        frame.setPreferredSize(new Dimension(600, 650));
+        frame.setSize(600, 650);
+        frame.setLayout(new BorderLayout());
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -85,8 +86,17 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     private void luoKomponentit(Container container) {
         pelialusta = new JPanel();
         pelialusta.setPreferredSize(new Dimension(600, 600));
+        vuoroteksti = new JLabel();
+        vuoroteksti.setFont(new Font(vuoroteksti.getFont().getFontName(), vuoroteksti.getFont().getStyle(), 23));
+        vuoroteksti.setPreferredSize(new Dimension(600, 50));
+        vuoroteksti.setHorizontalAlignment(SwingConstants.CENTER);
+        vuoroteksti.setBackground(Color.WHITE);
+        vuoroteksti.setForeground(Color.BLACK);
+        vuoroteksti.setOpaque(true);
 
         container.add(pelialusta);
+        container.add(vuoroteksti, BorderLayout.NORTH);
+        vuoroteksti.setLayout(new BorderLayout());
         pelialusta.setLayout(new GridLayout(8, 8));
 
     }
@@ -100,18 +110,25 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
      */
     public void piirraLauta(boolean valkoisenVuoro) {
         pelialusta.invalidate();
+        vuoroteksti.invalidate();
         pelialusta.removeAll();
 
         if (valkoisenVuoro) {
-            System.out.println("VALKOISEN VUORO");
+            vuoroteksti.setForeground(Color.BLACK);
+            vuoroteksti.setText("Valkoisen vuoro");
+            vuoroteksti.setBackground(Color.WHITE);
+
         } else {
-            System.out.println("MUSTAN VUORO");
+            vuoroteksti.setForeground(Color.WHITE);
+            vuoroteksti.setText("Mustan vuoro");
+            vuoroteksti.setBackground(Color.BLACK);
+
         }
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Ruutu ruutu = new Ruutu(i, j);
-
+                ruutu.setHorizontalAlignment(SwingConstants.CENTER);
                 if (lauta.getNappulaLaudalta(i, j) != null) {
                     kuvat.lisaaKuva(ruutu, lauta.getNappulaLaudalta(i, j));
                 }
@@ -127,6 +144,7 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
             }
         }
         pelialusta.validate();
+        vuoroteksti.validate();
     }
 
     /**
@@ -158,7 +176,15 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
      */
     @Override
     public void mouseClicked(MouseEvent me) {
+    }
 
+    /**
+     * Metodi ei käytössä.
+     *
+     * @param e
+     */
+    @Override
+    public void mousePressed(MouseEvent me) {
         Ruutu ruutu = (Ruutu) me.getSource();
         if (vanhaX < 0) {
             vanhaX = ruutu.getI();
@@ -167,30 +193,32 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
         }
         if (vanhaY < 0) {
             vanhaY = ruutu.getJ();
+            valitunVari = ruutu.getBackground().getRGB();
+            valittu = ruutu;
+            ruutu.setBackground(Color.pink);
         } else {
             uusiY = ruutu.getJ();
+            try {
+                valittu.setBackground(new Color(valitunVari));
+            } catch (Exception e) {
+            }
         }
-        System.out.println(ruutu.getI());
-        System.out.println(ruutu.getJ());
     }
-/**
- * Metodi ei käytössä.
- * @param e 
- */
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-/**
- * Metodi ei käytössä.
- * @param e 
- */
+
+    /**
+     * Metodi ei käytössä.
+     *
+     * @param e
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-/**
- * Metodi ei käytössä.
- * @param e 
- */
+
+    /**
+     * Metodi ei käytössä.
+     *
+     * @param e
+     */
     @Override
     public void mouseEntered(MouseEvent e) {
     }

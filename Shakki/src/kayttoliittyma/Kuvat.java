@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import sovelluslogiikka.Nappula;
 
 /**
@@ -51,7 +52,5 @@ public class Kuvat {
             }
         } catch (Exception e) {
         }
-
-
     }
 }
