@@ -84,4 +84,13 @@ public class KuningasTest {
     public void palauttaaOikeanMerkin() {
         assertEquals(m.toString(), "K ");
     }
+
+    /**
+     * Testataan, että tallentuu oikeanpituinen reitti taulukkoon.
+     */
+    @Test
+    public void kulkureittiTaulukkoTallentaaOikeanpituisenReitin() {
+        assertEquals(0, m.tallennaReittiTaulukkoon(0, 5).size());
+
+    }
 }

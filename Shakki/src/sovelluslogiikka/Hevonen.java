@@ -16,8 +16,7 @@ import java.util.List;
 public class Hevonen extends Nappula {
 
     /**
-     * Hevonen perii konstruktorissaan parametrit Nappula-luokalta.Lisäksi
-     * hevosella on värin mukaan määritelty imageIcon.
+     * Hevonen perii konstruktorissaan parametrit Nappula-luokalta.
      *
      * @param x
      * @param y
@@ -30,6 +29,7 @@ public class Hevonen extends Nappula {
     /**
      * Hevosen toString.
      *
+     * @return String
      */
     @Override
     public String toString() {
@@ -41,7 +41,7 @@ public class Hevonen extends Nappula {
      *
      * @param uusiX
      * @param uusiY
-     *
+     * @return boolean
      */
     @Override
     public boolean voikoLiikkua(int uusiX, int uusiY) {
@@ -60,7 +60,7 @@ public class Hevonen extends Nappula {
      *
      * @param x
      * @param y
-     * @return
+     * @return List<int[]>
      */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int x, int y) {

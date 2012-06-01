@@ -31,7 +31,7 @@ public class Ruutu extends JLabel {
     /**
      * Getteri i:lle.
      *
-     * @return
+     * @return int
      */
     public int getI() {
         return this.i;
@@ -40,7 +40,7 @@ public class Ruutu extends JLabel {
     /**
      * Getteri j:lle
      *
-     * @return
+     * @return int
      */
     public int getJ() {
         return this.j;

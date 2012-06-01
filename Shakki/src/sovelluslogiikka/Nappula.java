@@ -8,7 +8,8 @@ import java.util.List;
 
 /**
  * Nappula on abstrakti luokka, jonka kaikki shakkinappulaluokat perivät.
- * Nappulalla on olemassa myös abstrakteja metodeja.
+ * Nappulalla on olemassa myös abstrakteja metodeja, oliomuuttujat x, y ja
+ * final-muuttuja valkoinenko, mikä kertoo nappulan värin.
  *
  * @author paavolyy
  */
@@ -18,6 +19,15 @@ public abstract class Nappula {
     private int y;
     final boolean valkoinenko;
 
+    /**
+     * Konstruktori saa parametrina koordinaatit x ja y sekä boolean
+     * valkoinenko. Valkoinenko-muuttuja kertoo nappulan värin, eikä sitä pysty
+     * muuttamaan.
+     *
+     * @param x
+     * @param y
+     * @param valkoinenko
+     */
     public Nappula(int x, int y, boolean valkoinenko) {
 
         this.x = x;
@@ -27,25 +37,26 @@ public abstract class Nappula {
     }
 
     /**
-     * Asettaa palauttaa x:n arvon.
+     * Palauttaa x:n arvon.
      *
+     * @return int
      */
     public int getX() {
         return x;
     }
 
     /**
-     * Metodi kertoo totuusarvona Nappulan värin (musta/valkoinen).Valkoinenko()
-     * ollessa true, nappula on valkoinen.
+     * Metodi kertoo totuusarvona Nappulan värin (musta/valkoinen).
+     * Valkoinenko() ollessa true, nappula on valkoinen.
      *
-     * @return
+     * @return final boolean valkoinenko
      */
     public final boolean valkoinenko() {
         return valkoinenko;
     }
 
     /**
-     * Palautta y:n arvon.
+     * Palauttaa y:n arvon.
      *
      */
     public int getY() {
@@ -83,14 +94,22 @@ public abstract class Nappula {
     }
 
     /**
-     * Abstrakti metodi nappulan liikkumismahdollisuuksista.Määritellään
+     * Abstrakti metodi nappulan liikkumismahdollisuuksista. Määritellään
      * jokaisessa nappulassa erikseen.
      *
      * @param uusiX
      * @param uusiY
-     * @return
+     * @return boolean
      */
     public abstract boolean voikoLiikkua(int uusiX, int uusiY);
 
+    /**
+     * Abstrakti metodi nappulan kulkemasta reitistä. Määritellään jokaisessa
+     * nappulassa erikseen.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return List<int[]>
+     */
     public abstract List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY);
 }

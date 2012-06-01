@@ -26,17 +26,16 @@ public class Kuningas extends Nappula {
      */
     public Kuningas(int x, int y, boolean valkoinenko) {
         super(x, y, valkoinenko);
-
     }
 
     /**
-     * Metodi tarkistaa kuninkaan shakkisääntöjen mukaisen liikkumisen.Kuninkaan
+     * Metodi tarkistaa kuninkaan shakkisääntöjen mukaisen liikkumisen. Kuninkaan
      * liikkeillä on kaikkiaan kahdeksan eri mahdollisuutta, joista vähintään
      * yhden toteutuessa metodi palauttaa true.
      *
      * @param uusiX
      * @param uusiY
-     *
+     * @return boolean
      */
     @Override
     public boolean voikoLiikkua(int uusiX, int uusiY) {
@@ -54,7 +53,7 @@ public class Kuningas extends Nappula {
 
     /**
      * Kuningas-luokan toString.
-     *
+     * @return String
      *
      */
     @Override
@@ -69,7 +68,7 @@ public class Kuningas extends Nappula {
      *
      * @param x
      * @param y
-     * @return
+     * @return List<int[]>
      */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int x, int y) {

@@ -91,7 +91,7 @@ public class PelilautaTest {
      */
     @Test
     public void paikassaEiOleKuningasta() {
-        assertTrue(pelilauta.paikassaEiKuningasta(7, 3));
+        assertTrue(pelilauta.ruudussaEiKuningasta(7, 3));
     }
 
     /**
@@ -99,7 +99,7 @@ public class PelilautaTest {
      */
     @Test
     public void paikassaOnKuningas() {
-        assertFalse(pelilauta.paikassaEiKuningasta(7, 4));
+        assertFalse(pelilauta.ruudussaEiKuningasta(7, 4));
     }
 
     /**
@@ -161,7 +161,8 @@ public class PelilautaTest {
     }
 
     /**
-     * Testataan laudan alustuksen toiminta.
+     * Testataan laudan alustuksen toimintaa. Lähetin on löydyttävä oikealta
+     * paikalta.
      */
     @Test
     public void laudanAlustusToimii() {
@@ -171,7 +172,8 @@ public class PelilautaTest {
 
     /**
      * Testataan, että mustat hevoset ovat niiden alustetuilla oikeilla
-     * paikoilla.
+     * paikoilla. Tai tarkemminkin testataan, että hevosten paikoilla on ainakin
+     * samaa luokkaa olevat nappulat.
      */
     @Test
     public void hevosetPaikallaan() {
@@ -206,27 +208,4 @@ public class PelilautaTest {
 
     }
 
-    @Test
-    public void yritetaanSiirtaaKuningastaShakkiinKuningattarenEteen() {
-
-        pelilauta.liikutaNappulaa(k1.getX(), k1.getY(), 7, 3, true);
-        assertNull(pelilauta.getLauta()[4][2]);
-
-
-    }
-
-    /**
-     * Metodi tarkastaa tilanteen, jossa sotilaan siirtyminen kuninkaan edestä
-     * aiheuttaisi shakin omalle kuninkaalle.
-     */
-    @Test
-    public void yritetaanSiirtaaSotilastaKuninkaanEdesta() {
-        pelilauta.lisaaNappulaLaudalle(new Sotilas(6, 3, true));
-        pelilauta.lisaaNappulaLaudalle(new Kuningatar(0, 3, false));
-        pelilauta.liikutaNappulaa(6, 4, 5, 3, true);
-
-        assertNull(pelilauta.getLauta()[5][3]);
-
-
-    }
 }

@@ -19,13 +19,18 @@ public class Pelilauta {
     private Nappula valkoinenKuningas;
     private Nappula mustaKuningas;
 
+    /**
+     * Konstruktorissa luodaan Pelilautaan ruudukko ja luodaan uusi ilmentymä
+     * luokasta NappulatAlkutilanteessa.
+     */
     public Pelilauta() {
         this.lauta = new Nappula[8][8];
         nappulat = new NappulatAlkutilanteessa();
     }
 
     /**
-     * Metodi luo shakin alkutilanteen mukaisen laudan nappuloineen.
+     * Metodi luo shakin alkutilanteen mukaisen laudan nappuloineen. Nappulat
+     * haetaan laudalle NappulatAlkutilanteessa-luokasta.
      */
     public void alustaLauta() {
         luoNappulatPelilautaan();
@@ -34,7 +39,7 @@ public class Pelilauta {
     /**
      * Metodi palauttaa kaksiulotteisen taulukon "laudan".
      *
-     * @return
+     * @return Nappula[][]
      */
     public Nappula[][] getLauta() {
         return lauta;
@@ -76,9 +81,17 @@ public class Pelilauta {
      * vuoro ei voi loppua ennen kuin shakki on purettu, eikä pystytä tekemään
      * laittomia siirtoja.
      *
+     * Metodin toimintaan kulminoituu koko pelin idea. Metodi on pilkottu moneen
+     * eri osa-alueeseen, jotka tarkistavat oman lohkonsa. Apumuuttujia
+     * apunappula ja apunappula2 tarvitaan, jotta voidaan tallentaa
+     * väliaikaisesti uudet koordinaatit talteen shakkitarkastusta varten.
+     *
+     * @param vanhaX
+     * @param vanhaY
      * @param uusiX
      * @param uusiY
-     * @param nappula
+     * @param valkoisenVuoro
+     * @return boolean
      */
     public boolean liikutaNappulaa(int vanhaX, int vanhaY, int uusiX, int uusiY, boolean valkoisenVuoro) {
         try {
@@ -89,7 +102,7 @@ public class Pelilauta {
                 }
                 if (apunappula.voikoLiikkua(uusiX, uusiY)
                         && kulkureitillaEiNappulaa(apunappula, uusiX, uusiY)
-                        && voikoPaikkaanSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
+                        && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
 
                     apunappula.setKoordinaatit(uusiX, uusiY);
                     Nappula apunappula2 = lauta[uusiX][uusiY];
@@ -137,33 +150,17 @@ public class Pelilauta {
         return true;
     }
 
-    private boolean voikoPaikkaanSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
+    private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (lauta[vanhaX][vanhaY].getClass().equals(Sotilas.class)) {
-            return ((onkoPaikkaVapaa(uusiX, uusiY) && vanhaY == uusiY)
+            return ((onkoRuutuVapaa(uusiX, uusiY) && vanhaY == uusiY)
                     || (voikoSyoda(vanhaX, vanhaY, uusiX, uusiY) && vanhaY != uusiY));
         } else {
-            return ((onkoPaikkaVapaa(uusiX, uusiY))
+            return ((onkoRuutuVapaa(uusiX, uusiY))
                     || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY));
         }
     }
 
-    /**
-     * Metodi tarkistaa onko kyseisessä paikassa kuningasta.
-     *
-     * @param uusiX
-     * @param uusiY
-     * @return palauttaa
-     */
-    public boolean paikassaEiKuningasta(int uusiX, int uusiY) {
-        if (lauta[uusiX][uusiY] != null) {
-            if (lauta[uusiX][uusiY].getClass().getName().equals(Kuningas.class.getName())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean onkoPaikkaVapaa(int uusiX, int uusiY) {
+    private boolean onkoRuutuVapaa(int uusiX, int uusiY) {
         if (lauta[uusiX][uusiY] == null) {
             return true;
         }
@@ -202,7 +199,7 @@ public class Pelilauta {
                     if (lauta[i][j].valkoinenko() != valkoinenko) {
                         if (lauta[i][j].voikoLiikkua(kunkkuX, kunkkuY)
                                 && kulkureitillaEiNappulaa(lauta[i][j], kunkkuX, kunkkuY)
-                                && voikoPaikkaanSiirtya(i, j, kunkkuX, kunkkuY)) {
+                                && voikoRuutuunSiirtya(i, j, kunkkuX, kunkkuY)) {
                             return true;
                         }
                     }
@@ -238,5 +235,22 @@ public class Pelilauta {
             lisaaNappulaLaudalle(new Kuningatar(nappula.getX(), nappula.getY(), false));
         }
 
+    }
+
+    /**
+     * Metodi tarkistaa onko kyseisessä paikassa kuningasta. Metodi on käytössä
+     * ainoastaan Pelilauta-luokan testeissä.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return boolean
+     */
+    public boolean ruudussaEiKuningasta(int uusiX, int uusiY) {
+        if (lauta[uusiX][uusiY] != null) {
+            if (lauta[uusiX][uusiY].getClass().getName().equals(Kuningas.class.getName())) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -16,14 +16,13 @@ public class NappulatAlkutilanteessa {
     /**
      * Konstruktori luo 32-paikkaisen taulukon ja kutsuu lisaaNappulat-metodia,
      * joka luo nappulat antaa niille koordinaatit ja lisää kaikki nappulat
-     * taulukkoon.Jos haluaa pelata esimerkiksi linnoitusshakkia tai
+     * taulukkoon. Jos haluaa pelata esimerkiksi linnoitusshakkia tai
      * kulmashakkia riittää, kun muuttaa tärkeimpien upseereiden
-     * aloituskoordinaatteja.Metodilla voi myös lisätä laudalle uusia
+     * aloituskoordinaatteja. Luokan avulla voi myös lisätä laudalle uusia
      * nappuloita.
      */
     public NappulatAlkutilanteessa() {
         nappulat = new Nappula[32];
-
         lisaaNappulat();
     }
 
@@ -70,6 +69,7 @@ public class NappulatAlkutilanteessa {
     /**
      * Palauttaa shakkinappuloita sisältävän taulukon.
      *
+     * @return Nappula[]
      */
     public Nappula[] getNappulat() {
         return nappulat;

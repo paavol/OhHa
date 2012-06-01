@@ -94,5 +94,13 @@ public class HevonenTest {
     public void toStringToimiiOikein() {
         assertEquals(vasenVal.toString(), "H ");
     }
-    
+
+    /**
+     * Testataan, että tallentuu oikeanpituinen reitti taulukkoon.
+     */
+    @Test
+    public void kulkureittiTaulukkoTallentaaOikeanpituisenReitin() {
+        assertEquals(0, vasenVal.tallennaReittiTaulukkoon(5, 0).size());
+
+    }
 }

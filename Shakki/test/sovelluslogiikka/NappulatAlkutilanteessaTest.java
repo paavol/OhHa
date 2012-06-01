@@ -28,7 +28,7 @@ public class NappulatAlkutilanteessaTest {
     }
 
     /**
-     * Testaan, että luotu taulukko on täynnä nappuloita, joiden arvo ei ole
+     * Testataan, että luotu taulukko on täynnä nappuloita, joiden arvo ei ole
      * null.
      */
     @Test

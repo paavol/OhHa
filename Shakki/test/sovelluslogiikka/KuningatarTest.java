@@ -85,4 +85,13 @@ public class KuningatarTest {
     public void toStringOikein() {
         assertEquals("Q ", m.toString());
     }
+
+    /**
+     * Testataan, että tallentuu oikeanpituinen reitti taulukkoon.
+     */
+    @Test
+    public void kulkureittiTaulukkoTallentaaOikeanpituisenReitin() {
+        assertEquals(4, m.tallennaReittiTaulukkoon(5, 3).size());
+
+    }
 }

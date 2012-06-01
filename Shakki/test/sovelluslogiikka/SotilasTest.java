@@ -73,4 +73,21 @@ public class SotilasTest {
     public void toStringOikein() {
         assertEquals("s ", s1m.toString());
     }
+
+    /**
+     * Testataan, että reittitaulukkoon on tallentunut kuljetun reitin pituus.
+     */
+    @Test
+    public void kulkureittiTaulukkoTallentaaOikeanpituisenReitin() {
+        assertEquals(1, s1m.tallennaReittiTaulukkoon(3, 4).size());
+
+    }
+
+    /**
+     * Testataan, että kuljettaessa yksi askel, reittitaulukossa ei ole arvoja.
+     */
+    @Test
+    public void kulkureittitaulukkoOnPituudeltaanNollaLiikuttaessaVainYksiAskel() {
+        assertEquals(0, s1m.tallennaReittiTaulukkoon(1, 5).size());
+    }
 }

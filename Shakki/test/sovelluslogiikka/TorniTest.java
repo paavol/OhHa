@@ -87,6 +87,14 @@ public class TorniTest {
     }
 
     /**
+     * Testataan, että reittitaulukkoon on tallentunut oikeanpituisen reitin.
+     */
+    @Test
+    public void kulkureittiTaulukkoTallentaaOikeanpituisenReitin() {
+       assertEquals(4, vasenMus.tallennaReittiTaulukkoon(0, 5).size());
+    }
+
+    /**
      * Testataan toStringin toimivuus.
      */
     @Test

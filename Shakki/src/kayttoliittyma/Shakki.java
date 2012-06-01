@@ -2,13 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sovelluslogiikka;
+package kayttoliittyma;
 
 import kayttoliittyma.GraafinenKayttoliittyma;
 import kayttoliittyma.Tekstikayttoliittyma;
+import sovelluslogiikka.Pelilauta;
 
 /**
- * Shakki-luokka luo uuden pelilaudan ja käyttöliittymän, sekä käynnistää pelin.
+ * Shakki-luokassa (Main) voidaan luoda uusi pelilauta ja valita haluamamme
+ * käyttöliittymä, sekä käynnistää pelin. Oletuksena avautuu graafinen
+ * käyttöliittymä.
  *
  * @author paavolyy
  */
@@ -21,8 +24,5 @@ public class Shakki {
         Pelilauta lauta = new Pelilauta();
         GraafinenKayttoliittyma g = new GraafinenKayttoliittyma(lauta);
         g.run();
-//        Tekstikayttoliittyma t = new Tekstikayttoliittyma(lauta);
-//        t.run();
-
     }
 }

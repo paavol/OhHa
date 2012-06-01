@@ -16,8 +16,7 @@ import java.util.List;
 public class Lahetti extends Nappula {
 
     /**
-     * Lahetti perii konstruktorissaan parametrit Nappula-luokalta.Lisäksi
-     * lähetillä on värin mukaan määritelty imageIcon.
+     * Lahetti perii konstruktorissaan parametrit Nappula-luokalta.
      *
      * @param x
      * @param y
@@ -30,7 +29,7 @@ public class Lahetti extends Nappula {
     /**
      * Lähetin toString.
      *
-     * @return
+     * @return String
      */
     @Override
     public String toString() {
@@ -43,7 +42,7 @@ public class Lahetti extends Nappula {
      *
      * @param uusiX
      * @param uusiY
-     * @return
+     * @return boolean
      */
     @Override
     public boolean voikoLiikkua(int uusiX, int uusiY) {
@@ -65,7 +64,7 @@ public class Lahetti extends Nappula {
      *
      * @param uusiX
      * @param uusiY
-     * @return
+     * @return List<int[]>
      */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
@@ -89,7 +88,6 @@ public class Lahetti extends Nappula {
             }
             reitti.add(new int[]{vanhaX, vanhaY});
         }
-
         return reitti;
     }
 }

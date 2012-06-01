@@ -16,8 +16,7 @@ import java.util.List;
 public class Sotilas extends Nappula {
 
     /**
-     * Sotilas perii konstruktorissaan parametrit Nappula-luokasta.Lisäksi
-     * sotilaalla on värin mukaan määritelty imageIcon.
+     * Sotilas perii konstruktorissaan parametrit Nappula-luokasta.
      *
      * @param x
      * @param y
@@ -30,11 +29,55 @@ public class Sotilas extends Nappula {
     /**
      * Sotilaan toString.
      *
-     * @return
+     * @return String
      */
     @Override
     public String toString() {
         return "s ";
+    }
+
+    /**
+     * Metodi tarkistaa sotilaan shakkisääntöjen mukaiset siirrot ja palauttaa
+     * true, mikäli siirto parametreina saatuihin koordinaatteihin on
+     * mahdollinen.Valkoisella ja mustalla sotilaalla on erilaiset liikkumiset,
+     * joten esimerkiksi valkoinen sotilas pystyy liikkumaan ainoastaan
+     * ylöspäin.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return boolean
+     */
+    @Override
+    public boolean voikoLiikkua(int uusiX, int uusiY) {
+        return sotilaanLiikkuminen(uusiX, uusiY);
+    }
+
+    /**
+     * Nappula-luokalta peritty metodi, joka palauttaa sotilaan uusiin
+     * koordinaatteihin kulkeman reitin taulukossa. Taulukko sisältää siis
+     * maksimissaan yhden arvon, koska päätepisteitä ei tallenneta taulukkoon ja
+     * sotilas voi liikkua enintään kaksi ruutua kerrallaan.
+     *
+     * @param uusiX
+     * @param uusiY
+     * @return List<int[]>
+     */
+    @Override
+    public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
+
+        int vanhaX = getX();
+        int vanhaY = getY();
+        if (Math.abs(uusiX - vanhaX) < 2) {
+            return new ArrayList<int[]>();
+        }
+        List<int[]> reitti = new ArrayList<int[]>();
+
+        if (uusiX < vanhaX) {
+            reitti.add(new int[]{vanhaX - 1, vanhaY});
+        } else if (uusiX > vanhaX) {
+            reitti.add(new int[]{vanhaX + 1, vanhaY});
+        }
+        return reitti;
     }
 
     private boolean sotilaanLiikkuminen(int uusiX, int uusiY) {
@@ -52,26 +95,6 @@ public class Sotilas extends Nappula {
         } else {
             return (liikkuuYhdenAlas(uusiX, uusiY) || mustaSyoKulmittain(uusiX, uusiY));
         }
-    }
-
-    /**
-     * Metodi tarkistaa sotilaan shakkisääntöjen mukaiset siirrot ja palauttaa
-     * true, mikäli siirto parametreina saatuihin koordinaatteihin on
-     * mahdollinen.Valkoisella ja mustalla sotilaalla on erilaiset liikkumiset,
-     * joten esimerkiksi valkoinen sotilas pystyy liikkumaan ainoastaan
-     * ylöspäin.
-     *
-     * @param uusiX
-     * @param uusiY
-     * @return
-     */
-    @Override
-    public boolean voikoLiikkua(int uusiX, int uusiY) {
-        return sotilaanLiikkuminen(uusiX, uusiY);
-//        if (valkoisenLiikkuminen(uusiX, uusiY) || mustanLiikkuminen(uusiX, uusiY)) {
-//            return true;
-//        }
-//        return false;
     }
 
     private boolean valkoinenSyoKulmittain(int uusiX, int uusiY) {
@@ -98,34 +121,5 @@ public class Sotilas extends Nappula {
 
     private boolean liikkuuKaksiAlas(int uusiX, int uusiY) {
         return ((uusiX == getX() + 2) && uusiY == getY());
-    }
-
-    /**
-     * Nappula-luokalta peritty metodi, joka palauttaa sotilaan uusiin
-     * koordinaatteihin kulkeman reitin taulukossa.Taulukko sisältää siis
-     * maksimissaan yhden arvon, koska päätepisteitä ei tallenneta taulukkoon ja
-     * sotilas voi liikkua enintään kaksi ruutua kerralla.
-     *
-     * @param uusiX
-     * @param uusiY
-     * @return
-     */
-    @Override
-    public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
-
-        int vanhaX = getX();
-        int vanhaY = getY();
-        if (Math.abs(uusiX - vanhaX) < 2) {
-            return new ArrayList<int[]>();
-        }
-        List<int[]> reitti = new ArrayList<int[]>();
-
-        if (uusiX < vanhaX) {
-            reitti.add(new int[]{vanhaX - 1, vanhaY});
-
-        } else if (uusiX > vanhaX) {
-            reitti.add(new int[]{vanhaX + 1, vanhaY});
-        }
-        return reitti;
     }
 }

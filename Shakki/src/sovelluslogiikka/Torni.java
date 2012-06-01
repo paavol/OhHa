@@ -30,7 +30,7 @@ public class Torni extends Nappula {
     /**
      * Tornin toString.
      *
-     * @return
+     * @return String
      */
     @Override
     public String toString() {
@@ -60,7 +60,7 @@ public class Torni extends Nappula {
      *
      * @param uusiX
      * @param uusiY
-     * @return
+     * @return List<int[]>
      */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {

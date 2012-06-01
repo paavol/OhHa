@@ -12,7 +12,7 @@ import sovelluslogiikka.Pelilauta;
 
 /**
  * Graafinen käyttöliittymä mahdollistaa pelin pelaamisen graafisesti
- * hiirenklikkauksilla.Ensimmäinen klikkaus valitsee nappulan ja toinen asettaa
+ * hiirenklikkauksilla. Ensimmäinen klikkaus valitsee nappulan ja toinen asettaa
  * sille paikan, jos siirto on kelvollinen.
  *
  * @author paavolyy
@@ -33,7 +33,7 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
 
     /**
      * Konstruktori saa Pelilaudan parametrina ja luo uuden shakkinappuloiden
-     * kuvat sisältävän luokan.Konstruktorissa asetetaan myös vanhoille ja
+     * kuvat sisältävän luokan. Konstruktorissa asetetaan myös vanhoille ja
      * uusille koordinaateille -1 koordinaateiksi, jotta arvot ovat varmasti
      * epäkelvot ennen ensimmäistä siirtoa.
      *
@@ -51,7 +51,12 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
 
     /**
      * Run-metodi ajetaan mainissa ja se luo uuden 600*600 olevan ikkunan
-     * JFrame, johon se luo pelialustan (luokomponentit).
+     * JFrame, johon se luo pelialustan (luokomponentit). Metodi laittaa myös
+     * pyörimään metodin peliKaynnissa, joka pyörii ikuisesti. On pelaajien
+     * vastuulla havaita matti- ja patti-tilanteet. Näissä tilanteissa mikään
+     * nappula ei enää liiku. Paitsi tilanteessa, jossa on enää jäljellä kaksi
+     * kuningasta. Pohjana pelilaudalle toimii JFrame, johon muut komponentit
+     * luodaan.
      */
     @Override
     public void run() {
@@ -59,14 +64,17 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
         frame = this;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-//        frame.setPreferredSize(new Dimension(600, 650));
         frame.setSize(600, 650);
         frame.setLayout(new BorderLayout());
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         luoKomponentit(frame.getContentPane());
+        peliKaynnissa();
 
+    }
+
+    private void peliKaynnissa() {
         Boolean valkoisenVuoro = true;
         lauta.alustaLauta();
         piirraLauta(valkoisenVuoro);
@@ -83,6 +91,13 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
         }
     }
 
+    /**
+     * Private-metodissa luodaan JPanel, pelialusta, sekä JLabel, vuoroteksti.
+     * Pelialustalle asetetaan kaikki nappulat ja mustavalkoiset ruudut, kun
+     * taas vuorotekstissä näkyy vuorossa olevan pelaajan vuoro.
+     *
+     * @param container
+     */
     private void luoKomponentit(Container container) {
         pelialusta = new JPanel();
         pelialusta.setPreferredSize(new Dimension(600, 600));
@@ -105,26 +120,31 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
      * Metodi piirtää pelilaudan uudelleen jokaisen vuoron jälkeen ja ilmoittaa
      * kenen vuoro on menossa.
      *
-     * @param lauta
      * @param valkoisenVuoro
+     *
      */
     public void piirraLauta(boolean valkoisenVuoro) {
         pelialusta.invalidate();
-        vuoroteksti.invalidate();
         pelialusta.removeAll();
+        vuorotekstinLisaaminen(valkoisenVuoro);
 
+        ruutujenLisaaminenPelialustalle();
+        pelialusta.validate();
+    }
+
+    private void vuorotekstinLisaaminen(boolean valkoisenVuoro) {
         if (valkoisenVuoro) {
             vuoroteksti.setForeground(Color.BLACK);
             vuoroteksti.setText("Valkoisen vuoro");
             vuoroteksti.setBackground(Color.WHITE);
-
         } else {
             vuoroteksti.setForeground(Color.WHITE);
             vuoroteksti.setText("Mustan vuoro");
             vuoroteksti.setBackground(Color.BLACK);
-
         }
+    }
 
+    private void ruutujenLisaaminenPelialustalle() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Ruutu ruutu = new Ruutu(i, j);
@@ -132,7 +152,6 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
                 if (lauta.getLauta()[i][j] != null) {
                     kuvat.lisaaKuva(ruutu, lauta.getLauta()[i][j]);
                 }
-
                 if (i % 2 == j % 2) {
                     ruutu.setBackground(Color.white);
                 } else {
@@ -143,14 +162,15 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
                 pelialusta.add(ruutu);
             }
         }
-        pelialusta.validate();
-        vuoroteksti.validate();
     }
 
     /**
      * Metodi kuvaa yhden siirron toiminnan ja palauttaa taulukon siirrosta.
+     * Mikäli syötetyt arvot ovat epäkelpoja, palautetaan taulukko täynnä
+     * negatiivisia lukuja, jota ei peliKaynnissa-metodissa tulla hyväksymään
+     * oikeiksi arvoiksi.
      *
-     * @return
+     * @return int[]
      */
     public int[] siirto() {
         if (uusiY >= 0) {
@@ -158,33 +178,27 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
             int b = vanhaY;
             int c = uusiX;
             int d = uusiY;
-
-            vanhaX = -1;
-            vanhaY = -1;
-            uusiX = -1;
-            uusiY = -1;
+            vanhatKoordinaatitEpakelvoiksi();
             return new int[]{a, b, c, d};
         } else {
             return new int[]{-1, -1, -1, -1};
         }
     }
 
-    /**
-     * Metodi ei käytössä.
-     *
-     * @param me
-     */
-    @Override
-    public void mouseClicked(MouseEvent me) {
+    private void vanhatKoordinaatitEpakelvoiksi() {
+        vanhaX = -1;
+        vanhaY = -1;
+        uusiX = -1;
+        uusiY = -1;
     }
 
     /**
-     * Metodi ohjaa hiirenpainalluksin tapahtuvaa toimintaa.Valittu ruutu
-     * maalautuu vaaleanpunaisella ja väri häviää valinnan
-     * poistuttua.Valitunväri-apumuuttuja tallentaa valitun ruudun värin, jonka
-     * se palauttaa ruudulle takaisin, jos valinta perutaan tekemättä
-     * siirtoa.Valittu-apumuuttuja taas tallentaa ensin painetun ruudun tiedot,
-     * jotta väri saadaan palautettua oikeaan ruutuun.
+     * Metodi ohjaa hiirenpainalluksin tapahtuvaa toimintaa. Valittu ruutu
+     * maalautuu vaaleanpunaisella ja väri häviää valinnan poistuttua.
+     * Valitunväri-apumuuttuja tallentaa valitun ruudun värin, jonka se
+     * palauttaa ruudulle takaisin, jos valinta perutaan tekemättä siirtoa.
+     * Valittu-apumuuttuja taas tallentaa ensin painetun ruudun tiedot, jotta
+     * väri saadaan palautettua oikeaan ruutuun.
      *
      * @param me
      */
@@ -213,6 +227,15 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     /**
      * Metodi ei käytössä.
      *
+     * @param me
+     */
+    @Override
+    public void mouseClicked(MouseEvent me) {
+    }
+
+    /**
+     * Metodi ei käytössä.
+     *
      * @param e
      */
     @Override
@@ -228,6 +251,11 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     public void mouseEntered(MouseEvent e) {
     }
 
+    /**
+     * Metodi ei käytössä.
+     *
+     * @param e
+     */
     @Override
     public void mouseExited(MouseEvent e) {
     }

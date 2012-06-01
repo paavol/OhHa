@@ -16,8 +16,7 @@ import java.util.List;
 public class Kuningatar extends Nappula {
 
     /**
-     * Kuningatar perii konstruktorissaan parametrit Nappula-luokalta.Lisäksi
-     * kuningattarella on värin mukaan määritelty ImageIcon.
+     * Kuningatar perii konstruktorissaan parametrit Nappula-luokalta.
      *
      * @param x
      * @param y
@@ -64,11 +63,13 @@ public class Kuningatar extends Nappula {
 
     /**
      * Nappula-luokalta peritty metodi palauttaa taulukon, joka pitää sisällään
-     * kuningattaren reitin uusiin koordinaatteihin.
+     * kuningattaren reitin uusiin koordinaatteihin. Metodissa käydään läpi
+     * reitit kulmittain ja reitit suorissa linjoissa. Metodissa tarvitsee
+     * käyttää apumuuttujia, jotta kaikki tarvittavat tiedot säilyvät tallessa.
      *
      * @param uusiX
      * @param uusiY
-     * @return
+     * @return List<int[]>
      */
     @Override
     public List<int[]> tallennaReittiTaulukkoon(int uusiX, int uusiY) {
@@ -77,7 +78,6 @@ public class Kuningatar extends Nappula {
         int muutettavaX = vanhaX;
         int muutettavaY = vanhaY;
 
-
         int reitinPituus;
         if (Math.abs(uusiX - vanhaX) == 0) {
             reitinPituus = Math.abs(uusiY - vanhaY) - 1;
@@ -85,9 +85,7 @@ public class Kuningatar extends Nappula {
             reitinPituus = Math.abs(uusiX - vanhaX) - 1;
         }
         List<int[]> reitti = new ArrayList<int[]>();
-
         if (muutoksetSamat(uusiX, uusiY)) {
-
             for (int i = 0; i < reitinPituus; i++) {
                 if (vanhaX < uusiX) {
                     ++vanhaX;
@@ -102,7 +100,6 @@ public class Kuningatar extends Nappula {
                 reitti.add(new int[]{vanhaX, vanhaY});
             }
         } else {
-
             for (int i = 0; i < reitinPituus; i++) {
                 if (vanhaY == uusiY) {
                     if (muutettavaX < uusiX) {
@@ -117,10 +114,8 @@ public class Kuningatar extends Nappula {
                         --muutettavaY;
                     }
                 }
-
                 reitti.add(new int[]{muutettavaX, muutettavaY});
             }
-
         }
         return reitti;
     }

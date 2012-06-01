@@ -37,6 +37,10 @@ public class Tekstikayttoliittyma {
         Boolean valkoisenVuoro = true;
         lauta.alustaLauta();
         piirraLauta(valkoisenVuoro);
+        peliKaynnissa(valkoisenVuoro);
+    }
+
+    private void peliKaynnissa(boolean valkoisenVuoro) {
         while (true) {
 
             int[] siirronKoordinaatit;
@@ -52,7 +56,6 @@ public class Tekstikayttoliittyma {
     /**
      * Metodi piirtää pelilaudan ja kertoo kummanko pelaajan vuoro on menossa.
      *
-     * @param lauta
      * @param valkoisenVuoro
      */
     public void piirraLauta(boolean valkoisenVuoro) {
@@ -80,7 +83,7 @@ public class Tekstikayttoliittyma {
      * Metodi kyselee käyttäjältä x:n ja y:n arvoja ja tallentaa ne taulukkoon,
      * jonka se palauttaa.
      *
-     * @return
+     * @return int[]
      */
     public int[] siirto() {
         System.out.println("Anna siirrettävän nappulan koordinaatit.");

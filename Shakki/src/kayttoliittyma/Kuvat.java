@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
 import sovelluslogiikka.Nappula;
 
 /**
+ * Luokka pitää sisällään hakemistopolut shakkinappuloiden kuviin ja HashMapin,
+ * johon kuvat on tallennettu kunkin nappulatyypin toString avaimena.
  *
  * @author Maijanen
  */
@@ -21,7 +23,7 @@ public class Kuvat {
 
     /**
      * Konstruktorissa annetaan jokaiselle nappulatyypille hashmapiin arvoksi
-     * kaksi kuvaa taulukossa.Avaimen toimii toString.Kuvia on kaksi, koska
+     * kaksi kuvaa taulukossa. Avaimena toimii toString. Kuvia on kaksi, koska
      * molemmilla nappuloille tarvitsee oman väriset kuvat.
      */
     public Kuvat() {

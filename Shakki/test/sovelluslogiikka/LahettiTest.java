@@ -94,4 +94,10 @@ public class LahettiTest {
     public void toStringOikein() {
         assertEquals("L ", vasenMus.toString());
     }
+
+    @Test
+    public void kulkureittiTaulukko() {
+        assertEquals(4, vasenMus.tallennaReittiTaulukkoon(5, 7).size());
+
+    }
 }
