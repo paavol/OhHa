@@ -170,7 +170,7 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     }
 
     /**
-     * Metodi ohjaa hiirenklikkauksilla tapahtuvaa toimintaa.
+     * Metodi ei käytössä.
      *
      * @param me
      */
@@ -179,9 +179,14 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
     }
 
     /**
-     * Metodi ei käytössä.
+     * Metodi ohjaa hiirenpainalluksin tapahtuvaa toimintaa.Valittu ruutu
+     * maalautuu vaaleanpunaisella ja väri häviää valinnan
+     * poistuttua.Valitunväri-apumuuttuja tallentaa valitun ruudun värin, jonka
+     * se palauttaa ruudulle takaisin, jos valinta perutaan tekemättä
+     * siirtoa.Valittu-apumuuttuja taas tallentaa ensin painetun ruudun tiedot,
+     * jotta väri saadaan palautettua oikeaan ruutuun.
      *
-     * @param e
+     * @param me
      */
     @Override
     public void mousePressed(MouseEvent me) {
