@@ -54,29 +54,6 @@ public class Sotilas extends Nappula {
         }
     }
 
-//    private boolean valkoisenLiikkuminen(int uusiX, int uusiY) {
-//        if (this.valkoinenko) {
-//            if (getX() == 6) {
-//                return (liikkuuKaksiYlos(uusiX, uusiY) || liikkuuYhdenYlos(uusiX, uusiY)
-//                        || valkoinenSyoKulmittain(uusiX, uusiY));
-//            } else if (liikkuuYhdenYlos(uusiX, uusiY) || valkoinenSyoKulmittain(uusiX, uusiY)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    private boolean mustanLiikkuminen(int uusiX, int uusiY) {
-//        if (this.valkoinenko == false) {
-//            if (getX() == 1) {
-//                return (liikkuuKaksiAlas(uusiX, uusiY) || liikkuuYhdenAlas(uusiX, uusiY)
-//                        || mustaSyoKulmittain(uusiX, uusiY));
-//            } else if (liikkuuYhdenAlas(uusiX, uusiY) || mustaSyoKulmittain(uusiX, uusiY)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
     /**
      * Metodi tarkistaa sotilaan shakkisääntöjen mukaiset siirrot ja palauttaa
      * true, mikäli siirto parametreina saatuihin koordinaatteihin on

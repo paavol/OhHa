@@ -42,8 +42,10 @@ public class Pelilauta {
 
     /**
      * Metodilla pystyy lisäämään nappuloita laudalle esimerkiksi, jos haluaa
-     * pelata kulmashakkia tai linnoitusshakkia.Tämä metodi siis mahdollistaa
-     * pelin muokkaamisen helposti.
+     * pelata kulmashakkia tai linnoitusshakkia. Tämä metodi siis mahdollistaa
+     * pelin muokkaamisen helposti. Pystytään esimerkiksi muokkaamaan peliä
+     * kulmashakiksi tai luomaan leikkimielisiin peleihin
+     * "tasoituskuningattaria".
      *
      * @param nappula
      */
@@ -54,12 +56,25 @@ public class Pelilauta {
     /**
      *
      * Liikutetaan haluttua nappulaa uusiin koordinaatteihin, jos kaikki annetut
-     * ehdot täyttyvät.Käsitellään myös erikoistilanteita, kuten sotilaan
-     * ylenemistä ja shakkia.Shakkitarkastus tapahtuu jokaisen vuoron lopussa,
-     * jolloin pelaaja ei ikinä pysty siirtämään kuningasta
-     * shakkitilanteeseen.Jos taas vastapelaaja on shakittanut, niin vuoron
-     * loputtua on saatava shakkitilanne pois tai liikutaNappulaa ei hyväksy
-     * toimintaa.
+     * ehdot täyttyvät. Käsitellään myös erikoistilanteita, kuten sotilaan
+     * ylenemistä ja shakkia. Shakkitarkastus tapahtuu jokaisen vuoron lopussa,
+     * jolloin pelaaja ei ikinä pysty siirtämään kuningasta shakkitilanteeseen.
+     * Jos taas vastapelaaja on shakittanut, niin vuoron loputtua on saatava
+     * shakkitilanne pois tai liikutaNappulaa ei hyväksy toimintaa. Ensin
+     * tarkistetaan, että siirrettävä nappula on sen pelaajan värinen, jonka
+     * vuoro on menossa. Tämän jälkeen metodissa tarkistetaan, että valittu
+     * nappula voi liikkua halutulla tavalla, sen kulkureitillä ei ole muita
+     * nappuloita ja haluttuun ruutuun voi oikeasti siirtyä.
+     *
+     * Tarkistetaan vielä, että onko siirretty nappula muuttunut
+     * kuningattareksi, mikä vaikuttaa shakkitilanteen tarkistukseen. Tämän
+     * jälkeen asetetaan nappulan koordinaatit uuden pisteen mukaisiksi ja
+     * tyhjennetään vanha paikka. Jos kuitenkin huomataan, että vuoron jälkeinen
+     * tilanne päätyisi shakkiin, kumotaan tehty siirto. Shakkitarkistuksessa
+     * käydään siis läpi, ettei omalle kuninkaalle jää shakkia oman vuoron
+     * jälkeen. Tämä riittää shakkitarkastukseksi, koska tässä tilanteessa oma
+     * vuoro ei voi loppua ennen kuin shakki on purettu, eikä pystytä tekemään
+     * laittomia siirtoja.
      *
      * @param uusiX
      * @param uusiY
@@ -74,7 +89,7 @@ public class Pelilauta {
                 }
                 if (apunappula.voikoLiikkua(uusiX, uusiY)
                         && kulkureitillaEiNappulaa(apunappula, uusiX, uusiY)
-                        && voikoRuutuunSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
+                        && voikoPaikkaanSiirtya(vanhaX, vanhaY, uusiX, uusiY)) {
 
                     apunappula.setKoordinaatit(uusiX, uusiY);
                     Nappula apunappula2 = lauta[uusiX][uusiY];
@@ -100,21 +115,6 @@ public class Pelilauta {
         }
     }
 
-    /**
-     * Metodi palauttaa parametreillä annetussa ruudussa olevan nappulan tai sen
-     * sisältämän null-viitteen.
-     *
-     * @param x
-     * @param y
-     * @return
-     */
-    public Nappula getNappulaLaudalta(int x, int y) {
-        if (lauta[x][y] == null) {
-            return null;
-        }
-        return lauta[x][y];
-    }
-
     private void luoNappulatPelilautaan() {
         try {
             for (Nappula nappula : nappulat.getNappulat()) {
@@ -137,24 +137,24 @@ public class Pelilauta {
         return true;
     }
 
-    private boolean voikoRuutuunSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
+    private boolean voikoPaikkaanSiirtya(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (lauta[vanhaX][vanhaY].getClass().equals(Sotilas.class)) {
-            return ((onkoRuutuVapaa(uusiX, uusiY) && vanhaY == uusiY)
+            return ((onkoPaikkaVapaa(uusiX, uusiY) && vanhaY == uusiY)
                     || (voikoSyoda(vanhaX, vanhaY, uusiX, uusiY) && vanhaY != uusiY));
         } else {
-            return ((onkoRuutuVapaa(uusiX, uusiY))
+            return ((onkoPaikkaVapaa(uusiX, uusiY))
                     || voikoSyoda(vanhaX, vanhaY, uusiX, uusiY));
         }
     }
 
     /**
-     * Metodi tarkistaa onko kyseisessä ruudussa kuningasta.
+     * Metodi tarkistaa onko kyseisessä paikassa kuningasta.
      *
      * @param uusiX
      * @param uusiY
-     * @return
+     * @return palauttaa
      */
-    public boolean ruudussaEiKuningasta(int uusiX, int uusiY) {
+    public boolean paikassaEiKuningasta(int uusiX, int uusiY) {
         if (lauta[uusiX][uusiY] != null) {
             if (lauta[uusiX][uusiY].getClass().getName().equals(Kuningas.class.getName())) {
                 return false;
@@ -163,8 +163,7 @@ public class Pelilauta {
         return true;
     }
 
-    private boolean onkoRuutuVapaa(int uusiX, int uusiY) {
-
+    private boolean onkoPaikkaVapaa(int uusiX, int uusiY) {
         if (lauta[uusiX][uusiY] == null) {
             return true;
         }
@@ -173,8 +172,7 @@ public class Pelilauta {
 
     private boolean voikoSyoda(int vanhaX, int vanhaY, int uusiX, int uusiY) {
         if (lauta[vanhaX][vanhaY].valkoinenko()
-                != lauta[uusiX][uusiY].valkoinenko() //                && ruudussaEiKuningasta(uusiX, uusiY)
-                ) {
+                != lauta[uusiX][uusiY].valkoinenko()) {
             return true;
         }
         return false;
@@ -204,7 +202,7 @@ public class Pelilauta {
                     if (lauta[i][j].valkoinenko() != valkoinenko) {
                         if (lauta[i][j].voikoLiikkua(kunkkuX, kunkkuY)
                                 && kulkureitillaEiNappulaa(lauta[i][j], kunkkuX, kunkkuY)
-                                && voikoRuutuunSiirtya(i, j, kunkkuX, kunkkuY)) {
+                                && voikoPaikkaanSiirtya(i, j, kunkkuX, kunkkuY)) {
                             return true;
                         }
                     }
@@ -222,11 +220,11 @@ public class Pelilauta {
                     == 0 || nappula.getX() == 7) {
                 if (nappula.valkoinenko) {
                     sotilasMuuttuuKuningattareksi(nappula);
-                    return true;
                 } else {
                     sotilasMuuttuuKuningattareksi(nappula);
                 }
             }
+            return true;
         }
         return false;
     }

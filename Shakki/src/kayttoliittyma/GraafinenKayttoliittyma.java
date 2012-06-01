@@ -129,8 +129,8 @@ public class GraafinenKayttoliittyma extends JFrame implements MouseListener, Ru
             for (int j = 0; j < 8; j++) {
                 Ruutu ruutu = new Ruutu(i, j);
                 ruutu.setHorizontalAlignment(SwingConstants.CENTER);
-                if (lauta.getNappulaLaudalta(i, j) != null) {
-                    kuvat.lisaaKuva(ruutu, lauta.getNappulaLaudalta(i, j));
+                if (lauta.getLauta()[i][j] != null) {
+                    kuvat.lisaaKuva(ruutu, lauta.getLauta()[i][j]);
                 }
 
                 if (i % 2 == j % 2) {

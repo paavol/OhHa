@@ -9,6 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * Luokka testaa Pelilaudan toimintaa sekä alustetulla laudalla että
+ * alustamattomalla laudalla.
  *
  * @author paavolyy
  */
@@ -25,8 +27,8 @@ public class PelilautaTest {
     }
 
     /**
-     * setupissa luodaan tyhjälle laudalle ruutuja, joihin heitetään muutamia
-     * nappuloita pelin testaamiseksi.
+     * setupissa luodaan tyhjälle laudalle muutamia nappuloita pelin
+     * testaamiseksi.
      *
      *
      */
@@ -50,28 +52,28 @@ public class PelilautaTest {
      * Testataan löytyykö k1-kuningas shakkilaudalta.
      */
     @Test
-    public void k3OnOikeastiLaudalla() {
-        assertEquals(k1, pelilauta.getNappulaLaudalta(7, 4));
+    public void k1OnOikeastiLaudalla() {
+        assertEquals(k1, pelilauta.getLauta()[7][4]);
     }
 
     /**
      * Testataan onko laudan molempien päiden kuninkaan paikalla Kuningas,
-     * getNappulaLaudalta-metodin testausta.
+     * getLauta-metodin testausta.
      */
     @Test
     public void kuninkaidenPaikallaSamaNappula() {
-        assertEquals(pelilauta.getNappulaLaudalta(0, 4).getClass(), pelilauta.getNappulaLaudalta(7, 4).getClass());
+        assertEquals(pelilauta.getLauta()[0][4].getClass(), pelilauta.getLauta()[7][4].getClass());
     }
 
     /**
-     * Testataan, että pelilaudan keskeltä löytyy null-viitteellisiä ruutuja,
-     * getNappulaLaudalta-metodin testausta.
+     * Testataan, että pelilaudan keskeltä löytyy null-viitteellisiä paikkoja,
+     * getLauta-metodin testausta.
      */
     @Test
-    public void keskellaTyhjiaRuutuja() {
-        assertNull(pelilauta.getNappulaLaudalta(4, 4));
-        assertNull(pelilauta.getNappulaLaudalta(3, 5));
-        assertNull(pelilauta.getNappulaLaudalta(5, 5));
+    public void keskellaTyhjiaPaikkoja() {
+        assertNull(pelilauta.getLauta()[4][4]);
+        assertNull(pelilauta.getLauta()[3][5]);
+        assertNull(pelilauta.getLauta()[5][5]);
     }
 
     /**
@@ -88,16 +90,16 @@ public class PelilautaTest {
      * Tarkastaa, että halutussa paikassa ei ole kuningasta.
      */
     @Test
-    public void ruudussaEiOleKuningasta() {
-        assertTrue(pelilauta.ruudussaEiKuningasta(7, 3));
+    public void paikassaEiOleKuningasta() {
+        assertTrue(pelilauta.paikassaEiKuningasta(7, 3));
     }
 
     /**
      * Tarkistaa, että kuningas löytyy halutusta paikasta.
      */
     @Test
-    public void ruudussaOnKuningas() {
-        assertFalse(pelilauta.ruudussaEiKuningasta(7, 4));
+    public void paikassaOnKuningas() {
+        assertFalse(pelilauta.paikassaEiKuningasta(7, 4));
     }
 
     /**
@@ -115,19 +117,16 @@ public class PelilautaTest {
      */
     @Test
     public void muuttuukoSotilas() {
-        try {
-            pelilauta.liikutaNappulaa(1, 0, 0, 0, true);
-            assertEquals(Kuningatar.class, pelilauta.getNappulaLaudalta(0, 0).getClass());
-        } catch (Exception e) {
-        }
+        pelilauta.liikutaNappulaa(1, 0, 0, 0, true);
+        assertEquals(Kuningatar.class, pelilauta.getLauta()[0][0].getClass());
     }
 
     /**
      * Testi tarkistaa, että haluttu paikka on null-viitteinen eli tyhjä.
      */
     @Test
-    public void onkoRuutuVapaa() {
-        assertNull(pelilauta.getNappulaLaudalta(5, 5));
+    public void onkoPaikkaVapaa() {
+        assertNull(pelilauta.getLauta()[5][5]);
     }
 
     /**
@@ -136,29 +135,29 @@ public class PelilautaTest {
     @Test
     public void voikoSyoda() {
         pelilauta.liikutaNappulaa(0, 4, 0, 5, false);
-        assertEquals(k2, pelilauta.getNappulaLaudalta(0, 5));
+        assertEquals(k2, pelilauta.getLauta()[0][5]);
     }
 
     /**
      * Metodi, joka tarkistaa, että hevosella tehty shakki toimii siten, että
-     * kuningas ei voi siirtyä kyseiseen ruutuun.
+     * kuningas ei voi siirtyä kyseiseen paikkaan.
      */
     @Test
-    public void ruutuunEiVoiSiirtya() {
+    public void paikkaanEiVoiSiirtya() {
         pelilauta.liikutaNappulaa(0, 5, 2, 6, true);
         pelilauta.liikutaNappulaa(0, 4, 0, 5, false);
 
-        assertEquals(k2, pelilauta.getNappulaLaudalta(0, 4));
+        assertEquals(heppa, pelilauta.getLauta()[2][6]);
     }
 
     /**
-     * Testataan, että kuningas on varmasti siirtynyt pois vanhasta ruudusta
+     * Testataan, että kuningas on varmasti siirtynyt pois vanhasta paikasta
      * eikä kuninkaasta ole jäänyt "kopiota".
      */
     @Test
-    public void siirronJalkeenRuutuVapaa() {
+    public void siirronJalkeenVanhaPaikkaVapaa() {
         pelilauta.liikutaNappulaa(0, 4, 0, 5, false);
-        assertNull(pelilauta.getNappulaLaudalta(0, 4));
+        assertNull(pelilauta.getLauta()[0][4]);
     }
 
     /**
@@ -167,7 +166,7 @@ public class PelilautaTest {
     @Test
     public void laudanAlustusToimii() {
         pelilauta.alustaLauta();
-        assertEquals(Lahetti.class, pelilauta.getNappulaLaudalta(0, 5).getClass());
+        assertEquals(Lahetti.class, pelilauta.getLauta()[0][5].getClass());
     }
 
     /**
@@ -177,7 +176,7 @@ public class PelilautaTest {
     @Test
     public void hevosetPaikallaan() {
         pelilauta.alustaLauta();
-        assertEquals(pelilauta.getNappulaLaudalta(0, 1).getClass(), pelilauta.getNappulaLaudalta(0, 6).getClass());
+        assertEquals(pelilauta.getLauta()[0][1].getClass(), pelilauta.getLauta()[0][6].getClass());
     }
 
     /**
@@ -187,14 +186,13 @@ public class PelilautaTest {
     @Test
     public void heppaHaviaaAlustuksenJalkeen() {
         pelilauta.alustaLauta();
-        assertNotSame(heppa.getClass(), pelilauta.getNappulaLaudalta(0, 5).getClass());
+        assertNotSame(heppa.getClass(), pelilauta.getLauta()[0][5].getClass());
     }
 
     /**
      * Yritetään siirtää alustetulla laudalla kuningasta shakkitilanteeseen
      * sotilasrivistön eteen.
      */
-    //testissä häikkää, koska sotilaiden eteen ei voi kunkku mennä
     @Test
     public void yritetaanSiirtaaKuningastaShakkiinSotilaanEteen() {
         pelilauta.alustaLauta();
@@ -204,16 +202,15 @@ public class PelilautaTest {
         pelilauta.liikutaNappulaa(5, 2, 4, 2, true);
         pelilauta.liikutaNappulaa(4, 2, 3, 2, true);
         pelilauta.liikutaNappulaa(3, 2, 2, 1, true);
-        assertNull(pelilauta.getNappulaLaudalta(2, 1));
+        assertNull(pelilauta.getLauta()[2][1]);
 
     }
-//tämä testi aiheuttaa kuninkaalle jumin
 
     @Test
     public void yritetaanSiirtaaKuningastaShakkiinKuningattarenEteen() {
 
         pelilauta.liikutaNappulaa(k1.getX(), k1.getY(), 7, 3, true);
-        assertNull(pelilauta.getNappulaLaudalta(4, 2));
+        assertNull(pelilauta.getLauta()[4][2]);
 
 
     }
@@ -228,7 +225,7 @@ public class PelilautaTest {
         pelilauta.lisaaNappulaLaudalle(new Kuningatar(0, 3, false));
         pelilauta.liikutaNappulaa(6, 4, 5, 3, true);
 
-        assertNull(pelilauta.getNappulaLaudalta(5, 3));
+        assertNull(pelilauta.getLauta()[5][3]);
 
 
     }
